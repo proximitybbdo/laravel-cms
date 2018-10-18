@@ -28,21 +28,21 @@ Route::group(['prefix' => 'icontrol'], function() {
   Route::post('login', '\BBDO\Cms\Http\Controllers\Admin\SentinelController@login');
 
   
-  Route::group( ['middleware' => 'admin.basic'], function() {
+  Route::group( ['middleware' => \BBDO\Cms\Http\Middleware\Admin\BasicMiddleware::class], function() {
     
     Route::get('dashboard', '\BBDO\Cms\Http\Controllers\Admin\AdminController@index')->name('dashboard');
     Route::get('clearcache', '\BBDO\Cms\Http\Controllers\Admin\AdminController@get_clearcache')->name('clearcache');
     Route::post('clearcache', '\BBDO\Cms\Http\Controllers\Admin\AdminController@post_clearcache')->name('clearcache');;
     Route::post('geturlfriendlytext','\BBDO\Cms\Http\Controllers\Admin\HelperController@post_urlfriendlytext')->name('post_urlfriendlytext');;
 
-    Route::group( ['middleware' => 'admin.admin'], function(){
+    Route::group( ['middleware' => \BBDO\Cms\Http\Middleware\Admin\AdminMiddleware::class], function(){
       Route::get('roles', '\BBDO\Cms\Http\Controllers\Admin\SentinelController@showRolesForm');
       Route::post('roles', '\BBDO\Cms\Http\Controllers\Admin\SentinelController@assign_roles');
       Route::get('register', '\BBDO\Cms\Http\Controllers\Admin\SentinelController@showRegistrationForm')->name('register');
       Route::post('register', '\BBDO\Cms\Http\Controllers\Admin\SentinelController@register');
     });
 
-    Route::group( ['middleware' => 'admin.checkPermission'], function(){
+    Route::group( ['middleware' => \BBDO\Cms\Http\Middleware\Admin\CheckPermissionMiddleware::class], function(){
       Route::group(
         [
           'prefix' => 'items',
