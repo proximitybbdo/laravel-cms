@@ -47,7 +47,7 @@ class SentinelController extends Controller
         if (view()->exists('auth.authenticate')) {
             return view('bbdocms::auth.authenticate');
         }
-        return view('bbdocms::bbdocms::admin.login');
+        return view('bbdocms::admin.login');
     }
 
     public function login(Request $request)
