@@ -3,6 +3,7 @@
 namespace BBDO\Cms\Console\Commands;
 
 use Illuminate\Console\Command;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 
 class AddAdminUser extends Command
 {
@@ -49,8 +50,8 @@ class AddAdminUser extends Command
         // $credentials['password'] = \Hash::make($credentials['password']);
         try {
             // $user = \BBDO\Cms\Models\User::create($credentials);
-            $user = \Sentinel::registerAndActivate($credentials);
-            $adminRole = \Sentinel::findRoleBySlug('admin');
+            $user = Sentinel::registerAndActivate($credentials);
+            $adminRole = Sentinel::findRoleBySlug('admin');
             $adminRole->users()->attach($user);
 
         } catch (\Exception $e) {

@@ -15,17 +15,17 @@ class CmsServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/src/config/cms.php' => config_path('cms.php'),
-        ],'config');
+            __DIR__ . '/config/cms.php' => config_path('cms.php'),
+        ],'cms-config');
 
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
 
-        $this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'bbdocms');
+        $this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'cms-translation');
 
         $this->publishes([
-            __DIR__ . '/resources/assets' => resource_path('assets'),
-        ], 'public');
+            __DIR__ . '/resources/assets' => resource_path('assets/cms'),
+        ], 'cms-asset');
 
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'bbdocms');
 
