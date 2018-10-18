@@ -8,6 +8,17 @@
     > php artisan vendor:publish
        
    And select the number of the vendor to install 
+   
+   ### Sentinel stuff
+   
+   In config/app.php
+   
+   - provider: `Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,`
+   - Alias: 
+   
+         'Activation' => Cartalyst\Sentinel\Laravel\Facades\Activation::class,
+         'Reminder'   => Cartalyst\Sentinel\Laravel\Facades\Reminder::class,
+         'Sentinel'   => Cartalyst\Sentinel\Laravel\Facades\Sentinel::class,
 
    ### Database
    
