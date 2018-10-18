@@ -43,6 +43,15 @@
                        return redirect('/icontrol/dashboard');
             }
    
+   ### Update config
+   
+   in config/auth.php, update the model user 
+   
+         'providers' => [
+           'users' => [
+               'driver' => 'eloquent',
+               'model' => \BBDO\Cms\Models\User::class,
+           ],
  
  ## Using in dev mode
  
