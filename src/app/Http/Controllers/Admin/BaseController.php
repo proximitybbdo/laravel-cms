@@ -4,7 +4,7 @@ namespace BBDO\Cms\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Sentinel;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 
 class BaseController extends Controller
 {
