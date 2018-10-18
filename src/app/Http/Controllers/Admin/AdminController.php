@@ -31,21 +31,21 @@ class AdminController extends Controller
     public function index()
     {
         // dd(\Auth::User());
-        return view('admin.dashboard');
+        return view('bbdocms::admin.dashboard');
     }
 
     public function get_clearcache() {
     $this->data["cleared"] = false;
-    return view('admin.clearcache', $this->data);
+    return view('bbdocms::admin.clearcache', $this->data);
   }
 
   public function post_clearcache() {
     \Cache::flush();
     $this->data["cleared"] = true;
-    return view('admin.clearcache', $this->data);
+    return view('bbdocms::admin.clearcache', $this->data);
   }
 
   public function getLogin() {
-        return view('admin.login');
+        return view('bbdocms::admin.login');
     }
 }

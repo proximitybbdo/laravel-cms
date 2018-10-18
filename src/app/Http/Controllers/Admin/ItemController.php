@@ -79,7 +79,7 @@ class ItemController extends BaseController
       }
     }
     $this->data["links"] = $links;
-    return view('admin.items.overview', $this->data);
+    return view('bbdocms::admin.items.overview', $this->data);
   }
 
   public function post_overview_data(Request $request) {
@@ -330,7 +330,7 @@ class ItemController extends BaseController
       return \View::make( $this->data['custom_view'], $this->data )->render();
     }
 
-    return view('admin.items.add', $this->data);
+    return view('bbdocms::admin.items.add', $this->data);
   }
 
     /**
@@ -579,7 +579,7 @@ class ItemController extends BaseController
 
     $model = $this->itemService->get_admin($id,$lang);
 
-    return view('admin.partials.form_block', [
+    return view('bbdocms::admin.partials.form_block', [
       'type'=>$type,
       'data'=>Config('admin.'.strtoupper($module_type).'.blocks.' . $type), 
       'index'=>$count,

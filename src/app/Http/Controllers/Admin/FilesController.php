@@ -42,12 +42,12 @@ class FilesController extends BaseController
 
         if ($module_type != null) {
             $this->data['mode'] = 'popup';
-            return view('admin.files.manager', $this->data);
+            return view('bbdocms::admin.files.manager', $this->data);
         }
 
         $this->data['mode'] = 'manager';
 
-        return view('admin.files.manager-page', $this->data);
+        return view('bbdocms::admin.files.manager-page', $this->data);
     }
 
     public function get_popup_manager($manager_type, $module_type, $input_type, $input_id, $value = null)
@@ -58,7 +58,7 @@ class FilesController extends BaseController
         $this->data['maxFileSize'] = \Config::get("admin.files.$manager_type.maxFileSize");
         $this->data['acceptedFiles'] = \Config::get("admin.files.$manager_type.acceptedFiles");
 
-        return view('admin.files.popup_manager', $this->data);
+        return view('bbdocms::admin.files.popup_manager', $this->data);
     }
 
     public function get_files($manager_type, $mode= null, $input_id = null, $module_type = null, $input_type = null)
@@ -67,7 +67,7 @@ class FilesController extends BaseController
 
         $this->data['mode'] = $mode;
 
-        return view('admin.partials.filelist', $this->data);
+        return view('bbdocms::admin.partials.filelist', $this->data);
     }
 
     private function prepareManager($manager_type, $module_type, $input_type, $input_id, $value)

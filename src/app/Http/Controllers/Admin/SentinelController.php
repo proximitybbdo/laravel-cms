@@ -40,14 +40,14 @@ class SentinelController extends Controller
 
     public function showRegistrationForm()
     {
-        return view('admin.register');
+        return view('bbdocms::admin.register');
     }
 
     public function showLoginForm(){
         if (view()->exists('auth.authenticate')) {
-            return view('auth.authenticate');
+            return view('bbdocms::auth.authenticate');
         }
-        return view('admin.login');
+        return view('bbdocms::bbdocms::admin.login');
     }
 
     public function login(Request $request)
@@ -69,7 +69,7 @@ class SentinelController extends Controller
 
     public function showRolesForm()
     {
-        return view('admin.register');
+        return view('bbdocms::admin.register');
     }
 
 }
