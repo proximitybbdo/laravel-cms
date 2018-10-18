@@ -1,0 +1,22 @@
+{
+  "admin": {
+    "admin": true
+  },
+  "publisher": {
+    "products.create": true,
+    "products.delete": true,
+    "products.view": true,
+    "products.update": true,
+    "products.status": true,
+    "products.publish": true,
+    "files.manage": true,
+    "files.delete": true
+  },
+  "editor": {
+    "products.create": true,
+    "products.view": true,
+    "products.update": true,
+    "files.manage": true,
+    "files.delete": true
+  }
+}

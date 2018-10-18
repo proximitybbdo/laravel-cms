@@ -1,0 +1,13 @@
+# --- General ---
+meta:
+  title: (fr) BBDO
+  description: (fr) This is a BBDO project
+  og-image: (fr) Might add an og-image here
+
+# --- Errors ---
+
+# --- Home ---
+
+home:
+  title: test title fr
+  body: test body fr

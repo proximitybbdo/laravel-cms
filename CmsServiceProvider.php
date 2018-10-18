@@ -2,6 +2,7 @@
 
 namespace BBDO\Cms;
 
+use BBDO\Cms\Console\Commands\AddAdminUser;
 use Illuminate\Support\ServiceProvider;
 
 class CmsServiceProvider extends ServiceProvider
@@ -34,7 +35,7 @@ class CmsServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                //Add here classes to commands classes created
+                AddAdminUser::class
             ]);
         }
     }
