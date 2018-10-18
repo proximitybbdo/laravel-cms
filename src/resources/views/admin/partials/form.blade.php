@@ -35,7 +35,7 @@
         {{ Form::text('description', null, array('class'=>'form-control')) }}
       </div>
 
-      @if (!\Config::get('admin.' . $module_type . '.show_type'))
+      @if (!\Config::get('cms.' . $module_type . '.show_type'))
           <div class="col-sm-12">
               {{ Form::hidden('type', null, array('class'=>'form-control')) }}
           </div>
@@ -122,7 +122,7 @@
       label-{{ ($status == 'online' ?'success' : ($status == 'edit' ? 'warning' : 'primary')) }}">{{ $status }}</span></a></li>
      @endforeach
   @else 
-      <?php $default_lang = \Config::get('admin.default_locale'); ?>
+      <?php $default_lang = \Config::get('cms.default_locale'); ?>
       <li class="active"><a class="lang_content" href="#">{{ $default_lang }} <span class="label label-primary"></span></a></li>
   @endif
   </ul>

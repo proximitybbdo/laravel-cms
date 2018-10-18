@@ -34,7 +34,7 @@ class StoreItem extends FormRequest
      */
     public function rules()
     {
-        $rules = Config::get('admin.' . $this->module_type . '.field_validation');
+        $rules = Config::get('cms.' . $this->module_type . '.field_validation');
         $hideMandatoryFields = Config('admin.' . strtoupper($this->module_type) . '.hide_mandatory_fields');
 
         // no validation required in case mandatory fields are actually hidden

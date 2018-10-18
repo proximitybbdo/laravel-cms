@@ -20,10 +20,10 @@ class FilesController extends BaseController
         $this->default_lang = \Config::get("admin.default_locale");
         $this->languages = \Config::get("app.locales");
 
-        \View::share('modules', \Config::get('admin.modules'));
+        \View::share('modules', \Config::get('cms.modules'));
         \View::share('user', "");
         \View::share('module_type', $this->module_type);
-        \View::share('module_title', \Config::get('admin.'.$this->module_type.'.description'));
+        \View::share('module_title', \Config::get('cms.'.$this->module_type.'.description'));
 
         $this->service = new Domain\File();
     }
@@ -74,7 +74,7 @@ class FilesController extends BaseController
     {
         // if content module
         // use general Content module
-        if (in_array($module_type, \Config::get('admin.content_modules')))
+        if (in_array($module_type, \Config::get('cms.content_modules')))
         {
             $module_type = 'CONTENT';
         }
@@ -84,10 +84,10 @@ class FilesController extends BaseController
 
         $itemService = new Domain\Item("");
 
-        $content_types = \Config::get('admin.files.'.$manager_type.'.content_type');
+        $content_types = \Config::get('cms.files.'.$manager_type.'.content_type');
         $content_links = $itemService->get_contentsearch_ids($content_types);
 
-        $categories = \Config::get('admin.modules');
+        $categories = \Config::get('cms.modules');
 
         $this->data['categories'] = $categories;
         $this->data['files'] = $items;
@@ -106,7 +106,7 @@ class FilesController extends BaseController
         if ($module_type != null) {
             // if content module
             // use general Content module
-            if (in_array($module_type, \Config::get('admin.content_modules'))) {
+            if (in_array($module_type, \Config::get('cms.content_modules'))) {
                 $module_type = 'CONTENT';
             }
         }

@@ -17,7 +17,6 @@ class SentinelController extends Controller
     protected $redirectTo = '/icontrol/dashboard';
     protected $loginPath = '/icontrol/login';
 
-
     /**
      * Create a new authentication controller instance.
      *

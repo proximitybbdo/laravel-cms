@@ -9,12 +9,11 @@
     "cartalyst/sentinel": "2.0.*"
   },
   "require-dev": {
-
   },
   "autoload": {
     "classmap": [
-      "database/seeds",
-      "database/factories"
+      "src/database/seeds",
+      "src/database/factories"
     ],
     "psr-4": {
       "BBDO\\Cms\\": "src/"

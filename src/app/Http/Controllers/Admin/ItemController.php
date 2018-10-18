@@ -408,7 +408,7 @@ class ItemController extends BaseController
       }
 
       $single_item = false;
-      if (Config::get('admin.' . $this->module_type . '.single_item') != null && Config::get('admin.' . $this->module_type . '.single_item') == true) {
+      if (Config::get('cms.' . $this->module_type . '.single_item') != null && Config::get('cms.' . $this->module_type . '.single_item') == true) {
           $single_item = true;
       }
 

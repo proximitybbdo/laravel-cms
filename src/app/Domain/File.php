@@ -41,7 +41,7 @@ class File
     public function garbage($data){
       $item = Models\MyFile::find($data['id']);
 
-      $content_types = \Config::get('admin.files.'.$item->type.'.content_type');
+      $content_types = \Config::get('cms.files.'.$item->type.'.content_type');
       $itemService = new Item("");
       $item_content = $itemService->remove_content_search($content_types,$item->id); //item content delete
       $item->garbage = 1;   
@@ -98,10 +98,10 @@ class File
      */
     public static function getTypeConfig($type) 
     {
-        $config = \Config::get('admin.image_types.' . $type);
+        $config = \Config::get('cms.image_types.' . $type);
 
         if ($config == null) {
-            $config = \Config::get('admin.image_types.image_default');
+            $config = \Config::get('cms.image_types.image_default');
         }
 
         return $config;
