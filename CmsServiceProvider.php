@@ -15,23 +15,23 @@ class CmsServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/cms.php' => config_path('cms.php'),
+            __DIR__.'/src/config/cms.php' => config_path('cms.php'),
         ],'config');
 
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadRoutesFrom(__DIR__.'/src/routes/web.php');
+        $this->loadMigrationsFrom(__DIR__.'/src/database/migrations');
 
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'bbdocms');
+        $this->loadTranslationsFrom(__DIR__.'/src/resources/lang', 'bbdocms');
 
         $this->publishes([
-            __DIR__.'/../resources/lang' => resource_path('lang/vendor/bbdocms'),
+            __DIR__.'/src/resources/lang' => resource_path('lang/vendor/bbdocms'),
         ], 'translation');
 
         $this->publishes([
-            __DIR__.'/../resources/assets' => resource_path('assets'),
+            __DIR__.'/src/resources/assets' => resource_path('assets'),
         ], 'public');
 
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'bbdocms');
+        $this->loadViewsFrom(__DIR__ . '/src/resources/views', 'bbdocms');
 
         if ($this->app->runningInConsole()) {
             $this->commands([

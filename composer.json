@@ -17,7 +17,7 @@
       "database/factories"
     ],
     "psr-4": {
-      "App\\": "app/"
+      "BBDO\\Cms\\": "src/"
     }
   },
   "autoload-dev": {
