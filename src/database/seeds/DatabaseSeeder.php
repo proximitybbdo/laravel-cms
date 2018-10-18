@@ -1,4 +1,5 @@
 <?php
+namespace BBDO\Cms\Database\Seeder;
 
 use Illuminate\Database\Seeder;
 
@@ -15,10 +16,10 @@ class DatabaseSeeder extends Seeder
         
         // Load json file with permissions here
         // decode it an
-        $json = File::get("database/data/CMSroles.json");
+        $json = \File::get(__DIR__ . "/../data/CMSroles.json");
         $roles = json_decode($json);
 
-        DB::table('roles')->insert(
+        \DB::table('roles')->insert(
             array(
                 [
                     'slug' => 'admin',
