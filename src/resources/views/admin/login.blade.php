@@ -1,5 +1,5 @@
 
-@extends('layouts.auth')
+@extends('bbdocms::layouts.auth')
 
 @section('content')
 
@@ -15,7 +15,7 @@
   </div>
   <input class="btn btn-large btn-primary" type="submit" value="Sign in">
   <div class="alert alert-error">
-    <?= $errors->first('login'); ?>
+    <?= isset($errors) ? $errors->first('login') : ''; ?>
   </div>
   <hr>
 

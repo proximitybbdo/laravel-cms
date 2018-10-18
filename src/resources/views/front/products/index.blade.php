@@ -1,4 +1,4 @@
-@extends('front.template')
+@extebds('bbdocms::front.template')
 
 @section('content')
 
