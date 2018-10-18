@@ -24,7 +24,7 @@ Route::group(['prefix' => 'icontrol'], function() {
 
   Route::get('logout', '\BBDO\Cms\Http\Controllers\Admin\SentinelController@logout')->name('logout');
   Route::get('/', '\BBDO\Cms\Http\Controllers\Admin\SentinelController@showLoginForm')->name('login');
-  Route::get('login', '\BBDO\Cms\Http\Controllers\Admin\SentinelController@showLoginForm')->name('login-full');
+  Route::get('login', '\BBDO\Cms\Http\Controllers\Admin\SentinelController@showLoginForm')->name('login');
   Route::post('login', '\BBDO\Cms\Http\Controllers\Admin\SentinelController@login');
 
   
