@@ -18,7 +18,7 @@ class CmsServiceProvider extends ServiceProvider
             __DIR__.'/../config/cms.php' => config_path('cms.php'),
         ],'config');
 
-        $this->loadRoutesFrom(__DIR__.'/../routes');
+        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'bbdocms');
