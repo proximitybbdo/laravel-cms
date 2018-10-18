@@ -1,0 +1,47 @@
+{
+  "name": "bbdo/cms",
+  "description": "BBDO CMS",
+  "keywords": ["framework", "laravel","cms"],
+  "license": "MIT",
+  "type": "project",
+  "require": {
+    "php": ">=7.0.0",
+  },
+  "require-dev": {
+
+  },
+  "autoload": {
+    "classmap": [
+      "database/seeds",
+      "database/factories"
+    ],
+    "psr-4": {
+      "App\\": "app/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "BBDO\\Cms\\CmsServiceProvider"
+      ],
+      "aliases": {
+        "Debugbar": "BBDO\\Cms\\Facade"
+      },
+    }
+  },
+  "scripts": {
+    "post-root-package-install": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ],
+  },
+  "config": {
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "optimize-autoloader": true
+  }
+}
