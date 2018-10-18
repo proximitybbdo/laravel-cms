@@ -55,7 +55,7 @@ class SentinelController extends Controller
         $user = Sentinel::authenticate($request->all());
 
         if ($user) {
-            return redirect(\URL::to('/icontrol/dashboard'));
+            return redirect()->route('dashboard');
         } else {
             return $this->showLoginForm();
         }        

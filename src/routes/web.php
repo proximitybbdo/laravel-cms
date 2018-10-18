@@ -31,8 +31,8 @@ Route::group(['prefix' => 'icontrol'], function() {
   Route::group( ['middleware' => \BBDO\Cms\Http\Middleware\Admin\BasicMiddleware::class], function() {
     
     Route::get('dashboard', '\BBDO\Cms\Http\Controllers\Admin\AdminController@index')->name('dashboard');
-    Route::get('clearcache', '\BBDO\Cms\Http\Controllers\Admin\AdminController@get_clearcache')->name('clearcache');
-    Route::post('clearcache', '\BBDO\Cms\Http\Controllers\Admin\AdminController@post_clearcache')->name('clearcache');;
+    Route::get('clearcache', '\BBDO\Cms\Http\Controllers\Admin\AdminController@getClearcache')->name('clearcache');
+    Route::post('clearcache', '\BBDO\Cms\Http\Controllers\Admin\AdminController@postClearcache')->name('clearcache');;
     Route::post('geturlfriendlytext','\BBDO\Cms\Http\Controllers\Admin\HelperController@post_urlfriendlytext')->name('post_urlfriendlytext');;
 
     Route::group( ['middleware' => \BBDO\Cms\Http\Middleware\Admin\AdminMiddleware::class], function(){
