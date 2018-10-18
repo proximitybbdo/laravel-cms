@@ -3,7 +3,7 @@
 namespace BBDO\Cms\Http\Middleware\Admin;
 
 use Closure;
-use Sentinel;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 
 class BasicMiddleware
 {
@@ -19,7 +19,7 @@ class BasicMiddleware
         if ( Sentinel::check() ) {
             return $next($request);
         }
-        return redirect( \URL::to('icontrol') );
+        return redirect()->route('login');
     }
 
 }

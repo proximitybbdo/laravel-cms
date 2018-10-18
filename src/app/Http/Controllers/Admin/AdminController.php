@@ -16,10 +16,10 @@ class AdminController extends Controller
      */
     public function __construct()
     {
-        view()->share('modules', \Config::get('cms.modules'));
+        view()->share('modules', config('cms.modules'));
         view()->share('user', \Auth::User()); // null hier
         view()->share('module_type', $this->module_type);
-        view()->share('module_title', \Config::get('cms.'.$this->module_type.'.description'));
+        view()->share('module_title', config('cms.'.$this->module_type.'.description'));
     }
 
     /**

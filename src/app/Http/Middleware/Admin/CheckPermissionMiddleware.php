@@ -6,7 +6,6 @@ use Closure;
 use Sentinel;
 use BBDO\Cms\Helpers\SentinelHelper;
 
-
 class CheckPermissionMiddleware
 {
     /**
