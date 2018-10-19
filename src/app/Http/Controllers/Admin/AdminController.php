@@ -20,7 +20,6 @@ class AdminController extends Controller
         view()->share('user', \Auth::User()); // null hier
         view()->share('module_type', $this->module_type);
         view()->share('module_title', config('cms.'.$this->module_type.'.description'));
-
     }
 
     /**

@@ -16,6 +16,7 @@ class BasicMiddleware
      */
     public function handle($request, Closure $next)
     {
+
         if ( Sentinel::check() ) {
             return $next($request);
         }

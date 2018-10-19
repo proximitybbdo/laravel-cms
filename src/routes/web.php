@@ -12,7 +12,7 @@
 */
 Route::group([
   'prefix' => LaravelLocalization::setLocale(),
-  'middleware' => [ 'localeSessionRedirect', 'localizationRedirect' ]
+  'middleware' => [ 'web','localeSessionRedirect', 'localizationRedirect' ]
   ], function() {
 
   Route::get('/', '\BBDO\Cms\Http\Controllers\HomeController@index')->name('index');
@@ -20,7 +20,7 @@ Route::group([
   Route::get('/products/{slug}', '\BBDO\Cms\Http\Controllers\HomeController@product_detail')->name('product_detail');
 });
 
-Route::group(['prefix' => 'icontrol'], function() {
+Route::group(['prefix' => 'icontrol', 'middleware' => 'web'], function() {
 
   Route::get('logout', '\BBDO\Cms\Http\Controllers\Admin\SentinelController@logout')->name('logout');
   Route::get('/', '\BBDO\Cms\Http\Controllers\Admin\SentinelController@showLoginForm')->name('login');
