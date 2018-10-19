@@ -83,9 +83,9 @@ class Input{
 
         $itemService = new Domain\Item($module);
         $links = [];
-        if(\Config::get("admin.$configKey.links") != null){
+        if(config("cms.$configKey.links") != null){
 
-            foreach(\Config::get("admin.$configKey.links") as $key => $link_cfg){
+            foreach(config("cms.$configKey.links") as $key => $link_cfg){
                 $type = $key;
                 if(array_key_exists('fake_type_for', $link_cfg) && $link_cfg['fake_type_for']!=null){
                     $type = $link_cfg['fake_type_for'];

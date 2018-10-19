@@ -17,7 +17,7 @@ class FilesController extends BaseController
     {
         $this->module_type = 'FILES';
 
-        $this->default_lang = \Config::get("admin.default_locale");
+        $this->default_lang = config("cms.default_locale");
         $this->languages = \Config::get("app.locales");
 
         \View::share('modules', \Config::get('cms.modules'));
@@ -37,8 +37,8 @@ class FilesController extends BaseController
     {
         $this->prepareManager($manager_type, $module_type, $input_type, $input_id, $value);
 
-        $this->data['maxFileSize'] = \Config::get("admin.files.$manager_type.maxFileSize");
-        $this->data['acceptedFiles'] = \Config::get("admin.files.$manager_type.acceptedFiles");
+        $this->data['maxFileSize'] = config("cms.files.$manager_type.maxFileSize");
+        $this->data['acceptedFiles'] = config("cms.files.$manager_type.acceptedFiles");
 
         if ($module_type != null) {
             $this->data['mode'] = 'popup';
@@ -55,8 +55,8 @@ class FilesController extends BaseController
         $this->prepareManager($manager_type, $module_type, $input_type, $input_id, $value);
 
         $this->data['mode'] = 'popup';
-        $this->data['maxFileSize'] = \Config::get("admin.files.$manager_type.maxFileSize");
-        $this->data['acceptedFiles'] = \Config::get("admin.files.$manager_type.acceptedFiles");
+        $this->data['maxFileSize'] = config("cms.files.$manager_type.maxFileSize");
+        $this->data['acceptedFiles'] = config("cms.files.$manager_type.acceptedFiles");
 
         return view('bbdocms::admin.files.popup_manager', $this->data);
     }

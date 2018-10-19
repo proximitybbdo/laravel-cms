@@ -37,7 +37,7 @@ class ItemController extends BaseController
     // $this->beforeFilter('@filterRequests');
     
     $this->itemService = new Domain\Item($this->module_type);
-    $this->default_lang = \Config::get("admin.default_locale");
+    $this->default_lang = config("cms.default_locale");
     $this->languages = \Config::get("app.locales");
 
     parent::__construct();
@@ -57,7 +57,7 @@ class ItemController extends BaseController
     $this->data['cat_item'] = $cat_item;
 
 
-    if(\Config::get("admin.$this->module_type.single_item") != null && \Config::get("admin.$this->module_type.single_item") == true){
+    if(config("cms.$this->module_type.single_item") != null && config("cms.$this->module_type.single_item") == true){
       $single_item = $this->itemService->get_single_item($cat);
       if($single_item != null){
         return redirect("icontrol/items/$module_type/update/$this->default_lang/$single_item->id");
@@ -66,8 +66,8 @@ class ItemController extends BaseController
     }
 
     $links = array();
-    if(\Config::get("admin.$this->module_type.links") != null){
-      foreach(\Config::get("admin.$this->module_type.links") as $key => $link_cfg){
+    if(config("cms.$this->module_type.links") != null){
+      foreach(config("cms.$this->module_type.links") as $key => $link_cfg){
         if($link_cfg['overview_filter'] === true) {
           $links[$key] = array(
             'description'=>$link_cfg['description'],
@@ -96,23 +96,23 @@ class ItemController extends BaseController
     if($cat == 'all'){
       $cat = null;
     }
-    $sort = \Config::get("admin.$module_type.sort_by") != null ? \Config::get("admin.$module_type.sort_by") : 'sort';
+    $sort = config("cms.$module_type.sort_by") != null ? config("cms.$module_type.sort_by") : 'sort';
     $order = 'ASC';
-    if(array_key_exists("sort_order",\Config::get("admin.$module_type"))) {
-      $order = \Config::get("admin.$module_type.sort_order");
+    if(array_key_exists("sort_order",config("cms.$module_type"))) {
+      $order = config("cms.$module_type.sort_order");
     }
     $items = $this->itemService->get_all_admin($cat,$sort, $order);
-    if(\Config::get("admin.$module_type.subitems_type") != null && \Config::get("admin.$module_type.subitems_type") != ''){
+    if(config("cms.$module_type.subitems_type") != null && config("cms.$module_type.subitems_type") != ''){
       foreach($items as $item){
-        $subitem_service = new Domain\Item(\Config::get("admin.$module_type.subitems_type"));
-        $subitem_sort = \Config::get("admin.".\Config::get("admin.$module_type.subitems_type").".overview_link.sort_by") != null ? \Config::get("admin.".\Config::get("admin.$module_type.subitems_type").".overview_link.sort_by") : 'sort';
+        $subitem_service = new Domain\Item(config("cms.$module_type.subitems_type"));
+        $subitem_sort = config("cms.".config("cms.$module_type.subitems_type").".overview_link.sort_by") != null ? config("cms.".config("cms.$module_type.subitems_type").".overview_link.sort_by") : 'sort';
         $item->subitems = $subitem_service->get_all_admin($item->id,$subitem_sort, $order);
       }
     }
     $languages = $this->itemService->get_items_languages();
 
     $sortable = false;
-    if(\Config::get("admin.$module_type.sortable") == true && $cat == null){
+    if(config("cms.$module_type.sortable") == true && $cat == null){
       $sortable = true;
     }
 
@@ -124,7 +124,7 @@ class ItemController extends BaseController
     $this->data['sortable'] = $sortable;
 
     $view = 'admin.partials.overview_data';
-    if(\Config::get("admin.$module_type.overview_custom") == true){
+    if(config("cms.$module_type.overview_custom") == true){
       $view = 'admin.partials.overview.' . strtolower($module_type);
     }
     return view($view,$this->data);
@@ -132,8 +132,8 @@ class ItemController extends BaseController
   
   public function get_add_item_custom_view(Request $request,$module_type,$action,$lang, $view_name, $id = null,$back_module_type = null )
   {
-    $custom_views =  \Config::get("admin.custom_views");
-    $link_cfg = \Config::get("admin." . $module_type . ".links." . $back_module_type);
+    $custom_views =  config("cms.custom_views");
+    $link_cfg = config("cms." . $module_type . ".links." . $back_module_type);
     $view_custom = null;
     if(array_key_exists('custom_popup_overview',$link_cfg) && !empty($link_cfg['custom_popup_overview'])) {
       $view_custom = "admin.partials.input.custom." . $link_cfg['custom_popup_overview'];
@@ -178,29 +178,29 @@ class ItemController extends BaseController
     }
 
     $single_item = false;
-    if(\Config::get("admin.$this->module_type.single_item") != null && \Config::get("admin.$this->module_type.single_item") == true){
+    if(config("cms.$this->module_type.single_item") != null && config("cms.$this->module_type.single_item") == true){
       $single_item = true;
     }
 
     $show_start_date = false;
-    if(\Config::get("admin.$this->module_type.show_start_date") != null && \Config::get("admin.$this->module_type.show_start_date") == true){
+    if(config("cms.$this->module_type.show_start_date") != null && config("cms.$this->module_type.show_start_date") == true){
       $show_start_date = true;
     }
 
     $show_end_date = false;
-    if(\Config::get("admin.$this->module_type.show_end_date") != null && \Config::get("admin.$this->module_type.show_end_date") == true){
+    if(config("cms.$this->module_type.show_end_date") != null && config("cms.$this->module_type.show_end_date") == true){
       $show_end_date = true;
     }
 
     $show_type = false;
     $types = [];
-    if(\Config::get("admin.$this->module_type.show_type") != null && \Config::get("admin.$this->module_type.show_type") == true){
+    if(config("cms.$this->module_type.show_type") != null && config("cms.$this->module_type.show_type") == true){
       $show_type = true;
-      $types =  \Config::get("admin.$this->module_type.types");
+      $types =  config("cms.$this->module_type.types");
     }
 
     $show_version = false;
-    if(\Config::get("admin.$this->module_type.show_version") != null && \Config::get("admin.$this->module_type.show_version") == true){
+    if(config("cms.$this->module_type.show_version") != null && config("cms.$this->module_type.show_version") == true){
       $show_version = true;
     }
 
@@ -225,10 +225,10 @@ class ItemController extends BaseController
                                 "/overview/" . ($back_link_id != null ? $back_link_id : ($item->category_id != null ? '/'.$item->category_id:'')));
     $this->data['block_list'] = null;
 
-    if(\Config::get("admin.$this->module_type.blocks") != []){
+    if(config("cms.$this->module_type.blocks") != []){
       $arr_block_list = [];
 
-      $arr_block_list = collect(\Config::get("admin.$this->module_type.blocks"))->map(function($item,$key){
+      $arr_block_list = collect(config("cms.$this->module_type.blocks"))->map(function($item,$key){
         return [
           'type'=>$key,
           'description'=>$item['description'],
@@ -302,7 +302,7 @@ class ItemController extends BaseController
     }
 
     $preview_link = null;
-    if($id != null && \Config::get("admin.$this->module_type.preview") != null){
+    if($id != null && config("cms.$this->module_type.preview") != null){
       $slug = array_key_exists('slug', $content_arr->toArray()) ? $content_arr["slug"] : "";
 
       $preview_link = url(
@@ -317,7 +317,7 @@ class ItemController extends BaseController
                   $slug,
                   $lang
               ),
-              \Config::get("admin.$this->module_type.preview")
+              config("cms.$this->module_type.preview")
           )
       );
     }
@@ -421,8 +421,8 @@ class ItemController extends BaseController
 
       $links = array();
 
-      if (Config::get("admin.$this->module_type.links") != null) {
-          foreach (Config::get("admin.$this->module_type.links") as $key => $value) {
+      if (config("cms.$this->module_type.links") != null) {
+          foreach (config("cms.$this->module_type.links") as $key => $value) {
               if ($request->input("linked_items_$key") != null) {
                   $input_links = $request->input("linked_items_$key");
 
@@ -559,7 +559,7 @@ class ItemController extends BaseController
     $id = $request->input('id');
     $to_index = $request->input('index');
 
-    if($id!=null & $to_index != null && Config::get("admin.$this->module_type.sortable") == true) {
+    if($id!=null & $to_index != null && config("cms.$this->module_type.sortable") == true) {
 
       $this->itemService->sort_items($id,$to_index);
       //LoggingHelper::log($this->module_type,'sort',null,$id);
