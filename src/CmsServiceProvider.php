@@ -29,6 +29,10 @@ class CmsServiceProvider extends ServiceProvider
             __DIR__ . '/resources/assets' => resource_path('assets/cms'),
         ], 'cms-asset');
 
+        $this->publishes([
+            __DIR__ . '/resources/assets/admin' => public_path('admin'),
+        ], 'cms-asset');
+
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'bbdocms');
 
 
