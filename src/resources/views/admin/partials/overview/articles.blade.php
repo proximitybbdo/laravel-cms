@@ -26,7 +26,7 @@
 
         <td class="languages-list">
             <?php foreach($languages[$item->id] as $key => $value): ?>
-            <a href="<?= URL::to("icontrol/items/$module_type/update", array('lang'=>$key,'id' => $item->id)); ?>" title="update"><span class="label label-<?= ($value == 'online' ?'success' : ($value == 'edit' ? 'warning' : 'primary')) ?>"><?= $key ?></span></a>
+            <a href="<?= url()->to("icontrol/items/$module_type/update", array('lang'=>$key,'id' => $item->id)); ?>" title="update"><span class="label label-<?= ($value == 'online' ?'success' : ($value == 'edit' ? 'warning' : 'primary')) ?>"><?= $key ?></span></a>
             <?php endforeach; ?>
         </td>
 

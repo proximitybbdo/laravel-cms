@@ -115,7 +115,7 @@
    @if($custom_view != 'bbdocms::admin.partials.form')
      @foreach($languages as $admin_lang)
       <?php 
-      $url = ($admin_lang['short'] == $lang ? '#' : URL::to("icontrol/items/$module_type/$action", array('lang'=>$admin_lang['short'],'id' => $model->id)));
+      $url = ($admin_lang['short'] == $lang ? '#' : url()->to("icontrol/items/$module_type/$action", array('lang'=>$admin_lang['short'],'id' => $model->id)));
       $status = array_key_exists($admin_lang['short'], $item_languages)? $item_languages[$admin_lang['short']]:''; 
        ?>
       <li class="{{ $admin_lang['short'] == $lang ? 'active':'' }}"><a class="lang_content" href="{{ $url }}">{{ $admin_lang['short'] }} <span class="label 
@@ -133,7 +133,7 @@
       <div class="form-group">
         @include('bbdocms::admin.partials.form_draft_content')
         <div class="controls online_content" style="display:none">
-          <a href="{{ URL::to("icontrol/items/$module_type/revert/$lang/$model->id") }}" class="button">
+          <a href="{{ url()->to("icontrol/items/$module_type/revert/$lang/$model->id") }}" class="button">
           <button type="button btn-primary" class="btn btn-default">Revert to this version</button>
           </a>
         </div>
@@ -154,7 +154,7 @@
       @include('bbdocms::admin.partials.form_draft_content')
 
       <div class="controls online_content" style="display:none">
-        <a href="{{ URL::to("icontrol/items/$module_type/revert/$lang/$model->id") }}" class="button">
+        <a href="{{ url()->to("icontrol/items/$module_type/revert/$lang/$model->id") }}" class="button">
         <button type="button btn-primary" class="btn btn-default">Revert to this version</button>
         </a>
       </div>
@@ -165,7 +165,7 @@
           <?php $curr_lang = $admin_lang['short']; ?>
           
             @if(array_key_exists($curr_lang, $item_languages) && $curr_lang != $lang)
-              <a href="{{ URL::to("icontrol/items/$module_type/copylang/$model->id/$curr_lang/$lang") }}" class="btn btn-default">
+              <a href="{{ url()->to("icontrol/items/$module_type/copylang/$model->id/$curr_lang/$lang") }}" class="btn btn-default">
                 Copy from {{ $curr_lang }}
               </a>
             @endif

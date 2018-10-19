@@ -220,7 +220,7 @@ class ItemController extends BaseController
     $this->data['item_languages'] = $itemLangs;
     $this->data['module_type'] = $module_type;
     $this->data['custom_view'] = $custom_view;
-    $this->data['back_link'] =  \URL::to("icontrol/items/" . ($back_module_id != null ? $back_module_id : $module_type) . 
+    $this->data['back_link'] =  url()->to("icontrol/items/" . ($back_module_id != null ? $back_module_id : $module_type) .
                                 "/overview/" . ($back_link_id != null ? $back_link_id : ($item->category_id != null ? '/'.$item->category_id:'')));
     $this->data['block_list'] = null;
 
@@ -484,7 +484,7 @@ class ItemController extends BaseController
           \Session::flash('publish', 'Published succesfully.');
       }
 
-      return redirect(\URL::to("icontrol/items/" . $module_type) . "/update/" . $lang . '/' . $item->id .
+      return redirect(url()->to("icontrol/items/" . $module_type) . "/update/" . $lang . '/' . $item->id .
           ($back_module_id != null ? '/' . $back_module_id : '') . ($back_link_id != null ? '/' . $back_link_id : ''))
       ;
   }

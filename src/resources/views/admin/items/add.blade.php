@@ -12,7 +12,7 @@
 
                 @if (isset($model->id))
                     @if (Sentinel::hasAccess(strtolower($module_type) . '.create'))
-                        <a href="<?= URL::to("icontrol/items/$module_type/add"); ?>" class="btn btn-primary pull-right">
+                        <a href="<?= url()->to("icontrol/items/$module_type/add"); ?>" class="btn btn-primary pull-right">
                             Add new {{ Config::get('cms.' . $module_type . '.description') }} <i class="fa fa-plus-circle"></i>
                         </a>
                     @endif

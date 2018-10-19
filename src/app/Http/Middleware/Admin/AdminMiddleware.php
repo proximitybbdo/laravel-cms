@@ -21,6 +21,6 @@ class AdminMiddleware
                 return $next($request);
             }
         }
-        else return redirect( \URL::to('icontrol/login') );
+        else return redirect( url()->to('icontrol/login') );
     }
 }
