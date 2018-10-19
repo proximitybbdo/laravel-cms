@@ -49,7 +49,7 @@
 </head>
 <body>
    <div id="wrapper">
-    @include('admin.partials.nav')
+    @include('bbdocms::admin.partials.nav')
 
     <div id="page-wrapper">
       <div class="container-fluid">

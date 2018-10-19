@@ -1,30 +1,29 @@
 <?php
 namespace BBDO\Cms\Helpers;
 
-use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 
-class FileUpload{  
-
-  public static function saveFile($file,$destination){
-
-    $teller = '';
-    $filename = '';
+class FileUpload{
 
 
-    if($file!=null){
-      while(file_exists(public_path().'/uploads/'.$destination.'/'.'file'.$teller.'_'.($file->getClientOriginalName()))){
-            $teller = $teller == '' ? 1:$teller+1;
-      }
+    public static function saveFile($file,$destination){
 
-      $filename = 'file'.$teller.'_'.($file->getClientOriginalName());
+        $teller = '';
+        $filename = '';
 
-      $file->move(public_path().'/uploads/'.$destination.'/',$filename);
+        if($file!=null){
+            while(file_exists(public_path().'/uploads/'.$destination.'/'.'file'.$teller.'_'.($file->getClientOriginalName()))){
+                $teller = $teller == '' ? 1:$teller+1;
+            }
 
-      return $filename;
+            $filename = 'file'.$teller.'_'.($file->getClientOriginalName());
+
+            $file->move(public_path().'/uploads/'.$destination.'/',$filename);
+
+            return $filename;
+        }
+
+        return '';
+
     }
-
-    return '';
-
-  }
 }

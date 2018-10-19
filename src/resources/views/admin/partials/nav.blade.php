@@ -31,7 +31,7 @@
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li  class="<?= Helpers::clean_segments() == 'icontrol' ? 'active' : ''; ?>">
+                    <li  class="<?= cleanSegments() == 'icontrol' ? 'active' : ''; ?>">
                         <a href="<?= url('icontrol/dashboard'); ?>"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     @if(false && Sentinel::inRole('admin') )

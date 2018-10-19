@@ -3,6 +3,8 @@
 namespace BBDO\Cms;
 
 use BBDO\Cms\Console\Commands\AddAdminUser;
+use function BBDO\Cms\Helpers\cleanSegments;
+use function BBDO\Cms\Helpers\generateKey;
 use Illuminate\Support\ServiceProvider;
 
 class CmsServiceProvider extends ServiceProvider
@@ -47,11 +49,12 @@ class CmsServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        include __DIR__.'/app/Helpers/function.php';
     }
 
     protected function registerSeedsFrom($path)
     {
-        foreach (glob("$path/*.php") as $filename)
+        foreach (glob($path.'/*.php') as $filename)
         {
             include $filename;
             $classes = get_declared_classes();
