@@ -1,4 +1,4 @@
-@extebds('bbdocms::layouts.auth')
+@extends('bbdocms::layouts.auth')
 
 @section('content')
 <div class="container">

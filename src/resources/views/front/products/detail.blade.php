@@ -1,4 +1,4 @@
-@extebds('bbdocms::front.template')
+@extends('bbdocms::front.template')
 
 @section('content')
   <div class="col-sm-12">

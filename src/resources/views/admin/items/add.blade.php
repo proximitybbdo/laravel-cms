@@ -1,4 +1,4 @@
-@extebds('bbdocms::admin.template')
+@extends('bbdocms::admin.template')
 
 @section('content')
     <div class="span12" style="padding: 20px 0">

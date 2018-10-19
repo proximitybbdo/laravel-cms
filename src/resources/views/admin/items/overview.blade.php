@@ -1,4 +1,4 @@
-@extebds('bbdocms::admin.template')
+@extends('bbdocms::admin.template')
 
 @section('content')
     <div class="span12">
@@ -9,7 +9,7 @@
         @endif
 
         <div class="form-line overview padding-bottom">
-            <?= View::make('admin/partials/links_overview',array('links' => $links,'category_id' => $active_cat)) ?>
+            <?= view('bbdocms::admin.partials.links_overview',array('links' => $links,'category_id' => $active_cat)) ?>
         </div>
 
         <?= $overview_data ?>

@@ -123,9 +123,9 @@ class ItemController extends BaseController
     $this->data['languages'] = $languages;
     $this->data['sortable'] = $sortable;
 
-    $view = 'admin.partials.overview_data';
+    $view = 'bbdocms::admin.partials.overview_data';
     if(config("cms.$module_type.overview_custom") == true){
-      $view = 'admin.partials.overview.' . strtolower($module_type);
+      $view = 'bbdocms::admin.partials.overview.' . strtolower($module_type);
     }
     return view($view,$this->data);
   }
@@ -136,7 +136,7 @@ class ItemController extends BaseController
     $link_cfg = config("cms." . $module_type . ".links." . $back_module_type);
     $view_custom = null;
     if(array_key_exists('custom_popup_overview',$link_cfg) && !empty($link_cfg['custom_popup_overview'])) {
-      $view_custom = "admin.partials.input.custom." . $link_cfg['custom_popup_overview'];
+      $view_custom = "bbdocms::admin.partials.input.custom." . $link_cfg['custom_popup_overview'];
     }
     $module = $module_type;
     if (isset($back_module_type)) {
