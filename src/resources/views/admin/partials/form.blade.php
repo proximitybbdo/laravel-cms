@@ -44,7 +44,7 @@
 
   <?php if (Sentinel::inRole('super_admin') || Sentinel::inRole('admin')) : ?>
       <div class="form-group" ?>
-          @include('admin/partials/links',(\InputHelper::linksArray($module_type,$model,$lang)))
+          @include('bbdocms::admin/partials/links',(linksArray($module_type,$model,$lang)))
       </div>
   <?php endif; ?>
 
@@ -93,7 +93,7 @@
       </div>
     @endif
 
-    @if($custom_view == 'admin.partials.form')
+    @if($custom_view == 'bbdocms::admin.partials.form')
       <div class="form-group col-sm-12">
         <label class="control-label col-sm-1" for="status">
           Is active:
@@ -112,7 +112,7 @@
 
   <div class="form-group nav-tabs-panel nav-tabs-panel-grey">
   <ul class="nav nav-tabs">
-   @if($custom_view != 'admin.partials.form')
+   @if($custom_view != 'bbdocms::admin.partials.form')
      @foreach($languages as $admin_lang)
       <?php 
       $url = ($admin_lang['short'] == $lang ? '#' : URL::to("icontrol/items/$module_type/$action", array('lang'=>$admin_lang['short'],'id' => $model->id)));
@@ -131,7 +131,7 @@
     @if($action == 'update')
     <div class="panel-header">
       <div class="form-group">
-        @include('admin.partials.form_draft_content')
+        @include('bbdocms::admin.partials.form_draft_content')
         <div class="controls online_content" style="display:none">
           <a href="{{ URL::to("icontrol/items/$module_type/revert/$lang/$model->id") }}" class="button">
           <button type="button btn-primary" class="btn btn-default">Revert to this version</button>
@@ -147,11 +147,11 @@
     </div>
     @endif
     <div class="panel-body panel-default">
-    @include('admin.partials.form_fields', array('model'=>$model,'error' => isset($error) ? $error : null, 'errors' => isset($errors) ? $errors : null, 'module_type'=>strtolower($module_type), 'action' => $action))
+    @include('bbdocms::admin.partials.form_fields', array('model'=>$model,'error' => isset($error) ? $error : null, 'errors' => isset($errors) ? $errors : null, 'module_type'=>strtolower($module_type), 'action' => $action))
     </div>
     <hr/>
     <div class="form-group">
-      @include('admin.partials.form_draft_content')
+      @include('bbdocms::admin.partials.form_draft_content')
 
       <div class="controls online_content" style="display:none">
         <a href="{{ URL::to("icontrol/items/$module_type/revert/$lang/$model->id") }}" class="button">

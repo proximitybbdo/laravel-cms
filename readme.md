@@ -52,6 +52,13 @@
                'driver' => 'eloquent',
                'model' => \BBDO\Cms\Models\User::class,
            ],
+           
+   in config/app.php, add the locales
+   
+        'locales' => array(
+                array('short' => 'nl-BE', 'long' => 'Nederlands'),
+                array('short' => 'fr-BE', 'long' => 'Français'),
+            ),        
  
  ## Using in dev mode
  

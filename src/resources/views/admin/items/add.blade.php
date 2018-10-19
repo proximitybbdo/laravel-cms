@@ -22,7 +22,7 @@
             <hr/>
         <?php } ?>
 
-        @include('admin.partials.form')
+        @include('bbdocms::admin.partials.form')
     </div>
 
     @if (Sentinel::hasAccess(strtolower($module_type) . '.view'))

@@ -2,7 +2,6 @@
 
 namespace BBDO\Cms\Http\Controllers\Admin;
 
-use Config;
 use Exception;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
@@ -38,7 +37,7 @@ class ItemController extends BaseController
     
     $this->itemService = new Domain\Item($this->module_type);
     $this->default_lang = config("cms.default_locale");
-    $this->languages = \Config::get("app.locales");
+    $this->languages = config("app.locales");
 
     parent::__construct();
   }
@@ -254,10 +253,10 @@ class ItemController extends BaseController
       $content_online = $content;
     }
     $content_arr = $content->pluck('content','type');
-    $item->my_content = \Helpers::arrayToObject($content_arr);
+    $item->my_content = arrayToObject($content_arr);
     if($content_online != null) {
       $content_online = $content_online->pluck('content','type');
-      $item->my_content_online = count($content_online) > 0 ? \Helpers::arrayToObject($content_online) : null;
+      $item->my_content_online = count($content_online) > 0 ? arrayToObject($content_online) : null;
     } else {
       $item->my_content_online = null;
     }
@@ -284,7 +283,7 @@ class ItemController extends BaseController
       return $block_content_arr;
     });
 
-    $links = \InputHelper::linksArray($this->module_type,$item,$lang,null,$version);
+    $links = linksArray($this->module_type,$item,$lang,null,$version);
     $this->data["links"] = $links;
     if ($back_module_id) {
       $this->data["back_module_link"] = array( $back_module_id => $links[$back_module_id] );                                
@@ -408,7 +407,7 @@ class ItemController extends BaseController
       }
 
       $single_item = false;
-      if (Config::get('cms.' . $this->module_type . '.single_item') != null && Config::get('cms.' . $this->module_type . '.single_item') == true) {
+      if (config('cms.' . $this->module_type . '.single_item') != null && config('cms.' . $this->module_type . '.single_item') == true) {
           $single_item = true;
       }
 

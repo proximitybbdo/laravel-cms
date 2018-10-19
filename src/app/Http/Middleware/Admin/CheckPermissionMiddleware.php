@@ -87,7 +87,7 @@ class CheckPermissionMiddleware
         }
         //content module
         //general db config
-        if(in_array( $module_type, \Config::get('cms.content_modules'))){
+        if(in_array( $module_type, config('cms.content_modules'))){
         $module_type = 'pages';
         }
 

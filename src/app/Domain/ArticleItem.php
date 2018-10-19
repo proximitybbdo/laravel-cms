@@ -34,8 +34,6 @@ class ArticleItem extends PublicItem {
             $amount = intval($parts[$i] * $ratio);
 
             $items = $this->get_all($this->module,'LEVEL',[$levels[$i],$categories[$j]],'start_date',null,$amount, false, true,$exclude_ids);
-            //\Debugbar::log($levels[$i]);
-            //\Debugbar::log($amount);
             $result = $result->merge($items);
           }
         }

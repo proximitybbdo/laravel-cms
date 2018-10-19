@@ -3,8 +3,6 @@
 namespace BBDO\Cms\Domain;
 
 use BBDO\Cms\Models;
-use BBDO\Cms\Helpers;
-use Config;
 use Carbon\Carbon;
 
 class ActionLog {
@@ -12,7 +10,7 @@ class ActionLog {
    public static function log($lead,$action,$category_id = null,$data = null,$info = null,$my_score = null){
     $score = 0;
     $action = strtoupper($action);
-    $score_cfg = Config::get('scoring.scores.' . $action);
+    $score_cfg = config('scoring.scores.' . $action);
     $item_domain = new PublicItem();
     $categories = $item_domain->get_all('CATEGORY',null,null,null,null, null, false, false,null);
     if($score_cfg != null){
@@ -41,7 +39,7 @@ class ActionLog {
     if($lead->has_insurance != null){
       $insurance_arr = explode('|', $lead->has_insurance);
       $insurance_arr = collect($insurance_arr)->map(function ($item, $key) {
-          return \Config::get('app.categories.' . $item);
+          return config('app.categories.' . $item);
       });
       if($insurance_arr->contains($category_id)){
         $score = 0;
@@ -49,13 +47,13 @@ class ActionLog {
       }
     }
 
-    if($score > 0 && strpos($action, \Config::get('app.recurrent_request.search_key')) !== false){
+    if($score > 0 && strpos($action, \config('app.recurrent_request.search_key')) !== false){
       $count = Models\ActionLog::select('id')
                                 ->where('action',$action)
                                 ->where('lead_id',$lead->id)
                                 ->where('data',$data)
                                 ->where('score','>',0)
-                                ->where('created_at','>=',Carbon::now()->subMinutes(\Config::get('app.recurrent_request.check_minutes')))
+                                ->where('created_at','>=',Carbon::now()->subMinutes(config('app.recurrent_request.check_minutes')))
                                 ->count();
       if($count > 0){
         $info = trim($info . ' recurrent');

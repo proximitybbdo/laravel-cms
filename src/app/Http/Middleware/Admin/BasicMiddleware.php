@@ -2,7 +2,6 @@
 
 namespace BBDO\Cms\Http\Middleware\Admin;
 
-use function BBDO\Cms\Helpers\cleanSegments;
 use Closure;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 

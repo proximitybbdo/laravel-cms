@@ -2,7 +2,6 @@
 
 namespace BBDO\Cms\Http\Requests;
 
-use Config;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Validator;
 use BBDO\Cms\Domain\Item as ItemDomain;
@@ -14,8 +13,9 @@ class StoreItem extends FormRequest
     private $mandatoryFields = [
         'my_content.seo_title',
         'my_content.name',
-        'my_content.slug'
+        'my_content.slug',
     ];
+
 
     /**
      * Determine if the user is authorized to make this request.
@@ -34,8 +34,8 @@ class StoreItem extends FormRequest
      */
     public function rules()
     {
-        $rules = Config::get('cms.' . $this->module_type . '.field_validation');
-        $hideMandatoryFields = Config('admin.' . strtoupper($this->module_type) . '.hide_mandatory_fields');
+        $rules = config('cms.' . $this->module_type . '.field_validation');
+        $hideMandatoryFields = config('cms.' . strtoupper($this->module_type) . '.hide_mandatory_fields');
 
         // no validation required in case mandatory fields are actually hidden
         if ($hideMandatoryFields) {

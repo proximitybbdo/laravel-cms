@@ -39,7 +39,7 @@ class Item
       'module_type'=>$this->module,
       ));
 
-    Log::action($this->module, 'CREATE', $item->id);
+    logAction($this->module, 'CREATE', $item->id);
 
     if($data['content'] != null) {
       $item->content()->saveMany($data['content']);
@@ -92,7 +92,7 @@ class Item
 
     $item->save();
 
-    Log::action($this->module, 'UPDATE', $data['id'], $lang);
+    logAction($this->module, 'UPDATE', $data['id'], $lang);
 
     Models\ItemContent::destroy($item->content_lang($lang)->where('version',1)->pluck('id')->toArray());
     $item->content()->saveMany($data['content']);
@@ -222,7 +222,7 @@ class Item
     $item = Models\Item::find($id);
     \Cache::flush();
 
-    Log::action($this->module, 'PUBLISH', $id, $lang);
+    logAction($this->module, 'PUBLISH', $id, $lang);
 
     return $item;
   }
@@ -234,7 +234,7 @@ class Item
     $content = $item->content_lang($lang)->where("version",0)->update(array("version"=>1));
     $item = \Item::find($id);
 
-    Log::action($this->module, 'REVERT', $id, $lang);
+    logAction($this->module, 'REVERT', $id, $lang);
 
     return $item;
   }
@@ -294,7 +294,7 @@ class Item
 
     \Cache::flush();
 
-    Log::action($this->module, 'COPYLANG', $id, $destination_lang);
+    logAction($this->module, 'COPYLANG', $id, $destination_lang);
 
     return $item;
   }
@@ -307,7 +307,7 @@ class Item
 
     \Cache::flush();
 
-    Log::action($this->module, 'PUBLISHITEM', $id);
+    logAction($this->module, 'PUBLISHITEM', $id);
 
     return $item;
   }
@@ -502,7 +502,7 @@ class Item
 
     \Cache::flush();
 
-    Log::action($this->module, 'SORT', $id);
+    logAction($this->module, 'SORT', $id);
   }
 
   public function sort_items_blocks($item_id,$block_id,$to_index){

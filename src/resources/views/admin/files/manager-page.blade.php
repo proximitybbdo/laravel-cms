@@ -1,5 +1,5 @@
 @extends('bbdocms::admin.template')
 
 @section('content')
-@include('admin/files/manager')
+@include('bbdocms::admin/files/manager')
 @endsection

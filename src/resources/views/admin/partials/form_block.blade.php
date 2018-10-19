@@ -5,12 +5,12 @@
   </div>
   <div class="panel-body">
     @foreach( $data['fields'] as $field_arr )
-      @include( 'admin.partials.input.'.$field_arr['form'], \InputHelper::inputArray($field_arr,'block',$model,null,$type,$index))
+      @include( 'bbdocms::admin.partials.input.'.$field_arr['form'], inputArray($field_arr,'block',$model,null,$type,$index))
     @endforeach
     
     @if(array_key_exists('links',$data))
     @foreach( $data['links'] as $links_arr )
-      @include('admin/partials/links',array('links'=> (\InputHelper::linksArray($module_type,$model,$lang,$type,$version,$index)), 'item_id' => $model->id, 'action' => $action))
+      @include('bbdocms::admin/partials/links',array('links'=> (linksArray($module_type,$model,$lang,$type,$version,$index)), 'item_id' => $model->id, 'action' => $action))
     @endforeach
     @endif
   </div>

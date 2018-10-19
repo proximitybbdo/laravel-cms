@@ -3,7 +3,6 @@
 namespace BBDO\Cms\Domain;
 
 use BBDO\Cms\Models;
-use BBDO\Cms\Helpers;
 
 class File
 {
@@ -41,7 +40,7 @@ class File
     public function garbage($data){
       $item = Models\MyFile::find($data['id']);
 
-      $content_types = \Config::get('cms.files.'.$item->type.'.content_type');
+      $content_types = config::get('cms.files.'.$item->type.'.content_type');
       $itemService = new Item("");
       $item_content = $itemService->remove_content_search($content_types,$item->id); //item content delete
       $item->garbage = 1;   

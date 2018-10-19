@@ -3,8 +3,6 @@
 namespace BBDO\Cms;
 
 use BBDO\Cms\Console\Commands\AddAdminUser;
-use function BBDO\Cms\Helpers\cleanSegments;
-use function BBDO\Cms\Helpers\generateKey;
 use Illuminate\Support\ServiceProvider;
 
 class CmsServiceProvider extends ServiceProvider
