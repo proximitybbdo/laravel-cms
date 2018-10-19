@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Validator;
 use BBDO\Cms\Domain\Item as ItemDomain;
 use BBDO\Cms\Models\Item;
-use Route;
 
 class StoreItem extends FormRequest
 {
