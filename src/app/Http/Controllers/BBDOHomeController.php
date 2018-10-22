@@ -2,7 +2,12 @@
 namespace App\Http\Controllers;
 use BBDO\Cms\Domain\PublicItem;
 
-class HomeController extends Controller {
+/**
+ * TODO this is a class example. Rename or delete after to avoid conflict.
+ * Class HomeController
+ * @package App\Http\Controllers
+ */
+class BBDOHomeController extends Controller {
   public function index() {
     return view('welcome');
   }
