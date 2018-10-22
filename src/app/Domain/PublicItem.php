@@ -22,12 +22,16 @@ class PublicItem {
         }
     }
 
-    public function getFirst($module_type) {
+    public function getFirst($module_type, $status = 1) {
         $result = Models\Item::select('id','description','status','editor_id','module_type','sort','start_date','end_date','type')->where('module_type',strtoupper($module_type))
             ->whereHas('content', function($q) {
                 $q->where('version', '=', 0);
                 $q->where('lang', '=', $this->lang);
-            })->where('status',1);
+            });
+
+        if($status != 'all') {
+            $result = $result->where('status', $status);
+        }
 
         return $result->first();
     }
