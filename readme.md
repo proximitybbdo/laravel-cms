@@ -2,6 +2,21 @@
 
 ## Installation
 
+   ### Composer.json config
+   
+   Just before the "require" key , add this
+   
+    "repositories": [
+            {
+                "type": "vcs",
+                "url": "https://proximity-bbdo.git.beanstalkapp.com/bbdo-cms-laravel-package.git"
+            }
+        ],
+        
+   and then in require
+    
+    "bbdo/cms": "dev-master"     
+
    ### Vendor    
    Install the vendor for sentinel and the cms vendor 
     
