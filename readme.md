@@ -37,6 +37,8 @@
 
    ### Database
    
+   Remove the user & password migration file who are present by default in the new Laravel project (as it's included in the cms package too)
+   
    Run `php artisan migrate` and `php artisan db:seed` 
 
 
