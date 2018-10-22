@@ -242,14 +242,14 @@ class ItemController extends BaseController
     //$this->data['sentry_module_type'] = $this->sentry_module_type;
 
     $content_online = null;
-    if($item->content_lang($lang)->where('version',1)->count() > 0){
-      $content = $item->content_lang($lang)->where('version',1);
-      if($item->content_lang($lang)->where('version',0)->count() > 0){
-        $content_online = $item->content_lang($lang)->where('version',0);
+    if($item->contentLang($lang)->where('version',1)->count() > 0){
+      $content = $item->contentLang($lang)->where('version',1);
+      if($item->contentLang($lang)->where('version',0)->count() > 0){
+        $content_online = $item->contentLang($lang)->where('version',0);
         
       }
     } else {
-      $content = $item->content_lang($lang)->where('version',0);
+      $content = $item->contentLang($lang)->where('version',0);
       $content_online = $content;
     }
     $content_arr = $content->pluck('content','type');
@@ -262,14 +262,14 @@ class ItemController extends BaseController
     }
 
     $version = 1;
-    $content_blocks_draft = $item->blocks_content_lang($lang);
+    $content_blocks_draft = $item->blocksContentLang($lang);
     if($content_blocks_draft->count() > 0){
       if($item->content()->where('version',0)->count() > 0){
-        $block_content_online = $item->blocks_content_lang($lang,0);
+        $block_content_online = $item->blocksContentLang($lang,0);
       }
     } else {
-      $content_blocks_draft = $item->blocks_content_lang($lang,0);
-      $block_content_online = $item->blocks_content_lang($lang,0);
+      $content_blocks_draft = $item->blocksContentLang($lang,0);
+      $block_content_online = $item->blocksContentLang($lang,0);
       $version = 0;
     }
 

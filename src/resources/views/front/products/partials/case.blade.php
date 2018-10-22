@@ -5,11 +5,11 @@
     </div>
     <div class="panel-body">
       <p>
-        {!! $block->get_content('intro') !!}
+        {!! $block->getContent('intro') !!}
       </p>
       <div class="">
       @foreach( $block->links as $link)
-        <img width="100%" src="{{ $link->get_content_file('image_header', 'image') }}" alt="">
+        <img width="100%" src="{{ $link->getContentFile('image_header', 'image') }}" alt="">
       @endforeach
       </div>
     </div>

@@ -42,7 +42,7 @@ use Illuminate\Support\Facades\Input;
     }
 
     //RELATIONS
-    public function content_lang($lang){
+    public function contentLang($lang){
       return $this->content()->where('lang',$lang);
     }
 
@@ -56,16 +56,16 @@ use Illuminate\Support\Facades\Input;
         return $this->belongsToMany('BBDO\Cms\Models\Item', 'items_link', 'item_id', 'link_id')->withPivot('link_type');
     }
 
-    public function back_links()
+    public function backLinks()
     {
         return $this->belongsToMany('BBDO\Cms\Models\Item', 'items_link', 'link_id', 'item_id')->withPivot('link_type');
     }
 
-    public function link_first_admin($link_type){
+    public function linkFirstAdmin($link_type){
       return $this->links()->where('module_type',$link_type)->first();
     }
 
-    public function blocks_allversions()
+    public function blocksAllVersions()
     {
       return $this->hasMany('BBDO\Cms\Models\ItemBlock', 'item_id')
                   ->orderBy('sort');
@@ -78,7 +78,7 @@ use Illuminate\Support\Facades\Input;
     }
 
 
-    public function blocks_lang($lang,$version = 1)
+    public function blocksLang($lang,$version = 1)
     {
       return $this->hasMany('BBDO\Cms\Models\ItemBlock', 'item_id')
                   ->where('lang',$lang)
@@ -91,7 +91,7 @@ use Illuminate\Support\Facades\Input;
     }
 
 
-    public function blocks_content_lang($lang,$version = 1){
+    public function blocksContentLang($lang,$version = 1){
       return $this->hasMany('BBDO\Cms\Models\ItemBlockContent', 'item_id')
       ->whereHas('itemBlock', function($q)use($version,$lang){
         $q->where('version',$version)
@@ -100,7 +100,7 @@ use Illuminate\Support\Facades\Input;
       ->with('itemBlock');
     }
     
-    public function blocks_links($lang,$version = 1)
+    public function blocksLinks($lang,$version = 1)
     {
         return 
           \DB::table('items_block')
@@ -119,7 +119,7 @@ use Illuminate\Support\Facades\Input;
     }
 
     //CONTENT functions
-    public function content_fe()
+    public function contentFe()
     {
       $preview = false;
       if(Input::get('preview') != null){
@@ -147,9 +147,10 @@ use Illuminate\Support\Facades\Input;
       return $result;
     }
 
-    public function get_content($key){
+
+    public function getContent($key){
       if($this->arr_content == null) {
-        $this->arr_content = $this->content_fe()->pluck("content","type");
+        $this->arr_content = $this->contentFe()->pluck("content","type");
       }
       if($this->arr_content->has($key)){
         return $this->arr_content[$key];
@@ -157,8 +158,8 @@ use Illuminate\Support\Facades\Input;
       return '';
     }
 
-    public function get_content_file($key,$type){
-      $file_id = $this->get_content($key);
+    public function getContentFile($key,$type){
+      $file_id = $this->getContent($key);
       if($file_id != null && $file_id != ''){
         $file = $this->file($file_id);
         return url(\Config::get('app.assets_path')) . '/' . $type . '/' . $file->file;
@@ -166,8 +167,8 @@ use Illuminate\Support\Facades\Input;
       return '';
     }
 
-    public function get_content_file_url($key,$type){
-      $file_id = $this->get_content($key);
+    public function getContentFileUrl($key,$type){
+      $file_id = $this->getContent($key);
     
       if($file_id != null && $file_id != ''){
         $file = $this->file($file_id);
@@ -177,7 +178,7 @@ use Illuminate\Support\Facades\Input;
     }
 
     //Links functions
-    public function links_type($link_type){
+    public function linksType($link_type){
 
       $cache_key = 'linkstype_' . $this->id . 'type_' . $link_type;
 
@@ -192,7 +193,7 @@ use Illuminate\Support\Facades\Input;
       return $result;
     }
 
-    public function back_links_type($link_type){
+    public function backLinksType($link_type){
 
       $cache_key = 'backlinkstype_' . $this->id . 'type_' . $link_type;
 
@@ -200,14 +201,14 @@ use Illuminate\Support\Facades\Input;
         $result = Cache::get($cache_key);
       }
       else {
-        $result = $this->back_links()->where('module_type',$link_type)->where('status','1')->get();
+        $result = $this->backLinks()->where('module_type',$link_type)->where('status','1')->get();
         Cache::put($cache_key,$result,Carbon::now()->addDays(30));
       }
 
       return $result;
     }
 
-    public function links_first($link_type){
+    public function linksFirst($link_type){
 
       $cache_key = 'firstlink_' . $this->id . 'type_' . $link_type;
 
@@ -224,7 +225,7 @@ use Illuminate\Support\Facades\Input;
       return $result;
     }
 
-    public function links_first_type($link_type){
+    public function linksFirstType($link_type){
 
       $cache_key = 'firstlinktype_' . $this->id . 'type_' . $link_type;
 
@@ -249,7 +250,7 @@ use Illuminate\Support\Facades\Input;
       return $result;
     }
 
-    public function file_content($id,$type){
+    public function fileContent($id,$type){
       return \RecorCorporate\Domain\File::get_image_container($id,$type);
     }
 
@@ -262,7 +263,7 @@ use Illuminate\Support\Facades\Input;
     }
 
     //BLOCKS functions
-    public function blocks_fe()
+    public function blocksFe()
     {
       $preview = false;
       if(Input::get('preview') != null){

@@ -94,12 +94,12 @@ class Item
 
     logAction($this->module, 'UPDATE', $data['id'], $lang);
 
-    Models\ItemContent::destroy($item->content_lang($lang)->where('version',1)->pluck('id')->toArray());
+    Models\ItemContent::destroy($item->contentLang($lang)->where('version',1)->pluck('id')->toArray());
     $item->content()->saveMany($data['content']);
 
     if(array_key_exists('block_content',$data) && $data['block_content'] != null) {
       //remove deleted blocks
-      $remove_block_ids = $item->blocks_lang($lang)->get()->reduce(function ($remove_block_ids,$block)use($data){
+      $remove_block_ids = $item->blocksLang($lang)->get()->reduce(function ($remove_block_ids,$block)use($data){
         if(!array_key_exists($block->type, $data['block_content'])){
           $remove_block_ids[] = $block->id;
         }
@@ -207,14 +207,14 @@ class Item
   public function publish_draft($id, $lang)
   {
     $item = Models\Item::find($id);    
-    Models\ItemContent::destroy($item->content_lang($lang)->where("version",0)->pluck('id')->toArray());
-    $content = $item->content_lang($lang)->where("version",1)->update(array("version"=>0));
+    Models\ItemContent::destroy($item->contentLang($lang)->where("version",0)->pluck('id')->toArray());
+    $content = $item->contentLang($lang)->where("version",1)->update(array("version"=>0));
     
     //destory all online blocks
-    Models\ItemBlock::destroy($item->blocks_lang($lang,0)->pluck('id')->toArray());
-    $blocks = $item->blocks_lang($lang)->update(array("version"=>0));
+    Models\ItemBlock::destroy($item->blocksLang($lang,0)->pluck('id')->toArray());
+    $blocks = $item->blocksLang($lang)->update(array("version"=>0));
 
-    $slug_content = $item->content_lang($lang)->where("version",0)->where('type','slug')->first();
+    $slug_content = $item->contentLang($lang)->where("version",0)->where('type','slug')->first();
     if($slug_content != null){
       SlugHistory::add($slug_content);
     }
@@ -230,8 +230,8 @@ class Item
   public function revert($id, $lang)
   {
     $item = Models\Item::find($id);
-    Models\ItemContent::destroy($item->content_lang($lang)->where("version",1)->pluck('id')->toArray());
-    $content = $item->content_lang($lang)->where("version",0)->update(array("version"=>1));
+    Models\ItemContent::destroy($item->contentLang($lang)->where("version",1)->pluck('id')->toArray());
+    $content = $item->contentLang($lang)->where("version",0)->update(array("version"=>1));
     $item = \Item::find($id);
 
     logAction($this->module, 'REVERT', $id, $lang);
@@ -242,9 +242,9 @@ class Item
   public function copy_lang_content($id, $source_lang, $destination_lang)
   {
     $item = Models\Item::find($id);
-    $content = $item->content_lang($source_lang)->where("version",1)->get();
+    $content = $item->contentLang($source_lang)->where("version",1)->get();
     if(count($content) == 0){
-      $content = $item->content_lang($source_lang)->where("version",0)->get();
+      $content = $item->contentLang($source_lang)->where("version",0)->get();
     }
     $content_arr = array();
     foreach($content as $value){

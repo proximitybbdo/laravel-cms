@@ -29,9 +29,9 @@
 
                     <td><?= $item->description ?></td>
 
-                    <td><?= $item->links_first_type('PRODUCT_TYPE')->description ?></td>
+                    <td><?= $item->LinksFirstType('PRODUCT_TYPE')->description ?></td>
 
-                    <td><?= $item->links_first_type('COLLECTION')->description ?></td>
+                    <td><?= $item->LinksFirstType('COLLECTION')->description ?></td>
 
                     <td class="languages-list">
                         <?php foreach($languages[$item->id] as $key => $value): ?>

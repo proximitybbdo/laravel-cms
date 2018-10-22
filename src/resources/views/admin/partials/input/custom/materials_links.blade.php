@@ -16,7 +16,7 @@
         data-link-id="link-{{ $key }}-{{ $item->id }}"
         <?= $item->item_id != null ? 'checked' : '' ?>>
         <label for="input-link-<?= $key ?>-<?= $item->id ?>"><?= $item->description ?></label>
-        <img src="{{ $model->get_content_file('image_hero','image')  }}" width='50px'>
+        <img src="{{ $model->getContentFile('image_hero','image')  }}" width='50px'>
       </li>
     @endforeach
   </ul>

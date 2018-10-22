@@ -25,7 +25,7 @@
 
 @if($block_list != null)
     <div id="blocks">
-        @foreach( $model->blocks_lang($lang,$version)->get() as $block )
+        @foreach( $model->blocksLang($lang,$version)->get() as $block )
             @include( 'bbdocms::admin.partials.form_block', ['type'=>formatBlockType($block->type),'data'=>config('cms.'.strtoupper($module_type).'.blocks.' . formatBlockType($block->type) ), 'index'=>\InputHelper::indexBlockType($block->type)])
         @endforeach
     </div>‡

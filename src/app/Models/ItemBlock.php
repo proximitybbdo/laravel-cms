@@ -35,11 +35,7 @@ class ItemBlock extends Model {
     return $this->belongsTo('BBDO\Cms\Models\Item');
   }
 
-  // public function content_lang($lang){
-  //     return $this->content()->where('lang',$lang);
-  //   }
-
-    public function content()
+   public function content()
     {
       return $this->hasMany('BBDO\Cms\Models\ItemBlockContent','block_id');
     }
@@ -49,7 +45,7 @@ class ItemBlock extends Model {
         return $this->belongsToMany('BBDO\Cms\Models\Item', 'items_block_links', 'block_id', 'link_id')->withPivot('link_type');
     }
 
-    public function back_links()
+    public function backLinks()
     {
         return $this->belongsToMany('BBDO\Cms\Models\Item', 'items_block_links', 'link_id', 'block_id')->withPivot('link_type');
     }
@@ -58,11 +54,8 @@ class ItemBlock extends Model {
     {
       return MyFile::where('id',$id)->first();
     }
-    // public function link_first_admin($link_type){
-    //   return $this->links()->where('module_type',$link_type)->first();
-    // }
 
-    public function content_fe()
+    public function contentFe()
     {
       $preview = false;
       if(Input::get('preview') != null){
@@ -86,9 +79,9 @@ class ItemBlock extends Model {
       return $result;
     }
 
-    public function get_content($key){
+    public function getContent($key){
       if($this->arr_content == null) {
-        $this->arr_content = $this->content_fe()->pluck("content","type");
+        $this->arr_content = $this->contentFe()->pluck("content","type");
       }
       if($this->arr_content->has($key)){
         return $this->arr_content[$key];
@@ -96,8 +89,8 @@ class ItemBlock extends Model {
       return '';
     }
 
-    public function get_content_file($key,$type){
-      $file_id = $this->get_content($key);
+    public function getContentFile($key,$type){
+      $file_id = $this->getContent($key);
       if($file_id != null && $file_id != ''){
         $file = $this->file($file_id);
         return url(\Config::get('app.assets_path')) . '/' . $type . '/' . $file->file;
@@ -105,8 +98,8 @@ class ItemBlock extends Model {
       return '';
     }
 
-    public function get_content_file_url($key,$type){
-      // $file_id = $this->get_content($key);
+    public function getContentFileUrl($key,$type){
+      // $file_id = $this->getContent($key);
     
       // if($file_id != null && $file_id != ''){
       //   $file = $this->file($file_id);
@@ -116,7 +109,7 @@ class ItemBlock extends Model {
     }
 
     // Links functions
-    public function links_type($link_type){
+    public function linksType($link_type){
       $cache_key = 'block_linkstype_' . $this->id . 'type_' . $link_type;
 
       if(Cache::has($cache_key)) {
@@ -132,7 +125,7 @@ class ItemBlock extends Model {
       return $result;
     }
 
-    public function back_links_type($link_type){
+    public function backLinksType($link_type){
 
       // $cache_key = 'block_backlinkstype_' . $this->id . 'type_' . $link_type;
 
@@ -140,14 +133,14 @@ class ItemBlock extends Model {
       //   $result = Cache::get($cache_key);
       // }
       // else {
-      //   $result = $this->back_links()->where('module_type',$link_type)->where('status','1')->get();
+      //   $result = $this->backLinks()->where('module_type',$link_type)->where('status','1')->get();
       //   Cache::put($cache_key,$result,Carbon::now()->addDays(30));
       // }
 
       // return $result;
     }
 
-    public function links_first($link_type){
+    public function linksFirst($link_type){
 
       $cache_key = 'block_firstlink_' . $this->id . 'type_' . $link_type;
 
@@ -166,7 +159,7 @@ class ItemBlock extends Model {
       return $result;
     }
 
-    public function links_first_type($link_type){
+    public function linksFirstType($link_type){
 
       $cache_key = 'block_firstlinktype_' . $this->id . 'type_' . $link_type;
 
@@ -185,7 +178,7 @@ class ItemBlock extends Model {
       return $result;
     }
 
-  public function get_type()
+  public function getType()
   {
     $type_nolodash = $this->type;
     $pos = strrpos($type_nolodash, '_');
