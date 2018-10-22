@@ -21,15 +21,13 @@ class CmsServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
 
-        $this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'cms-translation');
+        $this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'bbdocms');
 
         $this->publishes([
             __DIR__ . '/resources/assets' => resource_path('assets/cms'),
-        ], 'cms-asset');
-
-        $this->publishes([
             __DIR__ . '/resources/assets/admin' => public_path('admin'),
         ], 'cms-asset');
+
 
         $this->publishes([
             __DIR__ . '/resources/views/front' => resource_path('views/front'),
