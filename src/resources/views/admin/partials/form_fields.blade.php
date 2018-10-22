@@ -55,7 +55,7 @@
         @include('bbdocms::admin.partials.online.text', ['title'=>'Meta Description','type'=>'seo_description'])
 
         <!--Content type item fields-->
-        @foreach( config('admin.'.strtoupper($module_type).'.fields') as $field_arr )
+        @foreach( config('cms.'.strtoupper($module_type).'.fields') as $field_arr )
             @if( $field_arr['form'] == 'select' || $field_arr['form'] == 'file' )
                 @include('bbdocms::admin.partials.online.text', $field_arr )
             @else
