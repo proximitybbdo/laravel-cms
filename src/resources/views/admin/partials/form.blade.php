@@ -42,7 +42,7 @@
       @endif
   </div>
 
-  <?php if (Sentinel::inRole('super_admin') || Sentinel::inRole('admin')) : ?>
+  <?php if (Sentinel::inRole('admin') || Sentinel::inRole('admin')) : ?>
       <div class="form-group" ?>
           @include('bbdocms::admin/partials/links',(linksArray($module_type,$model,$lang)))
       </div>

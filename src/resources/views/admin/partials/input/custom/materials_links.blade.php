@@ -20,7 +20,7 @@
       </li>
     @endforeach
   </ul>
-  @if($link['add_item'] && (Sentinel::hasAccess( strtolower($key) . '.create') || Sentinel::inRole('super_admin') ))
+  @if($link['add_item'] && (Sentinel::hasAccess( strtolower($key) . '.create') || Sentinel::inRole('admin') ))
     <a class="btn btn-success create-link-button"
             data-linked-module-type="{{ $key }}">
               Add new {{ Config::get('cms.' . $key . '.description') }} <i class="fa fa-plus-circle"></i>
