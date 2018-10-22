@@ -21,8 +21,8 @@ class ArticleItem extends PublicItem {
     $categories = $this->getAll('CATEGORY',null,null,null,null, null, false, false,null)->pluck('id');
     $result = collect([]);
     $items = null;
-    $ratio_percat = \Config::get('app.topscore_overview_ratio_percat');
-    foreach(\Config::get('app.overview_scores') as $max => $parts){
+    $ratio_percat = config('app.topscore_overview_ratio_percat');
+    foreach(config('app.overview_scores') as $max => $parts){
       if($top_score->score < $max) {
         for($i = 0;$i<count($levels);$i++){
           for($j = 0;$j<count($categories);$j++){
@@ -48,7 +48,7 @@ class ArticleItem extends PublicItem {
    
     $result = collect([]);
     $items = null;
-    $amount = array_sum(head(\Config::get('app.overview_scores')));   
+    $amount = array_sum(head(config('app.overview_scores')));
     $items = $this->getAll($this->module,'LEVEL',[],'id',null,$amount, false, false,$exclude_ids);
 
     return $items;

@@ -97,10 +97,10 @@ class File
      */
     public static function getTypeConfig($type) 
     {
-        $config = \Config::get('cms.image_types.' . $type);
+        $config = config('cms.image_types.' . $type);
 
         if ($config == null) {
-            $config = \Config::get('cms.image_types.image_default');
+            $config = config('cms.image_types.image_default');
         }
 
         return $config;

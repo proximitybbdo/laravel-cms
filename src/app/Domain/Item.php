@@ -332,7 +332,7 @@ class Item
 
     if ($type == 'featured') {
         // check config to get max amount of featured items
-        $maxFeaturedItems = \Config::get('cms.' . $item->module_type . '.max_featured_items');
+        $maxFeaturedItems = config('cms.' . $item->module_type . '.max_featured_items');
 
         // get amount of featured items
         $numberOfFeaturedItems = Models\Item::where('type', 'featured')
@@ -551,7 +551,7 @@ class Item
 
   public function getContentModules($lang = null) {
     $allcontent = array();
-    $content_modules = \Config::get('cms.content_modules');
+    $content_modules = config('cms.content_modules');
     foreach($content_modules as $module) {
       \DB::setFetchMode(\PDO::FETCH_ASSOC);     
       $result = \DB::table('items_content')

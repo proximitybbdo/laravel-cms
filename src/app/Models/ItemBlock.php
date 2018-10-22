@@ -93,7 +93,7 @@ class ItemBlock extends Model {
       $file_id = $this->getContent($key);
       if($file_id != null && $file_id != ''){
         $file = $this->file($file_id);
-        return url(\Config::get('app.assets_path')) . '/' . $type . '/' . $file->file;
+        return url(config('app.assets_path')) . '/' . $type . '/' . $file->file;
       }
       return '';
     }
