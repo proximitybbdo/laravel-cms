@@ -10,15 +10,6 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-Route::group([
-  'prefix' => LaravelLocalization::setLocale(),
-  'middleware' => [ 'web','localeSessionRedirect', 'localizationRedirect' ]
-  ], function() {
-
-  Route::get('/', '\BBDO\Cms\Http\Controllers\HomeController@index')->name('index');
-  Route::get('/products', '\BBDO\Cms\Http\Controllers\HomeController@product_index')->name('products_index');
-  Route::get('/products/{slug}', '\BBDO\Cms\Http\Controllers\HomeController@product_detail')->name('product_detail');
-});
 
 Route::group(['prefix' => 'icontrol', 'middleware' => 'web'], function() {
 
