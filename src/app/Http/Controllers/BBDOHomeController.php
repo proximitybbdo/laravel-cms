@@ -14,13 +14,13 @@ class BBDOHomeController extends Controller {
 
   public function product_index() {
     $domain = new PublicItem();
-    $data[ "products" ] = $domain->get_all( "PRODUCTS", null, null, 'sort' );
+    $data[ "products" ] = $domain->getAll( "PRODUCTS", null, null, 'sort' );
     return view('front.products.index', $data);
   }     
 
   public function product_detail($slug) {
     $domain = new PublicItem();
-    $item =  $domain->get_one_slug( $slug, strtoupper("PRODUCTS"));
+    $item =  $domain->getOneSlug( $slug, strtoupper("PRODUCTS"));
     $data["product"] = $item;
     return view('front.products.detail', $data);
   }

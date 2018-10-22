@@ -14,24 +14,24 @@ class BaseController extends Controller
 
   public function __construct()
   {
-      $modules = \Config::get('cms.modules');
+      $modules = config('cms.modules');
       $configuredModules = [];
 
       foreach ($modules as $module) {
-          $configuredModules[$module] =  \Config::get('cms.' . $module);
+          $configuredModules[$module] =  config('cms.' . $module);
       }
 
       // @todo should be in a view composer for the complete admin part of this project (iControl)
-      \View::share('modules', $modules);
-      \View::share('user', \Auth::User()); // null hier
-      \View::share('module_type', $this->module_type);
-      \View::share('module_title', \Config::get('cms.' . $this->module_type . '.description'));
+      view()->share('modules', $modules);
+      view()->share('user', \Auth::User()); // null hier
+      view()->share('module_type', $this->module_type);
+      view()->share('module_title', config('cms.' . $this->module_type . '.description'));
   }
 
   protected function setupLayout()
   {
     if(!is_null($this->layout)) {
-      $this->layout = View::make($this->layout);
+      $this->layout = view()->make($this->layout);
       
     }
   }

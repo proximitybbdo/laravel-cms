@@ -91,14 +91,14 @@ class Input{
                     $type = $link_cfg['fake_type_for'];
                 }
                 if(array_key_exists('link_inception', $link_cfg) && $link_cfg['link_inception'] === true){
-                    $items = $itemService->get_all_admin_list_inception($type,$item->id,$key);
+                    $items = $itemService->getAllAdminListInception($type,$item->id,$key);
                 } else {
-                    $items = $itemService->get_all_admin_list($type,$item->id,$key);
+                    $items = $itemService->getAllAdminList($type,$item->id,$key);
                 }
                 $field = 'linked_items_' . $key ;
                 if($block_type != null){
                     $block = $item->block($lang,$block_type . '_' . $index,$version);
-                    $items = $itemService->get_all_admin_list_block_links($type,$block != null ? $block->id : null,$lang,$key,$version);
+                    $items = $itemService->getAllAdminListBlockLinks($type,$block != null ? $block->id : null,$lang,$key,$version);
 
                     $field = 'block_content[' . $block_type . '_' . $index . '][links]'.'['.$key.']';
                 }

@@ -12,7 +12,7 @@ class ActionLog {
     $action = strtoupper($action);
     $score_cfg = config('scoring.scores.' . $action);
     $item_domain = new PublicItem();
-    $categories = $item_domain->get_all('CATEGORY',null,null,null,null, null, false, false,null);
+    $categories = $item_domain->getAll('CATEGORY',null,null,null,null, null, false, false,null);
     if($score_cfg != null){
       switch($score_cfg['type']) {
         case "simple":

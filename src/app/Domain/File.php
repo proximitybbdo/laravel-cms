@@ -22,7 +22,7 @@ class File
       return $result;
     }
 
-    public function assign_module($data){
+    public function assignModule($data){
       $item = Models\MyFile::find($data['id']);
       $status = $data['status'];
       $module = $item->modules()->where('module_type',$data['module'])->first();
@@ -42,7 +42,7 @@ class File
 
       $content_types = config::get('cms.files.'.$item->type.'.content_type');
       $itemService = new Item("");
-      $item_content = $itemService->remove_content_search($content_types,$item->id); //item content delete
+      $item_content = $itemService->removeContentSearch($content_types,$item->id); //item content delete
       $item->garbage = 1;   
       $item->save();
 
@@ -54,12 +54,12 @@ class File
       return $count;
     }
 
-    public function destroy(){
+    public function destroy($id){
       $item = Models\MyFile::find($id);
       $item->destroy();
     }
 
-    public function get_all_admin($garbage = 0, $type, $module = null){
+    public function getAllAdmin($garbage = 0, $type, $module = null){
       $items = Models\MyFile::where('garbage',$garbage)->where('type',$type);
 
       if($module != null){
@@ -72,7 +72,7 @@ class File
       return $items->orderBy('id','DESC')->limit(30)->get();
     }
 
-    public static function get_image_container($id,$type){
+    public static function getImageContainer($id,$type){
       $file = Models\MyFile::find($id);
       $result = '';
       try {

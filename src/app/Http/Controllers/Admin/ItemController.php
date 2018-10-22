@@ -51,7 +51,7 @@ class ItemController extends BaseController
     
     $cat_item = null;
     if($cat != null) {
-       $cat_item = $this->itemService->get_admin($cat,'nl-BE');
+       $cat_item = $this->itemService->getAdmin($cat,'nl-BE');
     }
     $this->data['cat_item'] = $cat_item;
 
@@ -70,7 +70,7 @@ class ItemController extends BaseController
         if($link_cfg['overview_filter'] === true) {
           $links[$key] = array(
             'description'=>$link_cfg['description'],
-            'items'=>$this->itemService->get_all_admin_list($key,null),
+            'items'=>$this->itemService->getAllAdminList($key,null),
             'type'=>$link_cfg['type'],
             'input_type'=>$link_cfg['input_type'],
           );
@@ -100,15 +100,15 @@ class ItemController extends BaseController
     if(array_key_exists("sort_order",config("cms.$module_type"))) {
       $order = config("cms.$module_type.sort_order");
     }
-    $items = $this->itemService->get_all_admin($cat,$sort, $order);
+    $items = $this->itemService->getAllAdmin($cat,$sort, $order);
     if(config("cms.$module_type.subitems_type") != null && config("cms.$module_type.subitems_type") != ''){
       foreach($items as $item){
         $subitem_service = new Domain\Item(config("cms.$module_type.subitems_type"));
         $subitem_sort = config("cms.".config("cms.$module_type.subitems_type").".overview_link.sort_by") != null ? config("cms.".config("cms.$module_type.subitems_type").".overview_link.sort_by") : 'sort';
-        $item->subitems = $subitem_service->get_all_admin($item->id,$subitem_sort, $order);
+        $item->subitems = $subitem_service->getAllAdmin($item->id,$subitem_sort, $order);
       }
     }
-    $languages = $this->itemService->get_items_languages();
+    $languages = $this->itemService->getItemsLanguages();
 
     $sortable = false;
     if(config("cms.$module_type.sortable") == true && $cat == null){
@@ -173,7 +173,7 @@ class ItemController extends BaseController
       $item = new Item();
       $id = null;
     } else {
-      $item = $this->itemService->get_admin($id,$lang);
+      $item = $this->itemService->getAdmin($id,$lang);
     }
 
     $single_item = false;
@@ -205,7 +205,7 @@ class ItemController extends BaseController
 
     $itemLangs = [];
     if($id != null){
-      $itemLangs = $this->itemService->get_item_languages($item->id);
+      $itemLangs = $this->itemService->getItemLanguages($item->id);
     }
 
     $this->data['single_item'] = $single_item;
@@ -415,7 +415,7 @@ class ItemController extends BaseController
           $item = new Item();
           $id = null;
       } else {
-          $item = $this->itemService->get_admin($id, $lang);
+          $item = $this->itemService->getAdmin($id, $lang);
       }
 
       $links = array();
@@ -463,7 +463,7 @@ class ItemController extends BaseController
                   "module_type" => $this->module_type,
                   "flash"       => 'Added succesfully.',
                   "slug"        => $request->input("my_content.slug"),
-                  "count_slug"  => $this->itemService->count_slug($request->input("my_content.slug"), $lang, $item->id, $module_type),
+                  "count_slug"  => $this->itemService->countSlug($request->input("my_content.slug"), $lang, $item->id, $module_type),
                   "valid"       => true,
               );
 
@@ -479,7 +479,7 @@ class ItemController extends BaseController
       }
 
       if (array_key_exists("publish", $request->input())) {
-          $item = $this->itemService->publish_draft($item->id,$lang);
+          $item = $this->itemService->publishDraft($item->id,$lang);
           //LoggingHelper::log($this->module_type,'publish',$lang,$item->id);
           \Session::flash('publish', 'Published succesfully.');
       }
@@ -497,7 +497,7 @@ class ItemController extends BaseController
 
   public function get_copylang_item($module_type,$id = null,$source_lang = null,$destination_lang = null) {
     if($module_type != null && $source_lang != null && $destination_lang != null) {
-        $item = $this->itemService->copy_lang_content($id,$source_lang,$destination_lang);
+        $item = $this->itemService->copyLangContent($id,$source_lang,$destination_lang);
 
       \Session::flash('copylang', 'Item content copied from ' . $source_lang);
       return redirect(url("/icontrol/items/$module_type/update/$destination_lang/$item->id"));
@@ -509,7 +509,7 @@ class ItemController extends BaseController
     $id = $request->input('id');
     $status = $request->input('status');
     if($id!=null && $status!=null) {
-      $post = $this->itemService->publish_item($id,($status == 'true'? 1 : 0));
+      $post = $this->itemService->publishItem($id,($status == 'true'? 1 : 0));
       //LoggingHelper::log($this->module_type,'status',null,$id);
       return 'OK';
     }
@@ -535,7 +535,7 @@ class ItemController extends BaseController
         }
 
         try {
-            $this->itemService->feature_item($id, $type);
+            $this->itemService->featureItem($id, $type);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -560,7 +560,7 @@ class ItemController extends BaseController
 
     if($id!=null & $to_index != null && config("cms.$this->module_type.sortable") == true) {
 
-      $this->itemService->sort_items($id,$to_index);
+      $this->itemService->sortItems($id,$to_index);
       //LoggingHelper::log($this->module_type,'sort',null,$id);
       return 'OK';
     }
@@ -576,7 +576,7 @@ class ItemController extends BaseController
     $count = $request->input('count');
     $version = $request->input('version');
 
-    $model = $this->itemService->get_admin($id,$lang);
+    $model = $this->itemService->getAdmin($id,$lang);
 
     return view('bbdocms::admin.partials.form_block', [
       'type'=>$type,

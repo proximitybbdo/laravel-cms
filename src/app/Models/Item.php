@@ -251,7 +251,7 @@ use Illuminate\Support\Facades\Input;
     }
 
     public function fileContent($id,$type){
-      return \RecorCorporate\Domain\File::get_image_container($id,$type);
+      return \RecorCorporate\Domain\File::getImageContainer($id,$type);
     }
 
     public function getStartDateAttribute($value)

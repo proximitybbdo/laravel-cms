@@ -62,10 +62,10 @@ class StoreItem extends FormRequest
                 $item = new Item();
 
                 if ($data['id']) {
-                    $item = $itemDomain->get_admin($data['id'], $data['lang']);
+                    $item = $itemDomain->getAdmin($data['id'], $data['lang']);
                 }
 
-                if ($itemDomain->count_slug($data['my_content']['slug'], $data['lang'], $item->id, $this->module_type) > 0) {
+                if ($itemDomain->countSlug($data['my_content']['slug'], $data['lang'], $item->id, $this->module_type) > 0) {
                     $validator->errors()->add('my_content.slug', 'Slug already exists, please change the SEO Title!');
                 }
             }

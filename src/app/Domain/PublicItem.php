@@ -36,7 +36,7 @@ class PublicItem {
         return $result->first();
     }
 
-    public function get_all($module_type,$link_type,$links,$sort,$pagesize = null, $amount = null, $desc = false, $mustApplyAllLinks = false, $exclude_ids = null) {
+    public function getAll($module_type,$link_type,$links,$sort,$pagesize = null, $amount = null, $desc = false, $mustApplyAllLinks = false, $exclude_ids = null) {
         $cache_key = 'item_get_all_' . trim($module_type) . '_' .
             $this->lang . '_' .
             ($link_type != null ? $link_type : '') . '_' .
@@ -47,8 +47,6 @@ class PublicItem {
             ($desc != null ? $desc : '') . '_' .
             ($mustApplyAllLinks != null ? $mustApplyAllLinks : '') . '_' .
             ($exclude_ids != null && count($exclude_ids)==1? $exclude_ids[0] : '');
-
-        //dd($exclude_ids);
 
         $cache_disabled = false;
         if(($exclude_ids != null && count($exclude_ids)>1)|| $this->preview){
@@ -119,7 +117,7 @@ class PublicItem {
         return $result;
     }
 
-    public function get_ids($module_type,$ids) {
+    public function getIds($module_type,$ids) {
         $result = Models\Item::select('id','description','status','editor_id','module_type','sort','start_date','end_date','type')->where('module_type',strtoupper($module_type))
             ->whereHas('content', function($q) {
                 $q->where('version', '=', 0);
@@ -130,7 +128,7 @@ class PublicItem {
         return $result->get();
     }
 
-    public function get_one_slug($slug,$module_type) {
+    public function getOneSlug($slug,$module_type) {
         $cache_key = 'item_' . $slug .'_mod_'. $module_type . '_lang' . $this->lang;
         if(Cache::has($cache_key) && !$this->preview) {
             $result = Cache::get($cache_key);
@@ -157,7 +155,7 @@ class PublicItem {
         return $result;
     }
 
-    public function get_one($id,$module_type) {
+    public function getOne($id,$module_type) {
         $cache_key = 'item_' . $id . '_lang' . $this->lang;
 
         if(Cache::has($cache_key) && !$this->preview) {
@@ -178,7 +176,7 @@ class PublicItem {
         return $result;
     }
 
-    public function get_one_featured($module_type) {
+    public function getOneFeatured($module_type) {
         $cache_key = 'item_featured_' . $module_type . '_lang_' . $this->lang;
 
         if(Cache::has($cache_key) && !$this->preview) {
@@ -202,7 +200,7 @@ class PublicItem {
         return $result;
     }
 
-    public function get_active_item($module_type) {
+    public function getActiveItem($module_type) {
         $result = Models\Item::select('id','description','status','editor_id','module_type','sort','start_date','end_date','type')
             ->where('module_type',strtoupper($module_type))
             ->where('start_date','<=',Carbon::now())

@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use BBDO\Cms\Helpers\Log;
 use BBDO\Cms\Models;
+use Cache;
 
 class Item
 {
@@ -74,7 +75,7 @@ class Item
       $item->links()->sync($data['links']);
     }
 
-    \Cache::flush();
+    Cache::flush();
 
     return $item;
   }
@@ -137,22 +138,22 @@ class Item
 
     $item->links()->sync($data['links']);
 
-    \Cache::flush();
+    Cache::flush();
 
     return $item;
   }
 
-  public function update_links($data){
+  public function updateLinks($data){
     $item = Models\Item::find($data['id']);
 
     $item->links()->sync($data['links']);
 
-    \Cache::flush();
+    Cache::flush();
 
     return $item;
   }
 
-  public function update_featured($id){
+  public function updateFeatured($id){
     Models\Item::where('is_featured',1)->update(['is_featured'=>0]);
 
     $item = Models\Item::find($id);
@@ -160,7 +161,7 @@ class Item
 
     $item->save();
 
-    \Cache::flush();
+    Cache::flush();
 
     return $item;
   }
@@ -173,7 +174,7 @@ class Item
    *
    * @return int
    */
-  public function count_slug($slug, $lang, $id = null, $module_type = null)
+  public function countSlug($slug, $lang, $id = null, $module_type = null)
   {
     $count_slug = Models\Item::wherehas('content', function($query) use ($slug, $lang, $id, $module_type)
     {
@@ -199,12 +200,12 @@ class Item
     $item = Models\Item::find($id);
     $item->delete();
 
-    \Cache::flush();
+    Cache::flush();
 
     Log::action($this->module, 'DELETE', $id);
   }
 
-  public function publish_draft($id, $lang)
+  public function publishDraft($id, $lang)
   {
     $item = Models\Item::find($id);    
     Models\ItemContent::destroy($item->contentLang($lang)->where("version",0)->pluck('id')->toArray());
@@ -220,7 +221,7 @@ class Item
     }
 
     $item = Models\Item::find($id);
-    \Cache::flush();
+    Cache::flush();
 
     logAction($this->module, 'PUBLISH', $id, $lang);
 
@@ -239,7 +240,7 @@ class Item
     return $item;
   }
 
-  public function copy_lang_content($id, $source_lang, $destination_lang)
+  public function copyLangContent($id, $source_lang, $destination_lang)
   {
     $item = Models\Item::find($id);
     $content = $item->contentLang($source_lang)->where("version",1)->get();
@@ -292,20 +293,20 @@ class Item
       }
     }
 
-    \Cache::flush();
+    Cache::flush();
 
     logAction($this->module, 'COPYLANG', $id, $destination_lang);
 
     return $item;
   }
 
-  public function publish_item($id, $status)
+  public function publishItem($id, $status)
   {
     $item = Models\Item::find($id);
     $item->status = $status;
     $item->save();
 
-    \Cache::flush();
+    Cache::flush();
 
     logAction($this->module, 'PUBLISHITEM', $id);
 
@@ -320,7 +321,7 @@ class Item
    *
    * @throws Exception
    */
-  public function feature_item($id, $type)
+  public function featureItem($id, $type)
   {
     // get item from db
     $item = Models\Item::find($id);
@@ -348,7 +349,7 @@ class Item
     $item->save();
 
     // flush cache
-    \Cache::flush();
+    Cache::flush();
 
     return $item;
   }
@@ -366,7 +367,7 @@ class Item
     return $result->first();
   }
 
-  public function get_all_admin($cat,$sort = 'sort',$desc = 'ASC') {
+  public function getAllAdmin($cat,$sort = 'sort',$desc = 'ASC') {
     $result = Models\Item::where('module_type',$this->module)
     ->orderBy($sort,$desc);
 
@@ -380,7 +381,7 @@ class Item
     return $result->get();
   }
 
-  public function get_all_admin_list($module_type,$link_item_id, $link_type = '%') {
+  public function getAllAdminList($module_type,$link_item_id, $link_type = '%') {
     $result = \DB::select('select i1.id, i1.description, i2.item_id
                         from items i1
                         left join items_link i2 on i2.link_id = i1.id and i2.item_id = ? and i2.link_type like ?
@@ -391,7 +392,7 @@ class Item
     return $result;
   }
 
-  public function get_all_admin_list_block_links($module_type,$link_block_id, $lang, $link_type = '%',$version = 1) {
+  public function getAllAdminListBlockLinks($module_type,$link_block_id, $lang, $link_type = '%',$version = 1) {
     $result = \DB::select('select i1.id, i1.description, ibl.item_id
                         from items i1
                         left join items_block_links ibl on ibl.link_id = i1.id and ibl.block_id = ? and ibl.link_type like ? 
@@ -402,7 +403,7 @@ class Item
     return $result;
   }
 
-  public function get_all_admin_list_inception($module_type,$link_item_id, $link_type = '%') {
+  public function getAllAdminListInception($module_type,$link_item_id, $link_type = '%') {
             
     $result = \DB::select('select i1.id, i1.description, i2.item_id
                         from items i1
@@ -415,7 +416,7 @@ class Item
     return $result;
   }
 
-  public function get_admin($id,$lang) {
+  public function getAdmin($id,$lang) {
     $result = Models\Item::where('id',$id)
     ->with(array('content' => function($query) use (&$lang)
     {
@@ -427,7 +428,7 @@ class Item
     return $result;
   }
 
-  public function get_items_languages() {
+  public function getItemsLanguages() {
      $item_langs = \DB::table('items_content')
                     ->select('item_id','lang','version')
                     ->distinct('item_id','lang','version')
@@ -456,7 +457,7 @@ class Item
      return $result;
   }
 
-  public function get_item_languages($id) {
+  public function getItemLanguages($id) {
     $item_langs = \DB::table('items_content')
                     ->select('item_id','lang','version')
                     ->distinct('item_id','lang','version')
@@ -481,9 +482,9 @@ class Item
      return $value;
   }
 
-  public function sort_items($id, $to_index)
+  public function sortItems($id, $to_index)
   {
-    $items = $this->get_all_admin(null);
+    $items = $this->getAllAdmin(null);
 
     $i = 1;
     $keys = $items->modelKeys();
@@ -500,12 +501,12 @@ class Item
       $i++;
     }
 
-    \Cache::flush();
+    Cache::flush();
 
     logAction($this->module, 'SORT', $id);
   }
 
-  public function sort_items_blocks($item_id,$block_id,$to_index){
+  public function sortItemsBlocks($item_id,$block_id,$to_index){
     $blocks = $this->blocks();
     //TODO
 
@@ -524,31 +525,31 @@ class Item
       $i++;
     }
 
-    \Cache::flush();
+    Cache::flush();
   }
 
-  public function remove_content_search($content_types,$id){
+  public function removeContentSearch($content_types,$id){
 
     return Models\ItemContent::whereIn('type',$content_types)->where('content',$id)->delete();
-    \Cache::flush();
+    Cache::flush();
 
   }
 
-  public function get_contentsearch_ids($content_types){
+  public function getContentsearchIds($content_types){
 
     return Models\ItemContent::select('content')->whereIn('type',$content_types)->distinct('content')->pluck('content');
 
   }
 
-  public function rewrite_indexes() {
+  public function rewriteIndexes() {
     \DB::update('SET @rownum := 0;update items set sort = (select @rownum:=@rownum+1) where module_type = ? order by items.sort',$this->module_type);
   }
 
-  public function needs_approval(){
+  public function needsApproval(){
     return Models\ItemContent::select('item_id','version')->distinct('item_id','version')->where('version',0)->get()->count();
   } 
 
-  public function get_contentmodules($lang = null) {
+  public function getContentModules($lang = null) {
     $allcontent = array();
     $content_modules = \Config::get('cms.content_modules');
     foreach($content_modules as $module) {
@@ -578,7 +579,7 @@ class Item
      *
      * @return Collection
      */
-    public function get_ids($module_type, array $ids)
+    public function getIds($module_type, array $ids)
     {
         $result = Models\Item::select('id', 'description', 'status', 'editor_id', 'module_type', 'sort', 'start_date', 'end_date', 'type')
             ->where('module_type', strtoupper($module_type))

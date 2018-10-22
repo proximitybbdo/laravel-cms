@@ -34,7 +34,7 @@ class SlugHistory
      *
      * @return Item
      */
-    public function get_item_by_slug($search_slug, $lang)
+    public function getItemBySlug($search_slug, $lang)
     {
         $result = SlugHistoryModel::where('lang', $lang)
             ->where('slug', $search_slug)

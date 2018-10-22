@@ -65,8 +65,8 @@ class ItemBlock extends Model {
       }
       $lang = \LaravelLocalization::getCurrentLocale();
       $cache_key = 'block_content_' . $this->id . 'lang_' . $lang;
-      //dd($preview);
-      if(\Cache::has($cache_key) && !$preview) {
+
+      if(Cache::has($cache_key) && !$preview) {
         $result = Cache::get($cache_key);
       }
       else {

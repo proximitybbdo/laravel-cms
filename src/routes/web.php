@@ -65,7 +65,7 @@ Route::group(['prefix' => 'icontrol', 'middleware' => 'web'], function() {
         Route::post('{module_type}/{action}/{lang}/{id}', '\BBDO\Cms\Http\Controllers\Admin\ItemController@store')->name('items.update');
       });
       
-      Route::get('files/getimagecontainer/{id}/{type}','\BBDO\Cms\Http\Controllers\Admin\FilesController@get_image_container');
+      Route::get('files/getimagecontainer/{id}/{type}','\BBDO\Cms\Http\Controllers\Admin\FilesController@getImageContainer');
       Route::get('files/{manager_type}/manager','\BBDO\Cms\Http\Controllers\Admin\FilesController@get_manager');
       Route::get('files/{manager_type}/manager/{module_type}/{input_id}/{value}', '\BBDO\Cms\Http\Controllers\Admin\FilesController@get_manager');
       Route::get('files/{manager_type}/manager/{module_type}/{input_type}/{input_id}/{value}', '\BBDO\Cms\Http\Controllers\Admin\FilesController@get_manager');

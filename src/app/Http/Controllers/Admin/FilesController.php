@@ -80,12 +80,12 @@ class FilesController extends BaseController
         }
 
         // todo filter images on input type when != all
-        $items = $this->service->get_all_admin(0,$manager_type,$module_type);
+        $items = $this->service->getAllAdmin(0,$manager_type,$module_type);
 
         $itemService = new Domain\Item("");
 
         $content_types = \Config::get('cms.files.'.$manager_type.'.content_type');
-        $content_links = $itemService->get_contentsearch_ids($content_types);
+        $content_links = $itemService->getContentsearchIds($content_types);
 
         $categories = \Config::get('cms.modules');
 
@@ -198,7 +198,7 @@ class FilesController extends BaseController
                 "status"    =>  $status,
             );
 
-            $this->service->assign_module($data);
+            $this->service->assignModule($data);
 
             return response()->json('success', 200);
         } else{
@@ -225,7 +225,7 @@ class FilesController extends BaseController
 
     public function post_purge($manager_type)
     {
-        $files = $this->service->get_all_admin(1, $manager_type);
+        $files = $this->service->getAllAdmin(1, $manager_type);
 
         if (count($files) > 0) {
             foreach($files as $file) {
@@ -247,8 +247,8 @@ class FilesController extends BaseController
         }
     }
 
-    public function get_image_container($id, $type) 
+    public function getImageContainer($id, $type)
     {
-        return $this->service->get_image_container($id, $type);
+        return $this->service->getImageContainer($id, $type);
     }
 }
