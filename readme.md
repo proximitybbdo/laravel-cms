@@ -22,7 +22,7 @@
     
     > php artisan vendor:publish
        
-   And select the number of the vendor to install 
+   And select the number of the vendor to install  (cms-* , sentinel service provider)
    
    ### Sentinel stuff
    
