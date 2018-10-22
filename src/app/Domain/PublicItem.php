@@ -6,6 +6,7 @@ use BBDO\Cms\Models;
 use Auth;
 use Carbon\Carbon;
 use Cache;
+use Illuminate\Support\Facades\Input;
 
 class PublicItem {
   protected $lang = '';
@@ -14,7 +15,7 @@ class PublicItem {
   function __construct() {
     $this->lang = \LaravelLocalization::getCurrentLocale();
 
-    if(\Input::get('preview') != null){
+    if(Input::get('preview') != null){
       if (Auth::check()) {
         $this->preview = true;
       }

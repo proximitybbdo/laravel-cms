@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Auth;
 use Cache;
+use Illuminate\Support\Facades\Input;
 
   class Item extends Model {
 
@@ -121,7 +122,7 @@ use Cache;
     public function content_fe()
     {
       $preview = false;
-      if(\Input::get('preview') != null){
+      if(Input::get('preview') != null){
         if (Auth::check()) {
           $preview = true;
         }
@@ -264,7 +265,7 @@ use Cache;
     public function blocks_fe()
     {
       $preview = false;
-      if(\Input::get('preview') != null){
+      if(Input::get('preview') != null){
         if (Auth::check()) {
           $preview = true;
         }

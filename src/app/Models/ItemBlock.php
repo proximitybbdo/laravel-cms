@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Auth;
 use Cache;
+use Illuminate\Support\Facades\Input;
 
 class ItemBlock extends Model {
 
@@ -64,7 +65,7 @@ class ItemBlock extends Model {
     public function content_fe()
     {
       $preview = false;
-      if(\Input::get('preview') != null){
+      if(Input::get('preview') != null){
         if (\Auth::check()) {
           $preview = true;
         }
