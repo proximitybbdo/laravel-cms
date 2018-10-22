@@ -148,11 +148,11 @@ class Item extends Model {
     }
 
 
-    public function getContent($key){
+    public function getContent($key = null){
         if($this->arr_content == null) {
             $this->arr_content = $this->contentFe()->pluck("content","type");
         }
-        if($this->arr_content->has($key)){
+        if(!is_null($key) && $this->arr_content->has($key)){
             return $this->arr_content[$key];
         } else {
             return  $this->arr_content;
