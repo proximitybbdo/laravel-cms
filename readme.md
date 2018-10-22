@@ -24,6 +24,8 @@
        
    And select the number of the vendor to install  (cms-* , sentinel service provider)
    
+   cms-front-view will load controller & vue for the front end as a example. It'll show how to fetch data from the CMS in the view.
+   
    ### Sentinel stuff
    
    In config/app.php
