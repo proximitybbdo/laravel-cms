@@ -2,7 +2,7 @@
 
 namespace BBDO\Cms\Http\Controllers\Admin;
 
-use BBDO\Cms\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller

@@ -5,7 +5,7 @@ namespace BBDO\Cms\Http\Controllers\Admin;
 use BBDO\Cms\User;
 use Illuminate\Http\Request;
 use Validator;
-use BBDO\Cms\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
