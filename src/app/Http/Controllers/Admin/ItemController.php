@@ -57,7 +57,7 @@ class ItemController extends BaseController
 
 
     if(config("cms.$this->module_type.single_item") != null && config("cms.$this->module_type.single_item") == true){
-      $single_item = $this->itemService->get_single_item($cat);
+      $single_item = $this->itemService->getSingleItem($cat);
       if($single_item != null){
         return redirect("icontrol/items/$module_type/update/$this->default_lang/$single_item->id");
       }

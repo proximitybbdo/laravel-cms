@@ -354,7 +354,7 @@ class Item
     return $item;
   }
 
-  public function get_single_item($cat) {
+  public function getSingleItem($cat) {
     $result = Models\Item::select('id')->where('module_type',$this->module);
 
     if($cat != null){
