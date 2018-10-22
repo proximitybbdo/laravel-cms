@@ -58,7 +58,7 @@ Route::group(['prefix' => 'icontrol', 'middleware' => 'web'], function() {
         Route::post('{module_type}/{action}/{lang}/{id}/{back_module_type}', '\BBDO\Cms\Http\Controllers\Admin\ItemController@get_add_item');
         Route::get('{module_type}/{action}/{lang}/{id}', '\BBDO\Cms\Http\Controllers\Admin\ItemController@get_add_item')->name('items.edit');
         Route::get('{module_type}/{action}/{lang}', '\BBDO\Cms\Http\Controllers\Admin\ItemController@get_add_item');
-        Route::post('{module_type}/{action}/{lang}', '\BBDO\Cms\Http\Controllers\Admin\ItemController@get_add_item');
+        //Route::post('{module_type}/{action}/{lang}', '\BBDO\Cms\Http\Controllers\Admin\ItemController@get_add_item');
 
         Route::get('{module_type}/{action}', '\BBDO\Cms\Http\Controllers\Admin\ItemController@get_add_item');
         Route::post('{module_type}/{action}/{lang?}', '\BBDO\Cms\Http\Controllers\Admin\ItemController@store');
