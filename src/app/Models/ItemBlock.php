@@ -23,6 +23,7 @@ class ItemBlock extends Model
         parent::boot();
 
         static::deleting(function ($block) {
+            var_dump(is_countable($block->content()));
             dd($block->content());
             if (is_countable($block->content()) && count($block->content()) > 0) {
                 $block->links()->sync(array());
