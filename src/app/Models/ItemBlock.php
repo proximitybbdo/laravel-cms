@@ -24,7 +24,7 @@ class ItemBlock extends Model
 
         static::deleting(function ($block) {
             var_dump(is_countable($block->content()));
-            dd($block->content());
+            dd($block->content()->count());
             if (is_countable($block->content()) && count($block->content()) > 0) {
                 $block->links()->sync(array());
                 $block->content()->delete();
