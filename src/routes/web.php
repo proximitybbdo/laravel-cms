@@ -18,21 +18,30 @@ Route::group(['prefix' => 'icontrol', 'middleware' => 'web','namespace' => '\BBD
         'as'    => 'sentinel.logout'
     ]);
 
-  Route::get('/', 'SentinelController@showLoginForm')->name('login');
-  Route::get('login', 'SentinelController@showLoginForm')->name('login');
-  Route::post('login', 'SentinelController@login');
+    Route::get('/', [
+        'uses'  => 'SentinelController@showLoginForm',
+        'as'    => 'login'
+    ]);
+
+    Route::get('login', 'SentinelController@showLoginForm');
+
+    Route::post('login', [
+        'uses'  => 'SentinelController@login',
+        'as'    => 'sentinel.postLogin'
+    ]);
+
 
   
   Route::group( ['middleware' => \BBDO\Cms\Http\Middleware\Admin\BasicMiddleware::class], function() {
     
-    Route::get('dashboard', 'AdminController@index')->name('dashboard');
+    Route::get('dashboard', ['uses' => 'AdminController@index', 'as' => 'dashboard');
     Route::get('clearcache', [
             'uses'  => 'AdminController@getClearcache',
             'as'    => 'icontrol.clearcache'
         ]
-    );//clearcache
-    Route::post('clearcache', 'AdminController@postClearcache')->name('clearcache');;
-    Route::post('geturlfriendlytext','HelperController@postUrlFriendlyText')->name('postUrlFriendlyText');;
+    );
+    Route::post('clearcache', ['uses' => 'AdminController@postClearcache', 'as' => 'icontrol.storeClearcache']);
+    Route::post('geturlfriendlytext','HelperController@postUrlFriendlyText')->name('postUrlFriendlyText');
 
     Route::group( ['middleware' => \BBDO\Cms\Http\Middleware\Admin\AdminMiddleware::class], function(){
       Route::get('roles', 'SentinelController@showRolesForm');

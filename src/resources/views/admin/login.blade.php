@@ -3,7 +3,7 @@
 
 @section('content')
 
-<form class="form-signin" method="POST" action="<?= route('login') ?>">
+<form class="form-signin" method="POST" action="<?= route('sentinel.postLogin') ?>">
   <!--<img src="<?= asset('assets/img/logo@2x.png',Config::get('app.secure_urls')); ?>" alt="">-->
   <h2 class="form-signin-heading">Please sign in</h2>
 

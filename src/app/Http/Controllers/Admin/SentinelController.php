@@ -64,7 +64,7 @@ class SentinelController extends Controller
     public function logout()
     {
         Sentinel::logout();
-        return redirect(url()->to('icontrol/login'));
+        return redirect()->route('login');
     }
 
     public function showRolesForm()
