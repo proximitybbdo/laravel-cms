@@ -105,7 +105,8 @@ class Item
                 }
                 return $remove_block_ids;
             });
-            if (count($remove_block_ids) > 0) {
+
+            if (!is_null($remove_block_ids) && count($remove_block_ids) > 0) {
                 Models\ItemBlock::destroy($remove_block_ids);
             }
             foreach ($data['block_content'] as $block) {
