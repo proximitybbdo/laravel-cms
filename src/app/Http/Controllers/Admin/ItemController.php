@@ -29,11 +29,6 @@ class ItemController extends BaseController
     public function __construct(Request $request)
     {
         $this->module_type = strtoupper(\Route::current()->parameters()["module_type"]);
-        //$this->sentry_module_type = $this->module_type;
-
-        // BeforeFilter deprecated in 5.3, use middleware instead
-        // http://stackoverflow.com/questions/34475274/replacement-method-in-laravel-5-2
-        // $this->beforeFilter('@filterRequests');
 
         $this->itemService = new Domain\Item($this->module_type);
         $this->default_lang = config("cms.default_locale");
@@ -42,12 +37,12 @@ class ItemController extends BaseController
         parent::__construct();
     }
 
-    public function get_overview($module,$cat = null){
+    public function getOverview($module,$cat = null){
         $module_type = $this->module_type;
         $this->data['action'] = 'overview';
         $this->data['module_type'] = $module_type;
         $this->data['active_cat'] = $cat;
-        $this->data['overview_data'] = $this->get_overview_data($module_type,$cat);
+        $this->data['overview_data'] = $this->getOverviewData($module_type,$cat);
 
         $cat_item = null;
         if($cat != null) {
@@ -81,17 +76,17 @@ class ItemController extends BaseController
         return view('bbdocms::admin.items.overview', $this->data);
     }
 
-    public function post_overview_data(Request $request) {
+    public function postOverviewData(Request $request) {
         $module_type = $this->module_type;
         $cat = $request->input('cat');
         if($module_type!=null && $cat !=null) {
-            return $this->get_overview_data($module_type,$cat);
+            return $this->getOverviewData($module_type,$cat);
         }
 
         return 'NOK';
     }
 
-    protected function get_overview_data($module_type,$cat = null){
+    protected function getOverviewData($module_type,$cat = null){
         if($cat == 'all'){
             $cat = null;
         }
@@ -129,7 +124,7 @@ class ItemController extends BaseController
         return view($view,$this->data);
     }
 
-    public function get_add_item_custom_view(Request $request,$module_type,$action,$lang, $view_name, $id = null,$back_module_type = null )
+    public function getAddItemCustomView(Request $request,$module_type,$action,$lang, $view_name, $id = null,$back_module_type = null )
     {
         $custom_views =  config("cms.custom_views");
         $link_cfg = config("cms." . $module_type . ".links." . $back_module_type);
@@ -144,7 +139,7 @@ class ItemController extends BaseController
 
         //try{
         $custom_view = $view_custom == null ? $custom_views[$view_name] : $view_custom;
-        return $this->get_add_item($request,$module_type,$action,$lang,$id, $back_module_type, null, $custom_view);
+        return $this->getAddItem($request,$module_type,$action,$lang,$id, $back_module_type, null, $custom_view);
         // }
         // catch(\Exception $e){
         //   return "view name '$view_name' doesnt exist yet for '$module'";
@@ -163,7 +158,7 @@ class ItemController extends BaseController
      *
      * @return Factory|View
      */
-    public function get_add_item(Request $request, $module_type, $action, $lang = null, $id = null, $back_module_id = null, $back_link_id = null, $custom_view = null) {
+    public function getAddItem(Request $request, $module_type, $action, $lang = null, $id = null, $back_module_id = null, $back_link_id = null, $custom_view = null) {
 
         if($lang == null){
             $lang = $this->default_lang;
@@ -484,13 +479,13 @@ class ItemController extends BaseController
             ;
     }
 
-    public function get_revert_item($module_type,$lang = null,$id = null) {
+    public function getRevertItem($module_type,$lang = null,$id = null) {
         $item = $this->itemService->revert($id,$lang);
         Session::flash('reverted', 'Item reverted to online version');
         return redirect(url("/icontrol/items/$module_type/update/$lang/$item->id"));
     }
 
-    public function get_copylang_item($module_type,$id = null,$source_lang = null,$destination_lang = null) {
+    public function getCopyLangItem($module_type,$id = null,$source_lang = null,$destination_lang = null) {
         if($module_type != null && $source_lang != null && $destination_lang != null) {
             $item = $this->itemService->copyLangContent($id,$source_lang,$destination_lang);
 
@@ -500,18 +495,16 @@ class ItemController extends BaseController
         return null;
     }
 
-    public function post_publish(Request $request) {
+    public function postPublish(Request $request) {
         $id = $request->input('id');
         $status = $request->input('status');
-        if($id!=null && $status!=null) {
-            $post = $this->itemService->publishItem($id,($status == 'true'? 1 : 0));
+        if(!is_null($id) && !is_null($status)) {
+            $this->itemService->publishItem($id,($status == 'true'? 1 : 0));
             return 'OK';
         }
         else {
             return 'NOVALUES';
         }
-
-        return 'NOK';
     }
 
     /**
@@ -519,7 +512,7 @@ class ItemController extends BaseController
      *
      * @return string
      */
-    public function post_featured(Request $request)
+    public function postFeatured(Request $request)
     {
         $id = $request->input('id');
         $type = $request->input('featured');
@@ -537,7 +530,7 @@ class ItemController extends BaseController
         return 'OK';
     }
 
-    public function post_delete(Request $request) {
+    public function postDelete(Request $request) {
         $id = $request->input('id');
         if($id!=null) {
             $this->itemService->destroy($id);
@@ -547,7 +540,7 @@ class ItemController extends BaseController
         return 'NOK';
     }
 
-    public function post_sort_post(Request $request) {
+    public function postSortPost(Request $request) {
         $id = $request->input('id');
         $to_index = $request->input('index');
 
@@ -559,7 +552,7 @@ class ItemController extends BaseController
         return 'NOK';
     }
 
-    public function post_render_block(Request $request) {
+    public function postRenderBlock(Request $request) {
         $type = $request->input('type');
         $module_type = $request->input('module_type');
         $id = $request->input('id');
@@ -571,17 +564,14 @@ class ItemController extends BaseController
         $model = $this->itemService->getAdmin($id,$lang);
 
         return view('bbdocms::admin.partials.form_block', [
-            'type'=>$type,
-            'data'=>Config('admin.'.strtoupper($module_type).'.blocks.' . $type),
-            'index'=>$count,
-            'model'=>$model,
-            'custom_view'=>null,
-            'lang'=>$lang,
-            'action'=>$action,
-            'version'=>$version
+            'type' => $type,
+            'data' => config('admin.' . strtoupper($module_type) . '.blocks.' . $type),
+            'index' => $count,
+            'model' => $model,
+            'custom_view' => null,
+            'lang' => $lang,
+            'action' => $action,
+            'version' => $version
         ]);
     }
-
-
-
 }

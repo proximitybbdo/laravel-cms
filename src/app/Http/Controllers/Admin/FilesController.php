@@ -33,7 +33,7 @@ class FilesController extends BaseController
 
     }
 
-    public function get_manager($manager_type, $module_type = null, $input_type = null ,$input_id = null, $value = null)
+    public function getManager($manager_type, $module_type = null, $input_type = null ,$input_id = null, $value = null)
     {
         $this->prepareManager($manager_type, $module_type, $input_type, $input_id, $value);
 
@@ -50,7 +50,7 @@ class FilesController extends BaseController
         return view('bbdocms::admin.files.manager-page', $this->data);
     }
 
-    public function get_popup_manager($manager_type, $module_type, $input_type, $input_id, $value = null)
+    public function getPopupManager($manager_type, $module_type, $input_type, $input_id, $value = null)
     {
         $this->prepareManager($manager_type, $module_type, $input_type, $input_id, $value);
 
@@ -61,7 +61,7 @@ class FilesController extends BaseController
         return view('bbdocms::admin.files.popup_manager', $this->data);
     }
 
-    public function get_files($manager_type, $mode= null, $input_id = null, $module_type = null, $input_type = null)
+    public function getFiles($manager_type, $mode= null, $input_id = null, $module_type = null, $input_type = null)
     {
         $this->prepareManager($manager_type,$module_type,$input_type,$input_id,null);
 
@@ -101,7 +101,7 @@ class FilesController extends BaseController
         $this->data['image_config']= $this->service->getTypeConfig($input_type);
     }
 
-    public function post_upload(Request $request, $manager_type, $module_type = null, $input_type = null)
+    public function postUpload(Request $request, $manager_type, $module_type = null, $input_type = null)
     {
         if ($module_type != null) {
             // if content module
@@ -185,7 +185,7 @@ class FilesController extends BaseController
         }
     }
 
-    public function post_assign_cat(Request $request)
+    public function postAssignCategory(Request $request)
     {
         $id = $request->input('id');
         $module  = $request->input('module');
@@ -206,7 +206,7 @@ class FilesController extends BaseController
         }
     }
 
-    public function post_remove(Request $request)
+    public function postRemove(Request $request)
     {
         $id = $request->input('id');
 
@@ -223,7 +223,7 @@ class FilesController extends BaseController
         }
     }
 
-    public function post_purge($manager_type)
+    public function postPurge($manager_type)
     {
         $files = $this->service->getAllAdmin(1, $manager_type);
 
