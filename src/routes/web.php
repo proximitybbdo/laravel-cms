@@ -15,7 +15,7 @@ Route::group(['prefix' => 'icontrol', 'middleware' => 'web','namespace' => '\BBD
 
     Route::get('logout', [
         'uses'  => 'SentinelController@logout',
-        'as'    => 'logout'
+        'as'    => 'sentinel.logout'
     ]);
 
   Route::get('/', 'SentinelController@showLoginForm')->name('login');
@@ -26,7 +26,11 @@ Route::group(['prefix' => 'icontrol', 'middleware' => 'web','namespace' => '\BBD
   Route::group( ['middleware' => \BBDO\Cms\Http\Middleware\Admin\BasicMiddleware::class], function() {
     
     Route::get('dashboard', 'AdminController@index')->name('dashboard');
-    Route::get('clearcache', 'AdminController@getClearcache')->name('clearcache');
+    Route::get('clearcache', [
+            'uses'  => 'AdminController@getClearcache',
+            'as'    => 'icontrol.clearcache'
+        ]
+    );//clearcache
     Route::post('clearcache', 'AdminController@postClearcache')->name('clearcache');;
     Route::post('geturlfriendlytext','HelperController@postUrlFriendlyText')->name('postUrlFriendlyText');;
 

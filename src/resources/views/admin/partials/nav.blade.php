@@ -18,10 +18,10 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?= $user ?> <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="<?= url('icontrol/clearcache'); ?>"><i class="fa fa-fw fa-database"></i> Clear Cache</a>
+                            <a href="<?= route('icontrol.clearcache') ?>"><i class="fa fa-fw fa-database"></i> Clear Cache</a>
                         </li>
                         <li>
-                            <a href="<?= url('icontrol/logout'); ?>"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                            <a href="<?= route('sentinel.logout') ?>"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                         </li>
                     </ul>
                 </li>
