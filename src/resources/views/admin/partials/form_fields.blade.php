@@ -28,7 +28,7 @@
         @foreach( $model->blocksLang($lang,$version)->get() as $block )
             @include( 'bbdocms::admin.partials.form_block', ['type'=>formatBlockType($block->type),'data'=>config('cms.'.strtoupper($module_type).'.blocks.' . formatBlockType($block->type) ), 'index'=>\InputHelper::indexBlockType($block->type)])
         @endforeach
-    </div>‡
+    </div>
 
     <div class="well">
         <div class="input-group">
