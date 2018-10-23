@@ -29,7 +29,7 @@ class Item extends Model
         parent::boot();
 
         static::deleting(function ($item) {
-            $item->blocksAllVersions()->delete()
+            $item->blocksAllVersions()->delete();
         });
 
         static::deleted(function ($item) {
