@@ -159,7 +159,6 @@ class Item
 
         $item = Models\Item::find($id);
         $item->is_featured = 1;
-
         $item->save();
 
         Cache::flush();
@@ -178,15 +177,14 @@ class Item
     public function countSlug($slug, $lang, $id = null, $module_type = null)
     {
         $count_slug = Models\Item::wherehas('content', function ($query) use ($slug, $lang, $id, $module_type) {
-            if ($id != null) {
+            if (!is_null($id)) {
                 $query->where('item_id', '!=', $id);
             }
 
-            if ($module_type != null) {
+            if (!is_null($module_type)) {
                 $query->where('module_type', '=', $module_type);
             }
 
-            // $query->where('version', '=', 0);
             $query->where('content', '=', $slug);
             $query->where('type', '=', 'slug');
             $query->where('lang', '=', $lang);
@@ -213,10 +211,10 @@ class Item
 
         //destory all online blocks
         Models\ItemBlock::destroy($item->blocksLang($lang, 0)->pluck('id')->toArray());
-        $blocks = $item->blocksLang($lang)->update(array("version" => 0));
+        $blocks = $item->blocksLang($lang)->update(['version' => 0]);
 
-        $slug_content = $item->contentLang($lang)->where("version", 0)->where('type', 'slug')->first();
-        if ($slug_content != null) {
+        $slug_content = $item->contentLang($lang)->where('version', 0)->where('type', 'slug')->first();
+        if (!is_null($slug_content)) {
             SlugHistory::add($slug_content);
         }
 
@@ -478,7 +476,6 @@ class Item
                 $langvalue = $item_lang->version == 0 ? "online" : "draft";
             }
             $value[$item_lang->lang] = $langvalue;
-
         }
 
         return $value;
@@ -541,9 +538,7 @@ class Item
 
     public function getContentsearchIds($content_types)
     {
-
         return Models\ItemContent::select('content')->whereIn('type', $content_types)->distinct('content')->pluck('content');
-
     }
 
     public function rewriteIndexes()
