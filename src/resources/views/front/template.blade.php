@@ -66,7 +66,7 @@ document.createElement('footer');
 
 <link rel="stylesheet" href="{{ asset('/css/style.css') }}" />
 <link rel="stylesheet" href="{{ asset('/css/vendor.css') }}" />
-<link href="<?= asset('admin/css/bootstrap.min.css',Config::get('app.secure_urls')) ?>" rel="stylesheet">
+<link href="<?= asset('admin/css/bootstrap.min.css',config('app.secure_urls')) ?>" rel="stylesheet">
 </head>
 {{-- <body data-page="{{\Helpers::clean_segments()}}"> --}}
 <body class="body--{{ Route::currentRouteName() }}" data-page="{{ Route::currentRouteName() }}" data-lang="{{App::getLocale()}}">
@@ -97,7 +97,7 @@ document.createElement('footer');
     </div>
 
     {{-- <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"> --}}
-    <!-- @if ( Config::get('app.debug') )
+    <!-- @if ( config('app.debug') )
     <script type="text/javascript">
     document.write('<script src="//localhost:35729/livereload.js?snipver=1" type="text/javascript"><\/script>')
   </script>
@@ -105,7 +105,7 @@ document.createElement('footer');
 
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <script src="<?= asset('admin/js/vendor/jquery.min.js'); ?>"></script>
-<script src="<?= asset('admin/js/vendor/bootstrap.js',Config::get('app.secure_urls')); ?>"></script>
+<script src="<?= asset('admin/js/vendor/bootstrap.js',config('app.secure_urls')); ?>"></script>
 <script src="{{ asset('/js/app.js') }}"></script>
 <script src="{{ asset('js/front.js') }}"></script> 
 

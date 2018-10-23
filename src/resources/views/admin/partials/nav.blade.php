@@ -47,7 +47,7 @@
                             <li class="<?= $module_type == $module ? 'active' : ''; ?>">
                                 <a href="<?= url('icontrol/items/'.$module.'/overview'); ?>">
                                     <i class="fa fa-fw fa-cube"></i> 
-                                    {{ Config::get('cms.' . $module . '.description') }}
+                                    {{ config('cms.' . $module . '.description') }}
                                 </a>
                             </li>
                         @endif

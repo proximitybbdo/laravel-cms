@@ -16,15 +16,15 @@
 
   <!-- Bootstrap Core CSS -->
 
-    <link href="<?= asset('admin/css/bootstrap.min.css',Config::get('app.secure_urls')) ?>" rel="stylesheet">
+    <link href="<?= asset('admin/css/bootstrap.min.css',config('app.secure_urls')) ?>" rel="stylesheet">
 
   <!-- Custom Fonts -->
-  <link href="<?= asset('admin/font-awesome/css/font-awesome.min.css',Config::get('app.secure_urls')) ?>" rel="stylesheet" type="text/css">
+  <link href="<?= asset('admin/font-awesome/css/font-awesome.min.css',config('app.secure_urls')) ?>" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="<?= asset('admin/css/chosen.css'); ?>">
   <link rel="stylesheet" href="<?= asset('admin/css/dropzone.css'); ?>">
   <!-- Custom CSS -->
-  <link href="<?= asset('admin/css/sb-admin.css',Config::get('app.secure_urls'))?>" rel="stylesheet">
-  <link href="<?= asset('admin/css/jquery-ui.min.css',Config::get('app.secure_urls')) ?>" rel="stylesheet">
+  <link href="<?= asset('admin/css/sb-admin.css',config('app.secure_urls'))?>" rel="stylesheet">
+  <link href="<?= asset('admin/css/jquery-ui.min.css',config('app.secure_urls')) ?>" rel="stylesheet">
   <style type="text/css">
     [class^="icon-"], [class*=" icon-"] {
       width: 24px;
@@ -67,12 +67,12 @@
     </div>
   </div>
     <!-- Scripts -->  
-    <script src="<?= asset('admin/js/vendor/jquery.min.js',Config::get('app.secure_urls')); ?>"></script>
-    <script src="<?= asset('admin/js/vendor/jquery-ui.min.js',Config::get('app.secure_urls')); ?>"></script>
-    <script src="<?= asset('admin/js/vendor/bootstrap.js',Config::get('app.secure_urls')); ?>"></script>
-    <script src="<?= asset('admin/js/vendor/dropzone.js',Config::get('app.secure_urls')); ?>"></script>
-    <script src="<?= asset('admin/js/vendor/chosen.jquery.min.js',Config::get('app.secure_urls')); ?>"></script>
+    <script src="<?= asset('admin/js/vendor/jquery.min.js',config('app.secure_urls')); ?>"></script>
+    <script src="<?= asset('admin/js/vendor/jquery-ui.min.js',config('app.secure_urls')); ?>"></script>
+    <script src="<?= asset('admin/js/vendor/bootstrap.js',config('app.secure_urls')); ?>"></script>
+    <script src="<?= asset('admin/js/vendor/dropzone.js',config('app.secure_urls')); ?>"></script>
+    <script src="<?= asset('admin/js/vendor/chosen.jquery.min.js',config('app.secure_urls')); ?>"></script>
     <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-    <script src="<?= asset('admin/js/admin.js',Config::get('app.secure_urls')); ?>"></script>
+    <script src="<?= asset('admin/js/admin.js',config('app.secure_urls')); ?>"></script>
 </body>
 </html>

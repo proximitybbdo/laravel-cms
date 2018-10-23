@@ -35,7 +35,7 @@
                 <button class="link-add-button btn btn-success" 
                         data-linked-module-type="{{ $key }}"
                         {{ $custom_view == 'admin.partials.form' ? 'disabled' : '' }} data-item-id="{{ $model != null ? $model->id : null }}">
-                  Add {{ Config::get('cms.' . $key . '.description') }}
+                  Add {{ config('cms.' . $key . '.description') }}
                 </button>
               </div>
             </div>

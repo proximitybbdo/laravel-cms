@@ -4,7 +4,7 @@
 @section('content')
 
 <form class="form-signin" method="POST" action="<?= route('sentinel.postLogin') ?>">
-  <!--<img src="<?= asset('assets/img/logo@2x.png',Config::get('app.secure_urls')); ?>" alt="">-->
+  <!--<img src="<?= asset('assets/img/logo@2x.png',config('app.secure_urls')); ?>" alt="">-->
   <h2 class="form-signin-heading">Please sign in</h2>
 
   <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">

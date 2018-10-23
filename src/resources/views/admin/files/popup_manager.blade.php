@@ -7,13 +7,13 @@
   <title>Satellic Admin - BBDO</title>
 
   <!-- Bootstrap Core CSS -->
-  <link href="<?= asset('assets/admin/css/bootstrap.min.css',Config::get('app.secure_urls')) ?>" rel="stylesheet">
+  <link href="<?= asset('assets/admin/css/bootstrap.min.css',config('app.secure_urls')) ?>" rel="stylesheet">
 
   <!-- Custom CSS -->
-  <link href="<?= asset('assets/admin/css/sb-admin.css',Config::get('app.secure_urls'))?>" rel="stylesheet">
+  <link href="<?= asset('assets/admin/css/sb-admin.css',config('app.secure_urls'))?>" rel="stylesheet">
   <!-- Custom Fonts -->
-  <link href="<?= asset('assets/admin/font-awesome/css/font-awesome.min.css',Config::get('app.secure_urls')) ?>" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="<?= asset('assets/admin/css/dropzone.css',Config::get('app.secure_urls')); ?>">
+  <link href="<?= asset('assets/admin/font-awesome/css/font-awesome.min.css',config('app.secure_urls')) ?>" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="<?= asset('assets/admin/css/dropzone.css',config('app.secure_urls')); ?>">
 
   <style type="text/css">
     [class^="icon-"], [class*=" icon-"] {
@@ -48,12 +48,12 @@
     </div>
   </div>
 
-  <script src="<?= asset('assets/admin/js/vendor/jquery.min.js',Config::get('app.secure_urls')); ?>"></script>
-  <script src="<?= asset('assets/admin/js/vendor/jquery-ui.min.js',Config::get('app.secure_urls')); ?>"></script>
-  <script src="<?= asset('assets/admin/js/vendor/bootstrap.js',Config::get('app.secure_urls')); ?>"></script>
-  <script src="<?= asset('assets/admin/js/vendor/dropzone.js',Config::get('app.secure_urls')); ?>"></script>
-  <script src="<?= asset('assets/admin/js/vendor/chosen.jquery.min.js',Config::get('app.secure_urls')); ?>"></script>
-  <script src="<?= asset('assets/admin/js/admin.js',Config::get('app.secure_urls')); ?>"></script>
+  <script src="<?= asset('assets/admin/js/vendor/jquery.min.js',config('app.secure_urls')); ?>"></script>
+  <script src="<?= asset('assets/admin/js/vendor/jquery-ui.min.js',config('app.secure_urls')); ?>"></script>
+  <script src="<?= asset('assets/admin/js/vendor/bootstrap.js',config('app.secure_urls')); ?>"></script>
+  <script src="<?= asset('assets/admin/js/vendor/dropzone.js',config('app.secure_urls')); ?>"></script>
+  <script src="<?= asset('assets/admin/js/vendor/chosen.jquery.min.js',config('app.secure_urls')); ?>"></script>
+  <script src="<?= asset('assets/admin/js/admin.js',config('app.secure_urls')); ?>"></script>
 
   <script type="text/javascript">
     (function($) {
