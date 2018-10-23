@@ -34,7 +34,7 @@ Route::group(['prefix' => 'icontrol', 'middleware' => 'web','namespace' => '\BBD
   
   Route::group( ['middleware' => \BBDO\Cms\Http\Middleware\Admin\BasicMiddleware::class], function() {
     
-    Route::get('dashboard', ['uses' => 'AdminController@index', 'as' => 'dashboard');
+    Route::get('dashboard', ['uses' => 'AdminController@index', 'as' => 'dashboard']);
     Route::get('clearcache', [
             'uses'  => 'AdminController@getClearcache',
             'as'    => 'icontrol.clearcache'
