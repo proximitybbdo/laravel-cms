@@ -48,7 +48,10 @@ Route::group(['prefix' => 'icontrol', 'middleware' => 'web', 'namespace' => '\BB
             'as' => 'icontrol.storeClearcache'
         ]);
 
-        Route::post('geturlfriendlytext', 'HelperController@postUrlFriendlyText')->name('postUrlFriendlyText');
+        Route::post('geturlfriendlytext',[
+            'uses'  => 'HelperController@postUrlFriendlyText',
+            'as' => 'icontrol.postUrlFriendlyText'
+        ]);
 
         Route::group(['middleware' => \BBDO\Cms\Http\Middleware\Admin\AdminMiddleware::class], function () {
             Route::get('roles', 'SentinelController@showRolesForm');
