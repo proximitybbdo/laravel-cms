@@ -3,9 +3,9 @@
 namespace BBDO\Cms\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use BBDO\Cms\Domain;
-use BBDO\Cms\Models;
+use Image;
+use File;
 
 class FilesController extends BaseController
 {
@@ -116,7 +116,7 @@ class FilesController extends BaseController
         if ($file != null) {
             $extension = $file->getClientOriginalExtension();
 
-            $dir = base_path()."/public/uploads/$manager_type/";
+            $dir = public_path('/uploads/'.$manager_type.'/');
             $filename = str_replace('.'.$extension, "", $file->getClientOriginalName()) . date("ymdHis") . ".$extension";
 
             $upload_success = $file->move($dir, $filename);
@@ -138,7 +138,7 @@ class FilesController extends BaseController
                     $config['optimize_original'] &&
                     $imageWidth != $config['width']
                 ) {
-                    $image = \Image::make($dir . $filename);        
+                    $image = Image::make($dir . $filename);
                     $image->resize($config['width'], $config['height'], function ($constraint) {
                         $constraint->aspectRatio();
                     });
@@ -148,7 +148,7 @@ class FilesController extends BaseController
                 }
 
                 if ($config != null) {
-                    $image = \Image::make($dir . $filename);
+                    $image = Image::make($dir . $filename);
 
                     if ($config['generate_thumb']) {
                         $image->resize($config['thumb_width'], $config['thumb_height'], function ($constraint) {
@@ -156,8 +156,8 @@ class FilesController extends BaseController
                         });
 
                         // create the directory if it doesn't exist
-                        if (!\File::exists($dir . "thumbs/")) {
-                            \File::makeDirectory($dir . "thumbs/", 0775, true);
+                        if (!File::exists($dir . "thumbs/")) {
+                            File::makeDirectory($dir . "thumbs/", 0775, true);
                         }
 
                         // save the thumbnail
@@ -177,7 +177,6 @@ class FilesController extends BaseController
             $this->service->create($data);
 
             if ($upload_success) {
-                // resizing an uploaded file
                 return response()->json('success', 200);
             } else {
                 return response()->json('error', 400);
@@ -229,8 +228,8 @@ class FilesController extends BaseController
 
         if (count($files) > 0) {
             foreach($files as $file) {
-                $path = base_path()."public/uploads/$manager_type/";
-                \File::delete($path.$file->file);
+                $path = public_path('/uploads/'.$manager_type.'/');
+                File::delete($path.$file->file);
             }
 
             $ids = $files->pluck('id');

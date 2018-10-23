@@ -54,25 +54,35 @@ class ItemController extends BaseController
         if(config("cms.$this->module_type.single_item") != null && config("cms.$this->module_type.single_item") == true){
             $single_item = $this->itemService->getSingleItem($cat);
             if($single_item != null){
-                return redirect("icontrol/items/$module_type/update/$this->default_lang/$single_item->id");
+                return redirect()->route('items.edit', [
+                    'module_type'   => $module_type,
+                    'action'        => 'update',
+                    'lang'          => $this->default_lang,
+                    'id'            => $single_item->id
+                ]);
             }
-            return redirect("icontrol/items/$module_type/add/$this->default_lang");
+
+            return redirect()->route('items.add', [
+                'module_type'   => $module_type,
+                'action'        => 'add',
+                'lang'          => $this->default_lang,
+            ]);
         }
 
         $links = array();
-        if(config("cms.$this->module_type.links") != null){
-            foreach(config("cms.$this->module_type.links") as $key => $link_cfg){
+        if(config('cms.'.$this->module_type.'.links') != null){
+            foreach(config('cms.'.$this->module_type.'.links') as $key => $link_cfg){
                 if($link_cfg['overview_filter'] === true) {
                     $links[$key] = array(
-                        'description'=>$link_cfg['description'],
-                        'items'=>$this->itemService->getAllAdminList($key,null),
-                        'type'=>$link_cfg['type'],
-                        'input_type'=>$link_cfg['input_type'],
+                        'description' => $link_cfg['description'],
+                        'items' => $this->itemService->getAllAdminList($key, null),
+                        'type' => $link_cfg['type'],
+                        'input_type' => $link_cfg['input_type'],
                     );
                 }
             }
         }
-        $this->data["links"] = $links;
+        $this->data['links'] = $links;
         return view('bbdocms::admin.items.overview', $this->data);
     }
 
@@ -90,16 +100,16 @@ class ItemController extends BaseController
         if($cat == 'all'){
             $cat = null;
         }
-        $sort = config("cms.$module_type.sort_by") != null ? config("cms.$module_type.sort_by") : 'sort';
+        $sort = config('cms.'.$module_type.'.sort_by') != null ? config('cms.'.$module_type.'.sort_by') : 'sort';
         $order = 'ASC';
-        if(array_key_exists("sort_order",config("cms.$module_type"))) {
-            $order = config("cms.$module_type.sort_order");
+        if(array_key_exists('sort_order',config('cms.'.$module_type))) {
+            $order = config('cms.'.$module_type.'.sort_order');
         }
         $items = $this->itemService->getAllAdmin($cat,$sort, $order);
         if(config("cms.$module_type.subitems_type") != null && config("cms.$module_type.subitems_type") != ''){
             foreach($items as $item){
-                $subitem_service = new Domain\Item(config("cms.$module_type.subitems_type"));
-                $subitem_sort = config("cms.".config("cms.$module_type.subitems_type").".overview_link.sort_by") != null ? config("cms.".config("cms.$module_type.subitems_type").".overview_link.sort_by") : 'sort';
+                $subitem_service = new Domain\Item(config('cms.'.$module_type.'.subitems_type'));
+                $subitem_sort = config('cms.'.config('cms.'.$module_type.'.subitems_type').'.overview_link.sort_by') != null ? config("cms.".config("cms.$module_type.subitems_type").".overview_link.sort_by") : 'sort';
                 $item->subitems = $subitem_service->getAllAdmin($item->id,$subitem_sort, $order);
             }
         }
@@ -219,15 +229,15 @@ class ItemController extends BaseController
             "/overview/" . ($back_link_id != null ? $back_link_id : ($item->category_id != null ? '/'.$item->category_id:'')));
         $this->data['block_list'] = null;
 
-        if(config("cms.$this->module_type.blocks") != []){
+        if(config('cms.'.$this->module_type.'.blocks') != []){
             $arr_block_list = [];
 
-            $arr_block_list = collect(config("cms.$this->module_type.blocks"))->map(function($item,$key){
+            $arr_block_list = collect(config('cms.'.$this->module_type.'.blocks'))->map(function($item,$key){
                 return [
-                    'type'=>$key,
-                    'description'=>$item['description'],
-                    'amount'=>$item['amount'],
-                    'enabled'=>true
+                    'type' => $key,
+                    'description' => $item['description'],
+                    'amount' => $item['amount'],
+                    'enabled' => true
                 ];
             });
 
@@ -309,7 +319,7 @@ class ItemController extends BaseController
                         $slug,
                         $lang
                     ),
-                    config("cms.$this->module_type.preview")
+                    config('cms.'.$this->module_type.'.preview')
                 )
             );
         }

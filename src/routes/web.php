@@ -84,7 +84,7 @@ Route::group(['prefix' => 'icontrol', 'middleware' => 'web', 'namespace' => '\BB
                 Route::get('{module_type}/{action}/{lang}/{id}/{back_module_type}', 'ItemController@getAddItem');
                 Route::post('{module_type}/{action}/{lang}/{id}/{back_module_type}', 'ItemController@getAddItem');
                 Route::get('{module_type}/{action}/{lang}/{id}', 'ItemController@getAddItem')->name('items.edit');
-                Route::get('{module_type}/{action}/{lang}', 'ItemController@getAddItem');
+                Route::get('{module_type}/{action}/{lang}', 'ItemController@getAddItem')->name('items.add');
                 //Route::post('{module_type}/{action}/{lang}', 'ItemController@getAddItem');
 
                 Route::get('{module_type}/{action}', 'ItemController@getAddItem');
