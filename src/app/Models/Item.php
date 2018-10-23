@@ -29,13 +29,13 @@ class Item extends Model
         parent::boot();
 
         static::deleting(function ($item) {
-            ItemBlock::destroy($item->blocksAllVersions()->pluck('id')->all());
+            $item->blocksAllVersions()->delete()
         });
 
         static::deleted(function ($item) {
-            if (count($item->content()) > 0) {
+            if ($item->content()->count() > 0) {
                 $item->links()->sync(array());
-                ItemContent::destroy($item->content()->pluck('id')->all());
+                $item->content()->delete();
             }
         });
 
