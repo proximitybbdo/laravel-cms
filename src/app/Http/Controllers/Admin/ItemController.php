@@ -565,7 +565,7 @@ class ItemController extends BaseController
 
         return view('bbdocms::admin.partials.form_block', [
             'type' => $type,
-            'data' => config('admin.' . strtoupper($module_type) . '.blocks.' . $type),
+            'data' => config('cms.' . strtoupper($module_type) . '.blocks.' . $type),
             'index' => $count,
             'model' => $model,
             'custom_view' => null,
