@@ -179,19 +179,20 @@ class Item extends Model
     }
 
     //Links functions
-    public function linksType($link_type)
-    {
 
+    public function linksType($link_type = null)
+    {
         $cache_key = 'linkstype_' . $this->id . 'type_' . $link_type;
 
-        if (Cache::has($cache_key)) {
-            $result = Cache::get($cache_key);
-        } else {
-            $result = $this->links()->where('module_type', $link_type)->where('status', '1')->get();
-            Cache::put($cache_key, $result, Carbon::now()->addDays(30));
-        }
+        return Cache::remember($cache_key, 60*24*30, function() use($link_type) {
+            $result = $this->links()->where('status', '1');
 
-        return $result;
+            if(!is_null($link_type)) {
+                $result = $result->where('module_type', $link_type);
+            }
+
+            return $result->get();
+        });
     }
 
     public function backLinksType($link_type)

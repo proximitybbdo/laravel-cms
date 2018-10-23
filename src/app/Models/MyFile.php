@@ -18,8 +18,8 @@ use Illuminate\Database\Eloquent\Model;
 
         static::deleted(function($item)
         {
-          if(count($item->modules())>0){
-            ItemContent::destroy($item->modules()->pluck('id'));
+          if($item->modules()->count() > 0){
+            $item->modules()->delete();
           }
         });
 
