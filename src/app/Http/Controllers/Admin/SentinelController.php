@@ -35,7 +35,7 @@ class SentinelController extends Controller
         $role = Sentinel::findRoleBySlug('publisher');
         $role->users()->attach($user);
 
-        return redirect(url()->to('/icontrol'));
+        return redirect()->route('login');
     }
 
     public function showRegistrationForm()
