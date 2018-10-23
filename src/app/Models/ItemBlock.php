@@ -22,7 +22,7 @@ class ItemBlock extends Model {
 
       static::deleting(function($block)
       {
-        if(count($block->content())>0){
+        if(is_countable($block->content()) && count($block->content())>0){
           $block->links()->sync(array());
           ItemBlockContent::destroy($block->content()->pluck('id')->all());
         }

@@ -284,3 +284,6 @@ if (! function_exists('xml2array')) {
     }
 }
 
+function is_countable($var) {
+    return (is_array($var) || $var instanceof Countable);
+}
