@@ -435,7 +435,7 @@ class ItemController extends BaseController
                     foreach ($input_links as $link) {
                         $links[$link] = [
                             'link_type'   =>$key,
-                            'source_type' =>$module_type,
+                            //'source_type' =>$module_type,
                         ];
                     }
                 }
