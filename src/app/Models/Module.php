@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
     protected $table = 'files_modules';
 
-    protected $hidden = array();
-    protected $fillable = array('file_id','module_type');
+    protected $hidden = [];
+    protected $fillable = ['file_id','module_type'];
 
   }

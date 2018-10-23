@@ -9,8 +9,8 @@ class ItemBlockContent extends Model {
   public $timestamps = true;
   protected $softDelete = false;
 
-  protected $hidden = array();
-  protected $fillable = array('item_id','block_id','type','content');
+  protected $hidden = [];
+  protected $fillable = ['item_id','block_id','type','content'];
 
   public function item()
   {

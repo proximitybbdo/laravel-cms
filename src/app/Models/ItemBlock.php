@@ -13,8 +13,8 @@ class ItemBlock extends Model {
   public $timestamps = true;
   protected $softDelete = false;
 
-  protected $hidden = array();
-  protected $fillable = array('item_id','type','lang','version','sort','is_active');
+  protected $hidden = [];
+  protected $fillable = ['item_id','type','lang','version','sort','is_active'];
 
   public static function boot()
   {

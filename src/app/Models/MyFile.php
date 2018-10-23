@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Model;
     public $timestamps = true;
     protected $softDelete = false;
 
-    protected $hidden = array();
-    protected $fillable = array('file','type','description','editor_id');
+    protected $hidden = [];
+    protected $fillable = ['file','type','description','editor_id'];
 
     public static function boot()
     {
@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
         static::deleted(function($item)
         {
           if(count($item->modules())>0){
-            Models\ItemContent::destroy($item->modules()->pluck('id'));
+            ItemContent::destroy($item->modules()->pluck('id'));
           }
         });
 

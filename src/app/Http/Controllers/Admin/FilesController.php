@@ -30,7 +30,6 @@ class FilesController extends BaseController
 
     public function filterRequests($route, $request) 
     {
-
     }
 
     public function getManager($manager_type, $module_type = null, $input_type = null ,$input_id = null, $value = null)
@@ -102,12 +101,10 @@ class FilesController extends BaseController
 
     public function postUpload(Request $request, $manager_type, $module_type = null, $input_type = null)
     {
-        if ($module_type != null) {
-            // if content module
-            // use general Content module
-            if (in_array($module_type, config('cms.content_modules'))) {
-                $module_type = 'CONTENT';
-            }
+        // if content module
+        // use general Content module
+        if ($module_type != null && in_array($module_type, config('cms.content_modules'))) {
+            $module_type = 'CONTENT';
         }
 
         $file = $request->file('file');
@@ -210,7 +207,7 @@ class FilesController extends BaseController
 
         if ($id != null) {
             $data = array(
-                "id"    => $id,
+                'id'    => $id,
             );
 
             $this->service->garbage($data);
@@ -234,7 +231,7 @@ class FilesController extends BaseController
             $ids = $files->pluck('id');
 
             $data = array(
-                "ids"   => $ids,
+                'ids'   => $ids,
             );
 
             $this->service->purge($data);

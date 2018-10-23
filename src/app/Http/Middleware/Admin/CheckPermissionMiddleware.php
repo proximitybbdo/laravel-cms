@@ -92,9 +92,7 @@ class CheckPermissionMiddleware
         }
 
         $permission = strtolower($module_type) . ($action != null ? '.'.strtolower($action):'');
-        
-        if ( $user->hasAccess($permission) ) return true;
-        else return $permission;
 
+        return $user->hasAccess($permission) ? true : $permission;
     }
 }

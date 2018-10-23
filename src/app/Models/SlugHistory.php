@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Model;
     public $timestamps = true;
     protected $softDelete = false;
 
-    protected $hidden = array();
-    protected $fillable = array('item_id','lang','slug');
+    protected $hidden = [];
+    protected $fillable = ['item_id','lang','slug'];
 
     public function item()
     {
