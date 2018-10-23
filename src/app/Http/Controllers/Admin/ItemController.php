@@ -319,7 +319,7 @@ class ItemController extends BaseController
         $this->data['version'] = $version;
 
         if( $this->data['custom_view'] ){
-            return \View::make( $this->data['custom_view'], $this->data )->render();
+            return view()->make('bbdocms::'. $this->data['custom_view'], $this->data )->render();
         }
 
         return view('bbdocms::admin.items.add', $this->data);

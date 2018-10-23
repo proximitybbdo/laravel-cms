@@ -20,10 +20,10 @@ class FilesController extends BaseController
         $this->default_lang = config("cms.default_locale");
         $this->languages = config("app.locales");
 
-        \View::share('modules', config('cms.modules'));
-        \View::share('user', "");
-        \View::share('module_type', $this->module_type);
-        \View::share('module_title', config('cms.'.$this->module_type.'.description'));
+        view()->share('modules', config('cms.modules'));
+        view()->share('user', "");
+        view()->share('module_type', $this->module_type);
+        view()->share('module_title', config('cms.'.$this->module_type.'.description'));
 
         $this->service = new Domain\File();
     }

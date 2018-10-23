@@ -32,7 +32,7 @@
 
       <div class="row">
         <div class="col-lg-12">
-          <?= View::make('admin.partials.flashes', array('error' => isset($error) ? $error : null, 'errors' => isset($errors) ? $errors : null)); ?>
+          <?= view()->make('bbdocms::admin.partials.flashes', array('error' => isset($error) ? $error : null, 'errors' => isset($errors) ? $errors : null)); ?>
         </div>
       </div>
 <form id="myDropzone" class="dropzone dz-clickable" method="POST" action="<?= url("icontrol/files/$manager_type/$module_type/upload") ?>" data-manager-type="<?= $manager_type ?>" data-mode="<?= $mode ?>" data-input="<?= $input_id ?>" data-module="<?= $module_type ?>" data-max-filesize="<?= $maxFileSize ?>" data-accepted-files="<?= $acceptedFiles ?>">
@@ -42,7 +42,7 @@
 </div>
 </form>
 <div id="filelist" class="popup">
-  <?= View::make("/admin/partials/filelist", array("manager_type"=>$manager_type,"module_type"=>$module_type,"files"=>$files,"categories"=>$categories,"mode"=>"popup","value"=>$value,"input_id"=>$input_id,"content_links"=>$content_links))->render() ?>
+  <?= view()->make('bbdocms::admin.partials.filelist', array("manager_type"=>$manager_type,"module_type"=>$module_type,"files"=>$files,"categories"=>$categories,"mode"=>"popup","value"=>$value,"input_id"=>$input_id,"content_links"=>$content_links))->render() ?>
 </div>
 </div>
     </div>
