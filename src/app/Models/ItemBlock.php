@@ -59,25 +59,12 @@ class ItemBlock extends Model
 
     public function contentFe()
     {
-        $preview = false;
-        if (Input::get('preview') != null) {
-            if (\Auth::check()) {
-                $preview = true;
-            }
-        }
+        $preview = ( !is_null(Input::get('preview')) && Auth::check() );
         $lang = \LaravelLocalization::getCurrentLocale();
-        $cache_key = 'block_content_' . $this->id . 'lang_' . $lang;
 
-        if (Cache::has($cache_key) && !$preview) {
-            $result = Cache::get($cache_key);
-        } else {
-            $result = $this->content;
-            if (!$preview) {
-                Cache::put($cache_key, $result, Carbon::now()->addDays(30));
-            }
-        }
-
-        return $result;
+        Cache::remember('block_content_' . $this->id . 'lang_' . $lang . ($preview ? uniqid(true) : ''), config('cms.default_cache_duration'), function() use($preview, $lang) {
+            return $this->content;
+        });
     }
 
     public function getContent($key = null)
@@ -90,7 +77,6 @@ class ItemBlock extends Model
         } else {
             return $this->arr_content;
         }
-        return '';
     }
 
     public function getContentFile($key, $type)
@@ -117,9 +103,7 @@ class ItemBlock extends Model
     // Links functions
     public function linksType($link_type = null)
     {
-        $cache_key = 'block_linkstype_' . $this->id . 'type_' . $link_type;
-
-        return Cache::remember($cache_key, 60*24*30, function() use($link_type) {
+        return Cache::remember('block_linkstype_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function() use($link_type) {
             $result = $this->links()->where('status', '1');
 
             if(!is_null($link_type)) {
@@ -149,39 +133,28 @@ class ItemBlock extends Model
     public function linksFirst($link_type)
     {
 
-        $cache_key = 'block_firstlink_' . $this->id . 'type_' . $link_type;
-
-        if (Cache::has($cache_key)) {
-            $result = Cache::get($cache_key);
-        } else {
+        return Cache::remember('block_firstlink_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function() use($link_type) {
             $result = $this->links->filter(function ($item) use ($link_type) {
                 return $item->module_type == $link_type;
             })->first();
             if (!$result) {
                 $result = new Item();
             }
-            Cache::put($cache_key, $result, Carbon::now()->addDays(30));
-        }
-        return $result;
+            return $result;
+        });
     }
 
     public function linksFirstType($link_type)
     {
 
-        $cache_key = 'block_firstlinktype_' . $this->id . 'type_' . $link_type;
-
-        if (Cache::has($cache_key)) {
-            $result = Cache::get($cache_key);
-        } else {
+        return Cache::remember('block_firstlinktype_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function() use($link_type) {
             $result = $this->links->filter(function ($item) use ($link_type) {
                 return $item->getOriginal("pivot_link_type") == $link_type;
             })->first();
             if (!$result) {
                 $result = new Item();
             }
-            Cache::put($cache_key, $result, Carbon::now()->addDays(30));
-        }
-        return $result;
+        });
     }
 
     public function getType()

@@ -119,29 +119,15 @@ class Item extends Model
     //CONTENT functions
     public function contentFe()
     {
-        $preview = false;
-        if (Input::get('preview') != null) {
-            if (Auth::check()) {
-                $preview = true;
-            }
-        }
+        $preview = ( !is_null(Input::get('preview')) && Auth::check() );
         $lang = \LaravelLocalization::getCurrentLocale();
-        $cache_key = 'content_' . $this->id . 'lang_' . $lang;
 
-        if (Cache::has($cache_key) && !$preview) {
-            $result = Cache::get($cache_key);
-        } else {
-            $result = $this->hasMany('BBDO\Cms\Models\ItemContent', 'item_id')
+        return Cache::remember('content_' . $this->id . 'lang_' . $lang . ($preview ? uniqid(true) : ''), config('cms.default_cache_duration'), function() use($preview, $lang){
+            return $this->hasMany('BBDO\Cms\Models\ItemContent', 'item_id')
                 ->where('lang', $lang)
                 ->where('version', '<=', $preview ? 1 : 0)
                 ->orderBy('version', 'ASC')->get();
-
-            if (!$preview) {
-                Cache::put($cache_key, $result, Carbon::now()->addDays(30));
-            }
-        }
-
-        return $result;
+        });
     }
 
 
@@ -182,9 +168,7 @@ class Item extends Model
 
     public function linksType($link_type = null)
     {
-        $cache_key = 'linkstype_' . $this->id . 'type_' . $link_type;
-
-        return Cache::remember($cache_key, 60*24*30, function() use($link_type) {
+        return Cache::remember('linkstype_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function() use($link_type) {
             $result = $this->links()->where('status', '1');
 
             if(!is_null($link_type)) {
@@ -197,51 +181,31 @@ class Item extends Model
 
     public function backLinksType($link_type)
     {
-
-        $cache_key = 'backlinkstype_' . $this->id . 'type_' . $link_type;
-
-        if (Cache::has($cache_key)) {
-            $result = Cache::get($cache_key);
-        } else {
-            $result = $this->backLinks()->where('module_type', $link_type)->where('status', '1')->get();
-            Cache::put($cache_key, $result, Carbon::now()->addDays(30));
-        }
-
-        return $result;
+        return Cache::remember('backlinkstype_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function() use($link_type) {
+            return $this->backLinks()->where('module_type', $link_type)->where('status', '1')->get();
+        });
     }
 
     public function linksFirst($link_type)
     {
-
-        $cache_key = 'firstlink_' . $this->id . 'type_' . $link_type;
-
-        if (Cache::has($cache_key)) {
-            $result = Cache::get($cache_key);
-        } else {
+        return Cache::remember('firstlink_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function() use($link_type) {
             $result = $this->links()->where('module_type', $link_type)->first();
             if (!$result) {
                 $result = new Item();
             }
-            Cache::put($cache_key, $result, Carbon::now()->addDays(30));
-        }
-        return $result;
+            return $result;
+        });
     }
 
     public function linksFirstType($link_type)
     {
-
-        $cache_key = 'firstlinktype_' . $this->id . 'type_' . $link_type;
-
-        if (Cache::has($cache_key)) {
-            $result = Cache::get($cache_key);
-        } else {
+        return Cache::remember('firstlinktype_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function() use($link_type) {
             $result = $this->links()->where('link_type', $link_type)->first();
             if (!$result) {
                 $result = new Item();
             }
-            Cache::put($cache_key, $result, Carbon::now()->addDays(30));
-        }
-        return $result;
+            return $result;
+        });
     }
 
     //EXTRA functions
@@ -259,7 +223,7 @@ class Item extends Model
 
     public function getStartDateAttribute($value)
     {
-        if ($value == null)
+        if (is_null($value))
             return Carbon::now()->format('d-m-Y');
         else
             return Carbon::parse($value)->format('d-m-Y');
@@ -268,29 +232,15 @@ class Item extends Model
     //BLOCKS functions
     public function blocksFe()
     {
-        $preview = false;
-        if (Input::get('preview') != null) {
-            if (Auth::check()) {
-                $preview = true;
-            }
-        }
+        $preview = (!is_null(Input::get('preview')) && Auth::check());
         $lang = \LaravelLocalization::getCurrentLocale();
-        $cache_key = 'blocks_fe_' . $this->id . 'lang_' . $lang;
-        //dd($preview);
-        if (Cache::has($cache_key) && !$preview) {
-            $result = Cache::get($cache_key);
-        } else {
-            $result = $this->hasMany('BBDO\Cms\Models\ItemBlock', 'item_id')
+
+        return Cache::remember('blocks_fe_' . $this->id . 'lang_' . $lang . ($preview ? uniqid(true) : ''), 24*60*30, function() use($lang, $preview) {
+            return $this->hasMany('BBDO\Cms\Models\ItemBlock', 'item_id')
                 ->where('lang', $lang)
                 ->where('version', '=', $preview ? 1 : 0)
                 ->orderBy('version', 'ASC')->orderBy('sort', 'ASC')
                 ->with('content')->with('links')->get();
-
-            if (!$preview) {
-                Cache::put($cache_key, $result, Carbon::now()->addDays(30));
-            }
-        }
-
-        return $result;
+        });
     }
 }
