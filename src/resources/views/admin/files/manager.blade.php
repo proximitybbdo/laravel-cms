@@ -15,5 +15,5 @@
 </div>
 </form>
 <div id="filelist">
-  <?= View::make("/admin/partials/filelist", array("manager_type"=>$manager_type,"module_type"=>$module_type,"files"=>$files,"categories"=>$categories,"mode"=>$mode,"value"=>$value,"input_id"=>$input_id,"content_links"=>$content_links))->render() ?>
+  <?= view()->make('bbdocms::admin.partials.filelist', array("manager_type"=>$manager_type,"module_type"=>$module_type,"files"=>$files,"categories"=>$categories,"mode"=>$mode,"value"=>$value,"input_id"=>$input_id,"content_links"=>$content_links))->render() ?>
 </div>
