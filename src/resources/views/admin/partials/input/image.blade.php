@@ -5,7 +5,7 @@
                 {{ $title }}
         </label>
         @endif
-        <div class="input-group image-preview" data-content="{{ $has_value ? $model->file_content($content[$type],$type) : '' }}" data-toggle="{{ $has_value ? 'popover' : '' }}">
+        <div class="input-group image-preview" data-content="{{ $has_value ? $model->fileContent($content[$type],$type) : '' }}" data-toggle="{{ $has_value ? 'popover' : '' }}">
             
             <input type="text" value="{{ $has_value ? $model->file($content[$type])->file : '' }}" class="form-control image-preview-filename" disabled="disabled"> <!-- don't give a name === doesn't send on POST/GET -->
             <span class="input-group-btn">
