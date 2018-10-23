@@ -490,7 +490,7 @@
         ],
         content_css: [
           window.base_url + "/admin/components/tinymce/css/tiny_mce.css",
-          window.base_url + "/css/app.css",
+          //window.base_url + "/css/app.css",
         ],
         toolbar: toolbar,
         language_url:
