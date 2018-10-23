@@ -23,9 +23,11 @@ class ItemBlock extends Model
         parent::boot();
 
         static::deleting(function ($block) {
+            dd($block->content());
             if (is_countable($block->content()) && count($block->content()) > 0) {
                 $block->links()->sync(array());
-                ItemBlockContent::destroy($block->content()->pluck('id')->all());
+                $block->content()->delete();
+                //ItemBlockContent::destroy($block->content()->pluck('id')->all());
             }
         });
 
