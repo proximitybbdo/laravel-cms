@@ -121,9 +121,7 @@ class ItemBlock extends Model
         if (Cache::has($cache_key)) {
             $result = Cache::get($cache_key);
         } else {
-            $result = $this->links()->filter(function ($item) use ($link_type) {
-                return ($item->module_type == $link_type && $item->status == 1);
-            })->first();
+            $result = $this->links()->where('module_type', $link_type)->where('status', '1')->get();
             Cache::put($cache_key, $result, Carbon::now()->addDays(30));
         }
 
