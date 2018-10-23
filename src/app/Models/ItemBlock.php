@@ -62,7 +62,7 @@ class ItemBlock extends Model
         $preview = ( !is_null(Input::get('preview')) && Auth::check() );
         $lang = \LaravelLocalization::getCurrentLocale();
 
-        Cache::remember('block_content_' . $this->id . 'lang_' . $lang . ($preview ? uniqid(true) : ''), config('cms.default_cache_duration'), function() use($preview, $lang) {
+        return Cache::remember('block_content_' . $this->id . 'lang_' . $lang . ($preview ? uniqid(true) : ''), config('cms.default_cache_duration'), function() use($preview, $lang) {
             return $this->content;
         });
     }
