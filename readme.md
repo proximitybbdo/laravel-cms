@@ -37,6 +37,12 @@
          'Reminder'   => Cartalyst\Sentinel\Laravel\Facades\Reminder::class,
          'Sentinel'   => Cartalyst\Sentinel\Laravel\Facades\Sentinel::class,
 
+   ### Intervention Image
+   
+   - provider: `Intervention\Image\ImageServiceProvider::class,`
+   
+   - Alias: `'Image' => Intervention\Image\Facades\Image::class`
+   
    ### Database
    
    Remove the user & password migration file who are present by default in the new Laravel project (as it's included in the cms package too)

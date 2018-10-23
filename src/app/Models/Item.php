@@ -111,11 +111,6 @@ class Item extends Model {
                 ->where('items_block.version',$version)
                 ->where('items_block.lang',$lang)
                 ->get();
-        // $this->belongsToMany('BBDO\Cms\Models\Item', 'items_block_links', 'item_id', 'link_id')
-        // ->where('lang',$lang)
-        // ->where('items_block_links.version',$version)
-        // ->with('itemBlock')
-        // ->withPivot('link_type');
     }
 
     //CONTENT functions
@@ -253,7 +248,7 @@ class Item extends Model {
     }
 
     public function fileContent($id,$type){
-        return \RecorCorporate\Domain\File::getImageContainer($id,$type);
+        return \BBDO\Cms\Domain\File::getImageContainer($id,$type);
     }
 
     public function getStartDateAttribute($value)

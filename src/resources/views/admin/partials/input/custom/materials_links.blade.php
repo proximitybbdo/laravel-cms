@@ -6,7 +6,7 @@
   <ul id="linked_items" class=" list-unstyled input-group links chosen_links" multiple>
     @foreach($link["items"] as $item)
     <?php
-      $model =  new RecorCorporate\Models\Item();
+      $model =  new \BBDO\Cms\Models\Item();
       $model->language = 'nl-BE';
       $model->id = $item->id;
     ?>

@@ -4,7 +4,7 @@ namespace BBDO\Cms\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use BBDO\Cms\Domain;
-use Image;
+use Intervention\Image\Facades\Image;
 use File;
 
 class FilesController extends BaseController
@@ -37,8 +37,8 @@ class FilesController extends BaseController
     {
         $this->prepareManager($manager_type, $module_type, $input_type, $input_id, $value);
 
-        $this->data['maxFileSize'] = config("cms.files.$manager_type.maxFileSize");
-        $this->data['acceptedFiles'] = config("cms.files.$manager_type.acceptedFiles");
+        $this->data['maxFileSize'] = config('cms.files.'.$manager_type.'.maxFileSize');
+        $this->data['acceptedFiles'] = config('cms.files.'.$manager_type.'.acceptedFiles');
 
         if ($module_type != null) {
             $this->data['mode'] = 'popup';
@@ -55,8 +55,8 @@ class FilesController extends BaseController
         $this->prepareManager($manager_type, $module_type, $input_type, $input_id, $value);
 
         $this->data['mode'] = 'popup';
-        $this->data['maxFileSize'] = config("cms.files.$manager_type.maxFileSize");
-        $this->data['acceptedFiles'] = config("cms.files.$manager_type.acceptedFiles");
+        $this->data['maxFileSize'] = config('cms.files.'.$manager_type.'.maxFileSize');
+        $this->data['acceptedFiles'] = config('cms.files.'.$manager_type.'.acceptedFiles');
 
         return view('bbdocms::admin.files.popup_manager', $this->data);
     }
@@ -74,8 +74,7 @@ class FilesController extends BaseController
     {
         // if content module
         // use general Content module
-        if (in_array($module_type, config('cms.content_modules')))
-        {
+        if (in_array($module_type, config('cms.content_modules'))) {
             $module_type = 'CONTENT';
         }
 
@@ -167,11 +166,11 @@ class FilesController extends BaseController
             }
 
             $data = array(
-                "file"          => $filename,
-                "type"          => $manager_type,
-                "description"   => "",
-                "editor_id"     => 1,
-                "module"        => $module_type,
+                'file'          => $filename,
+                'type'          => $manager_type,
+                'description'   => '',
+                'editor_id'     => 1,
+                'module'        => $module_type,
             );
 
             $this->service->create($data);
@@ -192,9 +191,9 @@ class FilesController extends BaseController
 
         if ($id != null && $module != null && $status != null) {
             $data = array(
-                "id"        =>  $id,
-                "module"    =>  $module,
-                "status"    =>  $status,
+                'id'        =>  $id,
+                'module'    =>  $module,
+                'status'    =>  $status,
             );
 
             $this->service->assignModule($data);
