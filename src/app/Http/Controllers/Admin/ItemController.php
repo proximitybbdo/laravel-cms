@@ -194,7 +194,7 @@ class ItemController extends BaseController
         $this->data['show_start_date'] = (config("cms.$this->module_type.show_start_date") === true);
         $this->data['show_end_date'] = (config("cms.$this->module_type.show_end_date") === true);
         $this->data['show_type'] = (config("cms.$this->module_type.show_type") === true);
-        $this->data['types'] = ($show_type ? config("cms.$this->module_type.types") : []);
+        $this->data['types'] = ($this->data['show_type'] ? config("cms.$this->module_type.types") : []);
         $this->data['show_version'] = (config("cms.$this->module_type.show_version") === true);
         $this->data['action'] = $action;
         $this->data['lang'] = $lang;
