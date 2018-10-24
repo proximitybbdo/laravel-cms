@@ -398,7 +398,6 @@ class ItemController extends BaseController
                         foreach ($links as $link) {
                             $links_result[$link] = [
                                 'link_type' => $link_type,
-                                //'source_type'=>$module_type,
                             ];
                         }
                     }
@@ -411,24 +410,12 @@ class ItemController extends BaseController
             }
         }
 
-        $single_item = false;
-        if (config('cms.' . $this->module_type . '.single_item') != null && config('cms.' . $this->module_type . '.single_item') == true) {
-            $single_item = true;
-        }
+        $links = [];
 
-        if ($id == null || $id == 0) {
-            $item = new Item();
-            $id = null;
-        } else {
-            $item = $this->itemService->getAdmin($id, $lang);
-        }
-
-        $links = array();
-
-        if (config("cms.$this->module_type.links") != null) {
-            foreach (config("cms.$this->module_type.links") as $key => $value) {
-                if ($request->input("linked_items_$key") != null) {
-                    $input_links = $request->input("linked_items_$key");
+        if (config('cms.'.$this->module_type.'.links') != null) {
+            foreach (config('cms.'.$this->module_type.'.links') as $key => $value) {
+                if ($request->input('linked_items_'.$key) != null) {
+                    $input_links = $request->input('linked_items_'.$key);
 
                     if (!is_array($input_links)) {
                         $input_links = [$input_links];
@@ -437,7 +424,6 @@ class ItemController extends BaseController
                     foreach ($input_links as $link) {
                         $links[$link] = [
                             'link_type' => $key,
-                            //'source_type' =>$module_type,
                         ];
                     }
                 }
@@ -445,31 +431,31 @@ class ItemController extends BaseController
         }
 
         $data = array(
-            "id" => $id,
-            "start_date" => $request->input('start_date') == '' ? null : $request->input('start_date'),
-            "end_date" => $request->input('end_date') == '' ? null : $request->input('end_date'),
-            "type" => $request->input('type') == '' ? null : $request->input('type'),
-            "version" => $request->input('version') == '' ? null : $request->input('version'),
-            "description" => $request->input('description'),
-            "status" => $single_item ? 0 : 1,
-            "editor_id" => $this->editor_id,
-            "content" => $content,
-            "block_content" => $block_content,
-            "links" => $links,
+            'id' => $id,
+            'start_date' => $request->input('start_date') == '' ? null : $request->input('start_date'),
+            'end_date' => $request->input('end_date') == '' ? null : $request->input('end_date'),
+            'type' => $request->input('type') == '' ? null : $request->input('type'),
+            'version' => $request->input('version') == '' ? null : $request->input('version'),
+            'description' => $request->input('description'),
+            'status' => (config('cms.' . $this->module_type . '.single_item') === true ? 0 : 1),
+            'editor_id' => $this->editor_id,
+            'content' => $content,
+            'block_content' => $block_content,
+            'links' => $links,
         );
 
-        if ($id == null) {
+        if (empty($id)) {
             $item = $this->itemService->create($data);
 
             if ($request->ajax()) {
                 $data = array(
-                    "id" => $item->id,
-                    "description" => $request->input('description'),
-                    "module_type" => $this->module_type,
-                    "flash" => 'Added succesfully.',
-                    "slug" => $request->input("my_content.slug"),
-                    "count_slug" => $this->itemService->countSlug($request->input("my_content.slug"), $lang, $item->id, $module_type),
-                    "valid" => true,
+                    'id' => $item->id,
+                    'description' => $request->input('description'),
+                    'module_type' => $this->module_type,
+                    'flash' => 'Added succesfully.',
+                    'slug' => $request->input("my_content.slug"),
+                    'count_slug' => $this->itemService->countSlug($request->input("my_content.slug"), $lang, $item->id, $module_type),
+                    'valid' => true,
                 );
 
                 return $data;
