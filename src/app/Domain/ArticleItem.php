@@ -64,11 +64,7 @@ class ArticleItem extends PublicItem
 
     public function get_morecontent($exclude_ids)
     {
-
-        $result = $this->getMoreData($exclude_ids)->shuffle();
-        //dd($result);
-
-        return $result;
+        return $this->getMoreData($exclude_ids)->shuffle();
     }
 
     private function getMoreData($exclude_ids, $filter = null)

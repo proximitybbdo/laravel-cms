@@ -342,11 +342,9 @@ class Item
             }
         }
 
-        // update item
         $item->type = $type;
         $item->save();
 
-        // flush cache
         Cache::flush();
 
         return $item;
@@ -531,9 +529,8 @@ class Item
 
     public function removeContentSearch($content_types, $id)
     {
-
-        return Models\ItemContent::whereIn('type', $content_types)->where('content', $id)->delete();
         Cache::flush();
+        return Models\ItemContent::whereIn('type', $content_types)->where('content', $id)->delete();
 
     }
 

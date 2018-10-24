@@ -10,6 +10,7 @@ class File
     {
         $file = Models\MyFile::find($id);
         $result = '';
+
         try {
             $config = self::getTypeConfig($type);
             $path = 'uploads/image/';
@@ -21,7 +22,9 @@ class File
             $data = file_get_contents($path);
             $result = '<img id="dynamic" src="data:image/' . $type . ';base64,' . base64_encode($data) . '" style="width:150px">';
         } catch (\Exception $ex) {
+            \Log::error($ex->getTraceAsString());
         }
+
         return $result;
     }
 
@@ -32,13 +35,7 @@ class File
      */
     public static function getTypeConfig($type)
     {
-        $config = config('cms.image_types.' . $type);
-
-        if ($config == null) {
-            $config = config('cms.image_types.image_default');
-        }
-
-        return $config;
+        return config('cms.image_types.' . $type, config('cms.image_types.image_default'));
     }
 
     public function create($data)
@@ -63,8 +60,8 @@ class File
         $item = Models\MyFile::find($data['id']);
         $status = $data['status'];
         $module = $item->modules()->where('module_type', $data['module'])->first();
+
         if ($status === "true" && $module == null) {
-            //array_push($modules,$data['module']);
             $module = new Models\Module(array('file_id' => $item->id, 'module_type' => $data['module']));
             $item->modules()->save($module);
         }
