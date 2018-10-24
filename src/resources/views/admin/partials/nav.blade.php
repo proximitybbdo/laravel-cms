@@ -45,8 +45,8 @@
 
         @foreach ($modules as $module)
             @if( Sentinel::hasAccess( strtolower($module) . '.view') || Sentinel::inRole('admin') )
-                <li class="<?= $module_type == $module ? 'active' : ''; ?>">
-                    <a href="<?= url('icontrol/items/' . $module . '/overview'); ?>">
+                <li class="{{ $module_type == $module ? 'active' : '' }}">
+                    <a href="{{ !is_null(config('cms.'.$module.'.route')) ? route(config('cms.'.$module.'.route'), config('cms.'.$module.'.params')) : url('icontrol/items/' . $module . '/overview') }}">
                         <i class="fa fa-fw fa-cube"></i>
                         {{ config('cms.' . $module . '.description') }}
                     </a>

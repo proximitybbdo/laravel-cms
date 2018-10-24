@@ -85,6 +85,30 @@
                 array('short' => 'fr-BE', 'long' => 'Français'),
             ),        
  
+   ### Extend the cms with custom controller
+   
+   Extra item can be added in the menu with the route item
+   
+       'EXPORT'    => [ //Allow to add item in the admin menu. It take a named route and its parameters. Route can then be defined in the route of the project
+           'description'   => 'Export data',
+           'route'     => 'icontrol.export',
+           'params'    => []
+       ]
+       
+   The route can then be defined in your project route. These middleware will do the usual check on this route and the user should have the permission {module}.vue
+   
+        Route::group(['prefix' => 'icontrol', 'middleware' => [
+           \BBDO\Cms\Http\Middleware\Admin\BasicMiddleware::class,
+           \BBDO\Cms\Http\Middleware\Admin\CheckPermissionMiddleware::class
+        ]], function () {
+   
+           Route::get('export', [
+              'uses'   => 'Admin\Export',
+              'as'     => 'icontrol.export'
+           ]);
+   
+        });
+    
  ## Using in dev mode
  
    If you use this package in dev mode, be sure to have your composer.json with the cms namespace in your psr-4

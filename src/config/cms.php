@@ -180,4 +180,9 @@ return array(
             'my_content.title' => 'title',
         ),
     ),
+    'EXPORT'    => [ //Allow to add item in the admin menu. It take a named route and its parameters. Route can then be defined in the route of the project
+        'description'   => 'Export data',
+        'route'     => 'icontrol.export',
+        'params'    => []
+    ]
 );
