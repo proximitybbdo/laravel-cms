@@ -91,13 +91,13 @@ class ItemBlock extends Model
 
     public function getContentFileUrl($key, $type)
     {
-        // $file_id = $this->getContent($key);
+        $file_id = $this->getContent($key);
 
-        // if($file_id != null && $file_id != ''){
-        //   $file = $this->file($file_id);
-        //   return '/uploads/' . $type . '/' . $file->file;
-        // }
-        // return '';
+        if ($file_id != null && $file_id != '') {
+            $file = $this->file($file_id);
+            return '/uploads/' . $type . '/' . $file->file;
+        }
+        return '';
     }
 
     // Links functions
@@ -116,18 +116,9 @@ class ItemBlock extends Model
 
     public function backLinksType($link_type)
     {
-
-        // $cache_key = 'block_backlinkstype_' . $this->id . 'type_' . $link_type;
-
-        // if(Cache::has($cache_key)) {
-        //   $result = Cache::get($cache_key);
-        // }
-        // else {
-        //   $result = $this->backLinks()->where('module_type',$link_type)->where('status','1')->get();
-        //   Cache::put($cache_key,$result,Carbon::now()->addDays(30));
-        // }
-
-        // return $result;
+        return Cache::remember('block_backlinkstype_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function() use($link_type) {
+            return $this->backLinks()->where('module_type', $link_type)->where('status', '1')->get();
+        });
     }
 
     public function linksFirst($link_type)
@@ -152,7 +143,7 @@ class ItemBlock extends Model
                 return $item->getOriginal("pivot_link_type") == $link_type;
             })->first();
             if (!$result) {
-                $result = new Item();
+                 return new Item();
             }
         });
     }
