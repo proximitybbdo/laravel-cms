@@ -16,7 +16,7 @@ class CmsServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__ . '/config/cms.php' => config_path('cms.php'),
-        ],'cms-config');
+        ], 'cms-config');
 
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
@@ -43,24 +43,13 @@ class CmsServiceProvider extends ServiceProvider
             ]);
         }
 
-        $this->registerSeedsFrom(__DIR__.'/database/seeds');
+        $this->registerSeedsFrom(__DIR__ . '/database/seeds');
 
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        include __DIR__.'/app/Helpers/function.php';
     }
 
     protected function registerSeedsFrom($path)
     {
-        foreach (glob($path.'/*.php') as $filename)
-        {
+        foreach (glob($path . '/*.php') as $filename) {
             include $filename;
             $classes = get_declared_classes();
             $class = end($classes);
@@ -74,5 +63,15 @@ class CmsServiceProvider extends ServiceProvider
             }
 
         }
+    }
+
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        include __DIR__ . '/app/Helpers/function.php';
     }
 }

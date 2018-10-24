@@ -2,10 +2,10 @@
 
 namespace BBDO\Cms\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Validator;
 use BBDO\Cms\Domain\Item as ItemDomain;
 use BBDO\Cms\Models\Item;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 class StoreItem extends FormRequest
 {

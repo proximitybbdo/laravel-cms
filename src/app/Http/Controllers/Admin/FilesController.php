@@ -2,10 +2,10 @@
 
 namespace BBDO\Cms\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use BBDO\Cms\Domain;
-use Intervention\Image\Facades\Image;
 use File;
+use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class FilesController extends BaseController
 {
@@ -13,7 +13,7 @@ class FilesController extends BaseController
     protected $service = null;
     protected $module_type = 'FILESMOD';
 
-    public function __construct() 
+    public function __construct()
     {
         $this->module_type = 'FILES';
 
@@ -23,21 +23,21 @@ class FilesController extends BaseController
         view()->share('modules', config('cms.modules'));
         view()->share('user', "");
         view()->share('module_type', $this->module_type);
-        view()->share('module_title', config('cms.'.$this->module_type.'.description'));
+        view()->share('module_title', config('cms.' . $this->module_type . '.description'));
 
         $this->service = new Domain\File();
     }
 
-    public function filterRequests($route, $request) 
+    public function filterRequests($route, $request)
     {
     }
 
-    public function getManager($manager_type, $module_type = null, $input_type = null ,$input_id = null, $value = null)
+    public function getManager($manager_type, $module_type = null, $input_type = null, $input_id = null, $value = null)
     {
         $this->prepareManager($manager_type, $module_type, $input_type, $input_id, $value);
 
-        $this->data['maxFileSize'] = config('cms.files.'.$manager_type.'.maxFileSize');
-        $this->data['acceptedFiles'] = config('cms.files.'.$manager_type.'.acceptedFiles');
+        $this->data['maxFileSize'] = config('cms.files.' . $manager_type . '.maxFileSize');
+        $this->data['acceptedFiles'] = config('cms.files.' . $manager_type . '.acceptedFiles');
 
         if ($module_type != null) {
             $this->data['mode'] = 'popup';
@@ -49,26 +49,6 @@ class FilesController extends BaseController
         return view('bbdocms::admin.files.manager-page', $this->data);
     }
 
-    public function getPopupManager($manager_type, $module_type, $input_type, $input_id, $value = null)
-    {
-        $this->prepareManager($manager_type, $module_type, $input_type, $input_id, $value);
-
-        $this->data['mode'] = 'popup';
-        $this->data['maxFileSize'] = config('cms.files.'.$manager_type.'.maxFileSize');
-        $this->data['acceptedFiles'] = config('cms.files.'.$manager_type.'.acceptedFiles');
-
-        return view('bbdocms::admin.files.popup_manager', $this->data);
-    }
-
-    public function getFiles($manager_type, $mode= null, $input_id = null, $module_type = null, $input_type = null)
-    {
-        $this->prepareManager($manager_type,$module_type,$input_type,$input_id,null);
-
-        $this->data['mode'] = $mode;
-
-        return view('bbdocms::admin.partials.filelist', $this->data);
-    }
-
     private function prepareManager($manager_type, $module_type, $input_type, $input_id, $value)
     {
         // if content module
@@ -78,11 +58,11 @@ class FilesController extends BaseController
         }
 
         // todo filter images on input type when != all
-        $items = $this->service->getAllAdmin(0,$manager_type,$module_type);
+        $items = $this->service->getAllAdmin(0, $manager_type, $module_type);
 
         $itemService = new Domain\Item("");
 
-        $content_types = config('cms.files.'.$manager_type.'.content_type');
+        $content_types = config('cms.files.' . $manager_type . '.content_type');
         $content_links = $itemService->getContentsearchIds($content_types);
 
         $categories = config('cms.modules');
@@ -96,7 +76,27 @@ class FilesController extends BaseController
         $this->data['value'] = $value;
         $this->data['content_links'] = $content_links;
         $this->data['mode'] = $value;
-        $this->data['image_config']= $this->service->getTypeConfig($input_type);
+        $this->data['image_config'] = $this->service->getTypeConfig($input_type);
+    }
+
+    public function getPopupManager($manager_type, $module_type, $input_type, $input_id, $value = null)
+    {
+        $this->prepareManager($manager_type, $module_type, $input_type, $input_id, $value);
+
+        $this->data['mode'] = 'popup';
+        $this->data['maxFileSize'] = config('cms.files.' . $manager_type . '.maxFileSize');
+        $this->data['acceptedFiles'] = config('cms.files.' . $manager_type . '.acceptedFiles');
+
+        return view('bbdocms::admin.files.popup_manager', $this->data);
+    }
+
+    public function getFiles($manager_type, $mode = null, $input_id = null, $module_type = null, $input_type = null)
+    {
+        $this->prepareManager($manager_type, $module_type, $input_type, $input_id, null);
+
+        $this->data['mode'] = $mode;
+
+        return view('bbdocms::admin.partials.filelist', $this->data);
     }
 
     public function postUpload(Request $request, $manager_type, $module_type = null, $input_type = null)
@@ -112,17 +112,17 @@ class FilesController extends BaseController
         if ($file != null) {
             $extension = $file->getClientOriginalExtension();
 
-            $dir = public_path('/uploads/'.$manager_type.'/');
-            $filename = str_replace('.'.$extension, "", $file->getClientOriginalName()) . date("ymdHis") . ".$extension";
+            $dir = public_path('/uploads/' . $manager_type . '/');
+            $filename = str_replace('.' . $extension, "", $file->getClientOriginalName()) . date("ymdHis") . ".$extension";
 
             $upload_success = $file->move($dir, $filename);
 
             // thumbnails
             $allowedMimeTypes = ['image/jpeg', 'image/gif', 'image/png'];
             $contentType = mime_content_type($dir . $filename);
-        
+
             // checks if is an image
-            if (in_array($contentType, $allowedMimeTypes)) { 
+            if (in_array($contentType, $allowedMimeTypes)) {
                 $config = $this->service->getTypeConfig($input_type);
 
                 // resize original
@@ -130,7 +130,7 @@ class FilesController extends BaseController
                 $imageWidth = $imageSize[0];
 
                 if (
-                    $config != null && 
+                    $config != null &&
                     $config['optimize_original'] &&
                     $imageWidth != $config['width']
                 ) {
@@ -163,11 +163,11 @@ class FilesController extends BaseController
             }
 
             $data = array(
-                'file'          => $filename,
-                'type'          => $manager_type,
-                'description'   => '',
-                'editor_id'     => 1,
-                'module'        => $module_type,
+                'file' => $filename,
+                'type' => $manager_type,
+                'description' => '',
+                'editor_id' => 1,
+                'module' => $module_type,
             );
 
             $this->service->create($data);
@@ -176,28 +176,28 @@ class FilesController extends BaseController
                 return response()->json('success', 200);
             } else {
                 return response()->json('error', 400);
-            } 
+            }
         }
     }
 
     public function postAssignCategory(Request $request)
     {
         $id = $request->input('id');
-        $module  = $request->input('module');
-        $status  = $request->input('status');
+        $module = $request->input('module');
+        $status = $request->input('status');
 
         if ($id != null && $module != null && $status != null) {
             $data = array(
-                'id'        =>  $id,
-                'module'    =>  $module,
-                'status'    =>  $status,
+                'id' => $id,
+                'module' => $module,
+                'status' => $status,
             );
 
             $this->service->assignModule($data);
 
             return response()->json('success', 200);
-        } else{
-            return response()->json('error', 400);        
+        } else {
+            return response()->json('error', 400);
         }
     }
 
@@ -207,13 +207,13 @@ class FilesController extends BaseController
 
         if ($id != null) {
             $data = array(
-                'id'    => $id,
+                'id' => $id,
             );
 
             $this->service->garbage($data);
 
             return response()->json('success', 200);
-        } else{
+        } else {
             return response()->json('error', 400);
         }
     }
@@ -223,15 +223,15 @@ class FilesController extends BaseController
         $files = $this->service->getAllAdmin(1, $manager_type);
 
         if (count($files) > 0) {
-            foreach($files as $file) {
-                $path = public_path('/uploads/'.$manager_type.'/');
-                File::delete($path.$file->file);
+            foreach ($files as $file) {
+                $path = public_path('/uploads/' . $manager_type . '/');
+                File::delete($path . $file->file);
             }
 
             $ids = $files->pluck('id');
 
             $data = array(
-                'ids'   => $ids,
+                'ids' => $ids,
             );
 
             $this->service->purge($data);

@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateItems extends Migration
 {
@@ -12,18 +12,18 @@ class CreateItems extends Migration
      */
     public function up()
     {
-        Schema::create('items', function(Blueprint $table) {
+        Schema::create('items', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('module_type',30);
+            $table->string('module_type', 30);
             $table->integer('category_id')->unsigned()->nullable();
-            $table->string('description',250)->nullable();
+            $table->string('description', 250)->nullable();
             $table->integer('sort');
             $table->datetime('start_date')->nullable();
             $table->datetime('end_date')->nullable();
             $table->string('type')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->string('version')->nullable();
-            $table->integer('editor_id');           
+            $table->integer('editor_id');
             $table->timestamps();
 
             $table->index('module_type');

@@ -1,24 +1,24 @@
 <?php if(isset($error)): ?>
-  <div class="alert alert-error">
+<div class="alert alert-error">
     <?= $error; ?>
     <ul>
-      <?php if(isset($errors)) : foreach($errors as $field => $error) : ?>
+        <?php if(isset($errors)) : foreach($errors as $field => $error) : ?>
         <li><?= $error ?></li>
-      <?php endforeach; endif; ?>
+        <?php endforeach; endif; ?>
     </ul>
-  </div>
+</div>
 <?php endif; ?>
 
 <?php if(Session::has('success')): ?>
-  <div class="alert alert-success">
+<div class="alert alert-success">
     <?= Session::get('success'); ?>
-  </div>
+</div>
 <?php endif; ?>
 
 <?php if(Session::has('publish')): ?>
-  <div class="alert alert-success">
+<div class="alert alert-success">
     <?= Session::get('publish'); ?>
-  </div>
+</div>
 <?php endif; ?>
 
 

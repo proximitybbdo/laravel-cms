@@ -2,8 +2,8 @@
 
 namespace BBDO\Cms\Console\Commands;
 
-use Illuminate\Console\Command;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
+use Illuminate\Console\Command;
 
 class AddAdminUser extends Command
 {
@@ -43,10 +43,10 @@ class AddAdminUser extends Command
         $name = $email;
 
         $credentials = array(
-            'email' => $email, 
+            'email' => $email,
             'password' => $password,
             'name' => $name
-            );
+        );
         // $credentials['password'] = \Hash::make($credentials['password']);
         try {
             // $user = \BBDO\Cms\Models\User::create($credentials);

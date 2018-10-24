@@ -1,4 +1,5 @@
 <?php
+
 namespace BBDO\Cms\Database\Seeder;
 
 use Illuminate\Database\Seeder;
@@ -13,7 +14,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
-        
+
         // Load json file with permissions here
         // decode it an
         $json = \File::get(__DIR__ . "/../data/CMSroles.json");
@@ -24,18 +25,18 @@ class DatabaseSeeder extends Seeder
                 [
                     'slug' => 'admin',
                     'name' => 'Admin',
-                    'permissions' => json_encode( $roles->admin )
+                    'permissions' => json_encode($roles->admin)
                 ],
                 [
                     'slug' => 'publisher',
                     'name' => 'Publisher',
-                    'permissions' => json_encode( $roles->publisher )
+                    'permissions' => json_encode($roles->publisher)
 
                 ],
                 [
                     'slug' => 'editor',
                     'name' => 'Editor',
-                    'permissions' => json_encode( $roles->editor )
+                    'permissions' => json_encode($roles->editor)
 
                 ]
             ));

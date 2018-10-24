@@ -5,11 +5,13 @@
         <h1><?= $module_title ?></h1>
 
         @if($cat_item != null)
-            <h3><a href="<?= url()->to("icontrol/items/$cat_item->module_type/overview"); ?>">{{ $cat_item->description }}</a></h3>
+            <h3>
+                <a href="<?= url()->to("icontrol/items/$cat_item->module_type/overview"); ?>">{{ $cat_item->description }}</a>
+            </h3>
         @endif
 
         <div class="form-line overview padding-bottom">
-            <?= view('bbdocms::admin.partials.links_overview',array('links' => $links,'category_id' => $active_cat)) ?>
+            <?= view('bbdocms::admin.partials.links_overview', array('links' => $links, 'category_id' => $active_cat)) ?>
         </div>
 
         <?= $overview_data ?>

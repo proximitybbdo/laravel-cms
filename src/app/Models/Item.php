@@ -2,25 +2,22 @@
 
 namespace BBDO\Cms\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 use Auth;
 use Cache;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Input;
 
 class Item extends Model
 {
 
-    protected $table = 'items';
-
     public $timestamps = true;
-    protected $softDelete = false;
-
-    protected $hidden = [];
-    protected $fillable = ['description', 'status', 'editor_id', 'module_type', 'sort', 'start_date', 'end_date', 'version', 'type', 'import_id', 'is_featured'];
-
     public $my_content = null;
     public $my_content_online = null;
+    protected $table = 'items';
+    protected $softDelete = false;
+    protected $hidden = [];
+    protected $fillable = ['description', 'status', 'editor_id', 'module_type', 'sort', 'start_date', 'end_date', 'version', 'type', 'import_id', 'is_featured'];
     protected $arr_content = null;
     protected $arr_blocks = null;
 
@@ -52,19 +49,14 @@ class Item extends Model
         return $this->hasMany('BBDO\Cms\Models\ItemContent', 'item_id');
     }
 
-    public function links()
-    {
-        return $this->belongsToMany('BBDO\Cms\Models\Item', 'items_link', 'item_id', 'link_id')->withPivot('link_type');
-    }
-
-    public function backLinks()
-    {
-        return $this->belongsToMany('BBDO\Cms\Models\Item', 'items_link', 'link_id', 'item_id')->withPivot('link_type');
-    }
-
     public function linkFirstAdmin($link_type)
     {
         return $this->links()->where('module_type', $link_type)->first();
+    }
+
+    public function links()
+    {
+        return $this->belongsToMany('BBDO\Cms\Models\Item', 'items_link', 'item_id', 'link_id')->withPivot('link_type');
     }
 
     public function blocksAllVersions()
@@ -72,13 +64,6 @@ class Item extends Model
         return $this->hasMany('BBDO\Cms\Models\ItemBlock', 'item_id')
             ->orderBy('sort');
     }
-
-    public function blocks($version = 1)
-    {
-        return $this->hasMany('BBDO\Cms\Models\ItemBlock', 'item_id')
-            ->where('version', $version)->orderBy('sort');
-    }
-
 
     public function blocksLang($lang, $version = 1)
     {
@@ -92,6 +77,11 @@ class Item extends Model
         return $this->blocks($version)->where('lang', $lang)->where('type', $type)->first();
     }
 
+    public function blocks($version = 1)
+    {
+        return $this->hasMany('BBDO\Cms\Models\ItemBlock', 'item_id')
+            ->where('version', $version)->orderBy('sort');
+    }
 
     public function blocksContentLang($lang, $version = 1)
     {
@@ -116,20 +106,17 @@ class Item extends Model
                 ->get();
     }
 
-    //CONTENT functions
-    public function contentFe()
+    public function getContentFile($key, $type)
     {
-        $preview = ( !is_null(Input::get('preview')) && Auth::check() );
-        $lang = \LaravelLocalization::getCurrentLocale();
-
-        return Cache::remember('content_' . $this->id . 'lang_' . $lang . ($preview ? uniqid(true) : ''), config('cms.default_cache_duration'), function() use($preview, $lang){
-            return $this->hasMany('BBDO\Cms\Models\ItemContent', 'item_id')
-                ->where('lang', $lang)
-                ->where('version', '<=', $preview ? 1 : 0)
-                ->orderBy('version', 'ASC')->get();
-        });
+        $file_id = $this->getContent($key);
+        if ($file_id != null && $file_id != '') {
+            $file = $this->file($file_id);
+            return url(config('app.assets_path')) . '/' . $type . '/' . $file->file;
+        }
+        return '';
     }
 
+    //CONTENT functions
 
     public function getContent($key = null)
     {
@@ -143,14 +130,24 @@ class Item extends Model
         }
     }
 
-    public function getContentFile($key, $type)
+    public function contentFe()
     {
-        $file_id = $this->getContent($key);
-        if ($file_id != null && $file_id != '') {
-            $file = $this->file($file_id);
-            return url(config('app.assets_path')) . '/' . $type . '/' . $file->file;
-        }
-        return '';
+        $preview = (!is_null(Input::get('preview')) && Auth::check());
+        $lang = \LaravelLocalization::getCurrentLocale();
+
+        return Cache::remember('content_' . $this->id . 'lang_' . $lang . ($preview ? uniqid(true) : ''), config('cms.default_cache_duration'), function () use ($preview, $lang) {
+            return $this->hasMany('BBDO\Cms\Models\ItemContent', 'item_id')
+                ->where('lang', $lang)
+                ->where('version', '<=', $preview ? 1 : 0)
+                ->orderBy('version', 'ASC')->get();
+        });
+    }
+
+    public function file($id)
+    {
+        $result = MyFile::where('id', $id)->first();
+
+        return $result;
     }
 
     public function getContentFileUrl($key, $type)
@@ -168,10 +165,10 @@ class Item extends Model
 
     public function linksType($link_type = null)
     {
-        return Cache::remember('linkstype_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function() use($link_type) {
+        return Cache::remember('linkstype_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function () use ($link_type) {
             $result = $this->links()->where('status', '1');
 
-            if(!is_null($link_type)) {
+            if (!is_null($link_type)) {
                 $result = $result->where('module_type', $link_type);
             }
 
@@ -181,14 +178,19 @@ class Item extends Model
 
     public function backLinksType($link_type)
     {
-        return Cache::remember('backlinkstype_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function() use($link_type) {
+        return Cache::remember('backlinkstype_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function () use ($link_type) {
             return $this->backLinks()->where('module_type', $link_type)->where('status', '1')->get();
         });
     }
 
+    public function backLinks()
+    {
+        return $this->belongsToMany('BBDO\Cms\Models\Item', 'items_link', 'link_id', 'item_id')->withPivot('link_type');
+    }
+
     public function linksFirst($link_type)
     {
-        return Cache::remember('firstlink_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function() use($link_type) {
+        return Cache::remember('firstlink_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function () use ($link_type) {
             $result = $this->links()->where('module_type', $link_type)->first();
             if (!$result) {
                 $result = new Item();
@@ -197,23 +199,17 @@ class Item extends Model
         });
     }
 
+    //EXTRA functions
+
     public function linksFirstType($link_type)
     {
-        return Cache::remember('firstlinktype_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function() use($link_type) {
+        return Cache::remember('firstlinktype_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function () use ($link_type) {
             $result = $this->links()->where('link_type', $link_type)->first();
             if (!$result) {
                 $result = new Item();
             }
             return $result;
         });
-    }
-
-    //EXTRA functions
-    public function file($id)
-    {
-        $result = MyFile::where('id', $id)->first();
-
-        return $result;
     }
 
     public function fileContent($id, $type)
@@ -235,7 +231,7 @@ class Item extends Model
         $preview = (!is_null(Input::get('preview')) && Auth::check());
         $lang = \LaravelLocalization::getCurrentLocale();
 
-        return Cache::remember('blocks_fe_' . $this->id . 'lang_' . $lang . ($preview ? uniqid(true) : ''), 24*60*30, function() use($lang, $preview) {
+        return Cache::remember('blocks_fe_' . $this->id . 'lang_' . $lang . ($preview ? uniqid(true) : ''), 24 * 60 * 30, function () use ($lang, $preview) {
             return $this->hasMany('BBDO\Cms\Models\ItemBlock', 'item_id')
                 ->where('lang', $lang)
                 ->where('version', '=', $preview ? 1 : 0)

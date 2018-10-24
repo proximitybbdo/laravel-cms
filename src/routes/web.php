@@ -48,8 +48,8 @@ Route::group(['prefix' => 'icontrol', 'middleware' => 'web', 'namespace' => '\BB
             'as' => 'icontrol.storeClearcache'
         ]);
 
-        Route::post('geturlfriendlytext',[
-            'uses'  => 'HelperController@postUrlFriendlyText',
+        Route::post('geturlfriendlytext', [
+            'uses' => 'HelperController@postUrlFriendlyText',
             'as' => 'icontrol.postUrlFriendlyText'
         ]);
 

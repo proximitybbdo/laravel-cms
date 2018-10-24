@@ -2,12 +2,12 @@
 
 namespace BBDO\Cms\Domain;
 
-use Carbon\Carbon;
-use Exception;
-use Illuminate\Database\Eloquent\Collection;
 use BBDO\Cms\Helpers\Log;
 use BBDO\Cms\Models;
 use Cache;
+use Carbon\Carbon;
+use Exception;
+use Illuminate\Database\Eloquent\Collection;
 
 class Item
 {
@@ -365,20 +365,6 @@ class Item
         return $result->first();
     }
 
-    public function getAllAdmin($cat, $sort = 'sort', $desc = 'ASC')
-    {
-        $result = Models\Item::where('module_type', $this->module)
-            ->orderBy($sort, $desc);
-
-        if ($cat != null) {
-            $result->whereHas('links', function ($q) use ($cat) {
-                $q->where('link_id', '=', $cat);
-
-            });
-        }
-        return $result->get();
-    }
-
     public function getAllAdminList($module_type, $link_item_id, $link_type = '%')
     {
         $result = \DB::select('select i1.id, i1.description, i2.item_id
@@ -504,6 +490,20 @@ class Item
         Cache::flush();
 
         logAction($this->module, 'SORT', $id);
+    }
+
+    public function getAllAdmin($cat, $sort = 'sort', $desc = 'ASC')
+    {
+        $result = Models\Item::where('module_type', $this->module)
+            ->orderBy($sort, $desc);
+
+        if ($cat != null) {
+            $result->whereHas('links', function ($q) use ($cat) {
+                $q->where('link_id', '=', $cat);
+
+            });
+        }
+        return $result->get();
     }
 
     public function sortItemsBlocks($item_id, $block_id, $to_index)

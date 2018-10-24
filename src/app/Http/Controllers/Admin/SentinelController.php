@@ -2,13 +2,11 @@
 
 namespace BBDO\Cms\Http\Controllers\Admin;
 
-use BBDO\Cms\User;
-use Illuminate\Http\Request;
-use Validator;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use BBDO\Cms\User;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class SentinelController extends Controller
 {
@@ -43,13 +41,6 @@ class SentinelController extends Controller
         return view('bbdocms::admin.register');
     }
 
-    public function showLoginForm(){
-        if (view()->exists('auth.authenticate')) {
-            return view('bbdocms::auth.authenticate');
-        }
-        return view('bbdocms::admin.login');
-    }
-
     public function login(Request $request)
     {
         $user = Sentinel::authenticate($request->all());
@@ -58,7 +49,15 @@ class SentinelController extends Controller
             return redirect()->route('dashboard');
         } else {
             return $this->showLoginForm();
-        }        
+        }
+    }
+
+    public function showLoginForm()
+    {
+        if (view()->exists('auth.authenticate')) {
+            return view('bbdocms::auth.authenticate');
+        }
+        return view('bbdocms::admin.login');
     }
 
     public function logout()

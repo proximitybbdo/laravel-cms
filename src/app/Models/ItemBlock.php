@@ -2,17 +2,16 @@
 
 namespace BBDO\Cms\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 use Auth;
 use Cache;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Input;
 
 class ItemBlock extends Model
 {
 
-    protected $table = 'items_block';
     public $timestamps = true;
+    protected $table = 'items_block';
     protected $softDelete = false;
 
     protected $hidden = [];
@@ -42,29 +41,14 @@ class ItemBlock extends Model
         return $this->hasMany('BBDO\Cms\Models\ItemBlockContent', 'block_id');
     }
 
-    public function links()
+    public function getContentFile($key, $type)
     {
-        return $this->belongsToMany('BBDO\Cms\Models\Item', 'items_block_links', 'block_id', 'link_id')->withPivot('link_type');
-    }
-
-    public function backLinks()
-    {
-        return $this->belongsToMany('BBDO\Cms\Models\Item', 'items_block_links', 'link_id', 'block_id')->withPivot('link_type');
-    }
-
-    public function file($id)
-    {
-        return MyFile::where('id', $id)->first();
-    }
-
-    public function contentFe()
-    {
-        $preview = ( !is_null(Input::get('preview')) && Auth::check() );
-        $lang = \LaravelLocalization::getCurrentLocale();
-
-        return Cache::remember('block_content_' . $this->id . 'lang_' . $lang . ($preview ? uniqid(true) : ''), config('cms.default_cache_duration'), function() use($preview, $lang) {
-            return $this->content;
-        });
+        $file_id = $this->getContent($key);
+        if ($file_id != null && $file_id != '') {
+            $file = $this->file($file_id);
+            return url(config('app.assets_path')) . '/' . $type . '/' . $file->file;
+        }
+        return '';
     }
 
     public function getContent($key = null)
@@ -79,14 +63,19 @@ class ItemBlock extends Model
         }
     }
 
-    public function getContentFile($key, $type)
+    public function contentFe()
     {
-        $file_id = $this->getContent($key);
-        if ($file_id != null && $file_id != '') {
-            $file = $this->file($file_id);
-            return url(config('app.assets_path')) . '/' . $type . '/' . $file->file;
-        }
-        return '';
+        $preview = (!is_null(Input::get('preview')) && Auth::check());
+        $lang = \LaravelLocalization::getCurrentLocale();
+
+        return Cache::remember('block_content_' . $this->id . 'lang_' . $lang . ($preview ? uniqid(true) : ''), config('cms.default_cache_duration'), function () use ($preview, $lang) {
+            return $this->content;
+        });
+    }
+
+    public function file($id)
+    {
+        return MyFile::where('id', $id)->first();
     }
 
     public function getContentFileUrl($key, $type)
@@ -100,13 +89,12 @@ class ItemBlock extends Model
         return '';
     }
 
-    // Links functions
     public function linksType($link_type = null)
     {
-        return Cache::remember('block_linkstype_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function() use($link_type) {
+        return Cache::remember('block_linkstype_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function () use ($link_type) {
             $result = $this->links()->where('status', '1');
 
-            if(!is_null($link_type)) {
+            if (!is_null($link_type)) {
                 $result = $result->where('module_type', $link_type);
             }
 
@@ -114,17 +102,29 @@ class ItemBlock extends Model
         });
     }
 
+    public function links()
+    {
+        return $this->belongsToMany('BBDO\Cms\Models\Item', 'items_block_links', 'block_id', 'link_id')->withPivot('link_type');
+    }
+
+    // Links functions
+
     public function backLinksType($link_type)
     {
-        return Cache::remember('block_backlinkstype_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function() use($link_type) {
+        return Cache::remember('block_backlinkstype_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function () use ($link_type) {
             return $this->backLinks()->where('module_type', $link_type)->where('status', '1')->get();
         });
+    }
+
+    public function backLinks()
+    {
+        return $this->belongsToMany('BBDO\Cms\Models\Item', 'items_block_links', 'link_id', 'block_id')->withPivot('link_type');
     }
 
     public function linksFirst($link_type)
     {
 
-        return Cache::remember('block_firstlink_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function() use($link_type) {
+        return Cache::remember('block_firstlink_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function () use ($link_type) {
             $result = $this->links->filter(function ($item) use ($link_type) {
                 return $item->module_type == $link_type;
             })->first();
@@ -138,12 +138,12 @@ class ItemBlock extends Model
     public function linksFirstType($link_type)
     {
 
-        return Cache::remember('block_firstlinktype_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function() use($link_type) {
+        return Cache::remember('block_firstlinktype_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function () use ($link_type) {
             $result = $this->links->filter(function ($item) use ($link_type) {
                 return $item->getOriginal("pivot_link_type") == $link_type;
             })->first();
             if (!$result) {
-                 return new Item();
+                return new Item();
             }
         });
     }

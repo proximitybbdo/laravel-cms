@@ -18,7 +18,7 @@ class AdminController extends Controller
         view()->share('modules', config('cms.modules'));
         view()->share('user', \Auth::User()); // null hier
         view()->share('module_type', $this->module_type);
-        view()->share('module_title', config('cms.'.$this->module_type.'.description'));
+        view()->share('module_title', config('cms.' . $this->module_type . '.description'));
     }
 
     /**
@@ -31,18 +31,21 @@ class AdminController extends Controller
         return view('bbdocms::admin.dashboard');
     }
 
-    public function getClearcache() {
+    public function getClearcache()
+    {
         $this->data["cleared"] = false;
         return view('bbdocms::admin.clearcache', $this->data);
     }
 
-    public function postClearcache() {
+    public function postClearcache()
+    {
         \Cache::flush();
         $this->data["cleared"] = true;
         return view('bbdocms::admin.clearcache', $this->data);
     }
 
-    public function getLogin() {
+    public function getLogin()
+    {
         return view('bbdocms::admin.login');
     }
 }

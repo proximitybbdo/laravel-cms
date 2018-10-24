@@ -3,23 +3,23 @@
 @section('content')
     <div class="span12" style="padding: 20px 0">
         <?php if($single_item == false) { ?>
-            <p>
-                @if (Sentinel::hasAccess(strtolower($module_type) . '.view'))
-                    <a id="overview" href="<?= $back_link ?>" class="button">
-                      <button type="button" class="btn btn-default"> &lt; Back to overview</button>
+        <p>
+            @if (Sentinel::hasAccess(strtolower($module_type) . '.view'))
+                <a id="overview" href="<?= $back_link ?>" class="button">
+                    <button type="button" class="btn btn-default"> &lt; Back to overview</button>
+                </a>
+            @endif
+
+            @if (isset($model->id))
+                @if (Sentinel::hasAccess(strtolower($module_type) . '.create'))
+                    <a href="<?= url()->to("icontrol/items/$module_type/add"); ?>" class="btn btn-primary pull-right">
+                        Add new {{ config('cms.' . $module_type . '.description') }} <i class="fa fa-plus-circle"></i>
                     </a>
                 @endif
+            @endif
+        </p>
 
-                @if (isset($model->id))
-                    @if (Sentinel::hasAccess(strtolower($module_type) . '.create'))
-                        <a href="<?= url()->to("icontrol/items/$module_type/add"); ?>" class="btn btn-primary pull-right">
-                            Add new {{ config('cms.' . $module_type . '.description') }} <i class="fa fa-plus-circle"></i>
-                        </a>
-                    @endif
-                @endif
-            </p>
-
-            <hr/>
+        <hr/>
         <?php } ?>
 
         @include('bbdocms::admin.partials.form')

@@ -34,7 +34,8 @@ class LoginController extends Controller
         $this->middleware('guest', ['except' => array('logout')]);
     }
 
-    public function showLoginForm(){
+    public function showLoginForm()
+    {
         if (view()->exists('auth.authenticate')) {
             return view('bbdocms::auth.authenticate');
         }

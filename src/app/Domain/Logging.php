@@ -2,7 +2,6 @@
 
 namespace BBDO\Cms\Domain;
 
-use Auth;
 use BBDO\Cms\Models\ActionLog;
 use Sentinel;
 
@@ -21,7 +20,7 @@ class Logging
     public function action($module_type, $action, $itemId = null, $lang, $ip, $data)
     {
         $userId = null;
-        
+
         // check if a user is logged in
         // there might be no user in case of a command
         // @todo Should we log this as 'command'? 
@@ -29,15 +28,15 @@ class Logging
             $userId = $user->id;
         }
 
-        $item = ActionLog::create(array(
-            'user_id'     => $userId,
-            'module'      => $module_type,
-            'action'      => $action,
-            'item_id'     => $itemId,
-            'lang'        => $lang,
-            'ip'          => $ip,
-            'data'        => $data
-        ));
+        ActionLog::create([
+            'user_id' => $userId,
+            'module' => $module_type,
+            'action' => $action,
+            'item_id' => $itemId,
+            'lang' => $lang,
+            'ip' => $ip,
+            'data' => $data
+        ]);
 
         return true;
     }

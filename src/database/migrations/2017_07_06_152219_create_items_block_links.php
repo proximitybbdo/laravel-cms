@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateItemsBlockLinks extends Migration
 {
@@ -13,19 +13,19 @@ class CreateItemsBlockLinks extends Migration
      */
     public function up()
     {
-        Schema::create('items_block_links', function(Blueprint $table) {
+        Schema::create('items_block_links', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('item_id')->unsigned();
-            $table->integer('block_id')->unsigned();    
+            $table->integer('block_id')->unsigned();
             $table->integer('link_id');
-            $table->string('link_type',30)->indexed();
+            $table->string('link_type', 30)->indexed();
             $table->timestamps();
 
-            $table->index(array('item_id','block_id','link_type'));
-            $table->index(array('item_id','block_id'));
+            $table->index(array('item_id', 'block_id', 'link_type'));
+            $table->index(array('item_id', 'block_id'));
             $table->index(array('link_type'));
 
-            $table->foreign('block_id','foreign_item_block_links')->references('id')->on('items_block');
+            $table->foreign('block_id', 'foreign_item_block_links')->references('id')->on('items_block');
         });
 
     }

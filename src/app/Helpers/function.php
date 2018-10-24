@@ -1,60 +1,75 @@
 <?php
-function saveFile($file, $destination) {
+function saveFile($file, $destination)
+{
     return \BBDO\Cms\Helpers\FileUpload::saveFile($file, $destination);
 }
-function isRunning($startDate, $endDate) {
+
+function isRunning($startDate, $endDate)
+{
     return \BBDO\Cms\Helpers\General::IsRunning($startDate, $endDate);
 }
 
-function generateKey() {
+function generateKey()
+{
     return \BBDO\Cms\Helpers\General::generateKey();
 }
 
-function keyOutput($key) {
+function keyOutput($key)
+{
     return \BBDO\Cms\Helpers\General::keyOutput($key);
 }
 
-function cleanSegments() {
+function cleanSegments()
+{
     return \BBDO\Cms\Helpers\Helpers::cleanSegments();
 }
 
-function activeClass($check, $strict = true) {
-\   BBDO\Cms\Helpers\Helpers::activeClass($check, $strict);
+function activeClass($check, $strict = true)
+{
+    \   BBDO\Cms\Helpers\Helpers::activeClass($check, $strict);
 }
 
-function isUrl($check, $strict = true) {
+function isUrl($check, $strict = true)
+{
     return \BBDO\Cms\Helpers\Helpers::isUrl($check, $strict);
 }
 
-function urlLang($parts) {
+function urlLang($parts)
+{
     return \BBDO\Cms\Helpers\Helpers::urlLang($parts);
 }
 
-function arrayToObject($d) {
+function arrayToObject($d)
+{
     return \BBDO\Cms\Helpers\Helpers::arrayToObject($d);
 }
 
-function inputArray($config,$type, $model, $multiple_index = null, $block_type = '', $index = '') {
-    return \BBDO\Cms\Helpers\Input::inputArray($config,$type, $model, $multiple_index, $block_type, $index);
+function inputArray($config, $type, $model, $multiple_index = null, $block_type = '', $index = '')
+{
+    return \BBDO\Cms\Helpers\Input::inputArray($config, $type, $model, $multiple_index, $block_type, $index);
 }
 
-function linksArray($module,$item,$lang,$block_type = null,$version = 1,$index = 0) {
-    return \BBDO\Cms\Helpers\Input::linksArray($module,$item,$lang,$block_type,$version,$index);
+function linksArray($module, $item, $lang, $block_type = null, $version = 1, $index = 0)
+{
+    return \BBDO\Cms\Helpers\Input::linksArray($module, $item, $lang, $block_type, $version, $index);
 }
 
-function formatBlockType($input) {
+function formatBlockType($input)
+{
     return \BBDO\Cms\Helpers\Input::formatBlockType($input);
 }
 
-function indexBlockType($input) {
+function indexBlockType($input)
+{
     return \BBDO\Cms\Helpers\Input::indexBlockType($input);
 }
 
-function logAction($module, $action, $itemId = null, $lang = null, $data = null) {
+function logAction($module, $action, $itemId = null, $lang = null, $data = null)
+{
     \BBDO\Cms\Helpers\Log::action($module, $action, $itemId, $lang, $data);
 }
 
-if(! function_exists('xcopy') ) {
+if (!function_exists('xcopy')) {
     /**
      * Copy recursivly a directory and his files
      * @param $source
@@ -84,77 +99,83 @@ if(! function_exists('xcopy') ) {
         return true;
     }
 }
-if (! function_exists('extractExtension')) {
+if (!function_exists('extractExtension')) {
     /**
      * Extract the last extension
      * @param $string
      * @return mixed
      */
-    function extractExtension($string) {
-        $explode = explode('.',$string);
+    function extractExtension($string)
+    {
+        $explode = explode('.', $string);
         return end($explode);
     }
 }
-if (! function_exists('getDateDifferenceFromNow')) {
+if (!function_exists('getDateDifferenceFromNow')) {
     /**
      * @param $date
      * @return array
      */
-    function getDateDifferenceFromNow( $date) {
+    function getDateDifferenceFromNow($date)
+    {
         $datetime1 = new DateTime();
         $datetime2 = new DateTime($date);
         $difference = $datetime1->diff($datetime2);
-        return (array) $difference;
+        return (array)$difference;
     }
 }
-if(! function_exists('formatDateToUser')) {
+if (!function_exists('formatDateToUser')) {
     /**
      * @param $date
      * @param string $format
      * @return false|string
      */
-    function formatDateToUser($date, $format='d/m/Y H:i') {
+    function formatDateToUser($date, $format = 'd/m/Y H:i')
+    {
         return date($format, strtotime($date));
     }
 }
-if(! function_exists('generateRandomString')) {
+if (!function_exists('generateRandomString')) {
     /**
      * @param $lenght
      * @param string $charInput
      * @return string
      */
-    function generateRandomString($lenght, $charInput = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789') {
-        srand((double)microtime()*1000000);
+    function generateRandomString($lenght, $charInput = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789')
+    {
+        srand((double)microtime() * 1000000);
         $string = '';
-        for($i=0; $i<$lenght; $i++) {
-            $string.= $charInput[rand()%strlen($charInput)];
+        for ($i = 0; $i < $lenght; $i++) {
+            $string .= $charInput[rand() % strlen($charInput)];
         }
         return $string;
     }
 }
-if(! function_exists('reversibleEncryption')) {
+if (!function_exists('reversibleEncryption')) {
     /**
      * @param array $data
      * @param null $key
      * @return string
      */
-    function reversibleEncryption(array $data, $key=null) {
-        $hashids = new \Hashids\Hashids( is_null($key) ? env('APP_KEY') : $key );
+    function reversibleEncryption(array $data, $key = null)
+    {
+        $hashids = new \Hashids\Hashids(is_null($key) ? env('APP_KEY') : $key);
         return $hashids->encode($data);
     }
 }
-if(! function_exists('reversibleDecryption')) {
+if (!function_exists('reversibleDecryption')) {
     /**
      * @param $encryptedString
      * @param null $key
      * @return array
      */
-    function reversibleDecryption($encryptedString, $key=null) {
-        $hashids = new \Hashids\Hashids( is_null($key) ? env('APP_KEY') : $key );
+    function reversibleDecryption($encryptedString, $key = null)
+    {
+        $hashids = new \Hashids\Hashids(is_null($key) ? env('APP_KEY') : $key);
         return $hashids = $hashids->decode($encryptedString);
     }
 }
-if(! function_exists('antiSpamEmailEncode')) {
+if (!function_exists('antiSpamEmailEncode')) {
     /**
      * @param string $email
      * @param string $linkText
@@ -188,22 +209,19 @@ if(! function_exists('antiSpamEmailEncode')) {
         return $encoded;
     }
 }
-if(! function_exists('listDirectory')) {
+if (!function_exists('listDirectory')) {
     /**
      * @param $directory
      * @param array $fileExclusion
      */
-    function listDirectory($directory, array $fileExclusion = ['.', '..']) {
+    function listDirectory($directory, array $fileExclusion = ['.', '..'])
+    {
         $list = [];
-        if(is_dir($directory))
-        {
-            if($handle = opendir($directory))
-            {
-                while(($file = readdir($handle)) !== false)
-                {
-                    if( !in_array($file, $fileExclusion))
-                    {
-                        $list[] = $directory.$file;
+        if (is_dir($directory)) {
+            if ($handle = opendir($directory)) {
+                while (($file = readdir($handle)) !== false) {
+                    if (!in_array($file, $fileExclusion)) {
+                        $list[] = $directory . $file;
                     }
                 }
                 closedir($handle);
@@ -211,32 +229,33 @@ if(! function_exists('listDirectory')) {
         }
     }
 }
-if(! function_exists('cleanString')) {
-    function cleanString($text) {
+if (!function_exists('cleanString')) {
+    function cleanString($text)
+    {
         $utf8 = array(
-            '/[áàâãªä]/u'   =>   'a',
-            '/[ÁÀÂÃÄ]/u'    =>   'A',
-            '/[ÍÌÎÏ]/u'     =>   'I',
-            '/[íìîï]/u'     =>   'i',
-            '/[éèêë]/u'     =>   'e',
-            '/[ÉÈÊË]/u'     =>   'E',
-            '/[óòôõºö]/u'   =>   'o',
-            '/[ÓÒÔÕÖ]/u'    =>   'O',
-            '/[úùûü]/u'     =>   'u',
-            '/[ÚÙÛÜ]/u'     =>   'U',
-            '/ç/'           =>   'c',
-            '/Ç/'           =>   'C',
-            '/ñ/'           =>   'n',
-            '/Ñ/'           =>   'N',
-            '/–/'           =>   '-', // UTF-8 hyphen to "normal" hyphen
-            '/[’‘‹›‚]/u'    =>   ' ', // Literally a single quote
-            '/[“”«»„]/u'    =>   ' ', // Double quote
-            '/ /'           =>   ' ', // nonbreaking space (equiv. to 0x160)
+            '/[áàâãªä]/u' => 'a',
+            '/[ÁÀÂÃÄ]/u' => 'A',
+            '/[ÍÌÎÏ]/u' => 'I',
+            '/[íìîï]/u' => 'i',
+            '/[éèêë]/u' => 'e',
+            '/[ÉÈÊË]/u' => 'E',
+            '/[óòôõºö]/u' => 'o',
+            '/[ÓÒÔÕÖ]/u' => 'O',
+            '/[úùûü]/u' => 'u',
+            '/[ÚÙÛÜ]/u' => 'U',
+            '/ç/' => 'c',
+            '/Ç/' => 'C',
+            '/ñ/' => 'n',
+            '/Ñ/' => 'N',
+            '/–/' => '-', // UTF-8 hyphen to "normal" hyphen
+            '/[’‘‹›‚]/u' => ' ', // Literally a single quote
+            '/[“”«»„]/u' => ' ', // Double quote
+            '/ /' => ' ', // nonbreaking space (equiv. to 0x160)
         );
         return preg_replace(array_keys($utf8), array_values($utf8), $text);
     }
 }
-if(! function_exists('getIp')) {
+if (!function_exists('getIp')) {
     function getIp()
     {
         foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key) {
@@ -251,7 +270,7 @@ if(! function_exists('getIp')) {
         }
     }
 }
-if (! function_exists('geocode')) {
+if (!function_exists('geocode')) {
     function geocode($address)
     {
         $lat = $lng = 0;
@@ -275,7 +294,7 @@ if (! function_exists('geocode')) {
         ];
     }
 }
-if (! function_exists('xml2array')) {
+if (!function_exists('xml2array')) {
     function xml2array($xmlObject, $out = array())
     {
         foreach ((array)$xmlObject as $index => $node)
@@ -284,7 +303,7 @@ if (! function_exists('xml2array')) {
     }
 }
 
-if (! function_exists('is_countable')) {
+if (!function_exists('is_countable')) {
     function is_countable($var)
     {
         return (is_array($var) || $var instanceof Countable);
