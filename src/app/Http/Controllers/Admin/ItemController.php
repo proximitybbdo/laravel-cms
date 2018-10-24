@@ -178,51 +178,24 @@ class ItemController extends BaseController
             $lang = $this->default_lang;
         }
 
-        if ($id == null || $id == 0) {
+        if (empty($id)) {
             $item = new Item();
             $id = null;
         } else {
             $item = $this->itemService->getAdmin($id, $lang);
         }
 
-        $single_item = false;
-        if (config("cms.$this->module_type.single_item") != null && config("cms.$this->module_type.single_item") == true) {
-            $single_item = true;
-        }
-
-        $show_start_date = false;
-        if (config("cms.$this->module_type.show_start_date") != null && config("cms.$this->module_type.show_start_date") == true) {
-            $show_start_date = true;
-        }
-
-        $show_end_date = false;
-        if (config("cms.$this->module_type.show_end_date") != null && config("cms.$this->module_type.show_end_date") == true) {
-            $show_end_date = true;
-        }
-
-        $show_type = false;
-        $types = [];
-        if (config("cms.$this->module_type.show_type") != null && config("cms.$this->module_type.show_type") == true) {
-            $show_type = true;
-            $types = config("cms.$this->module_type.types");
-        }
-
-        $show_version = false;
-        if (config("cms.$this->module_type.show_version") != null && config("cms.$this->module_type.show_version") == true) {
-            $show_version = true;
-        }
-
         $itemLangs = [];
-        if ($id != null) {
+        if (!is_null($id)) {
             $itemLangs = $this->itemService->getItemLanguages($item->id);
         }
 
-        $this->data['single_item'] = $single_item;
-        $this->data['show_start_date'] = $show_start_date;
-        $this->data['show_end_date'] = $show_end_date;
-        $this->data['show_type'] = $show_type;
-        $this->data['types'] = $types;
-        $this->data['show_version'] = $show_version;
+        $this->data['single_item'] = (config("cms.$this->module_type.single_item") === true);
+        $this->data['show_start_date'] = (config("cms.$this->module_type.show_start_date") === true);
+        $this->data['show_end_date'] = (config("cms.$this->module_type.show_end_date") === true);
+        $this->data['show_type'] = (config("cms.$this->module_type.show_type") === true);
+        $this->data['types'] = ($show_type ? config("cms.$this->module_type.types") : []);
+        $this->data['show_version'] = (config("cms.$this->module_type.show_version") === true);
         $this->data['action'] = $action;
         $this->data['lang'] = $lang;
         $this->data['languages'] = $this->languages;
@@ -233,8 +206,7 @@ class ItemController extends BaseController
             "/overview/" . ($back_link_id != null ? $back_link_id : ($item->category_id != null ? '/' . $item->category_id : '')));
         $this->data['block_list'] = null;
 
-        if (config('cms.' . $this->module_type . '.blocks') != []) {
-            $arr_block_list = [];
+        if (!empty(config('cms.' . $this->module_type . '.blocks'))) {
 
             $arr_block_list = collect(config('cms.' . $this->module_type . '.blocks'))->map(function ($item, $key) {
                 return [
@@ -259,6 +231,7 @@ class ItemController extends BaseController
             $content = $item->contentLang($lang)->where('version', 0);
             $content_online = $content;
         }
+
         $content_arr = $content->pluck('content', 'type');
         $item->my_content = arrayToObject($content_arr);
         if ($content_online != null) {
@@ -281,7 +254,7 @@ class ItemController extends BaseController
         }
 
         $block_content_arr = $content_blocks_draft->get()->reduce(function ($block_content_arr, $block_content) {
-            if ($block_content_arr == null || !array_key_exists($block_content->itemBlock->type, $block_content_arr)) {
+            if (is_null($block_content_arr) || !array_key_exists($block_content->itemBlock->type, $block_content_arr)) {
                 $block_content_arr[$block_content->itemBlock->type]['content'] = [$block_content->type => $block_content->content];
             } else {
                 $block_content_arr[$block_content->itemBlock->type]['content'][$block_content->type] = $block_content->content;
@@ -290,15 +263,15 @@ class ItemController extends BaseController
         });
 
         $links = linksArray($this->module_type, $item, $lang, null, $version);
-        $this->data["links"] = $links;
+        $this->data['links'] = $links;
         if ($back_module_id) {
-            $this->data["back_module_link"] = array($back_module_id => $links[$back_module_id]);
+            $this->data['back_module_link'] = array($back_module_id => $links[$back_module_id]);
         }
 
         $item->block_content = $block_content_arr;
 
         $item->my_block_content_online = null;
-        if ($content_online != null && $block_content_online->count() > 0) {
+        if (!is_null($content_online) && $block_content_online->count() > 0) {
             $block_content_arr_online = $block_content_online->get()->reduce(function ($block_content_arr_online, $block_content) {
                 $block_content_arr_online[$block_content->itemBlock->type] = [$block_content->type => $block_content->content];
                 return $block_content_arr_online;
@@ -307,21 +280,17 @@ class ItemController extends BaseController
         }
 
         $preview_link = null;
-        if ($id != null && config("cms.$this->module_type.preview") != null) {
-            $slug = array_key_exists('slug', $content_arr->toArray()) ? $content_arr["slug"] : "";
+        if (!is_null($id) && !is_null(config('cms.'.$this->module_type.'.preview'))) {
+            $slug = array_key_exists('slug', $content_arr->toArray()) ? $content_arr['slug'] : '';
 
             $preview_link = url(
                 str_replace(
-                    array(
-                        ':id',
-                        ':slug',
-                        ':lang'
-                    ),
-                    array(
-                        $item->id,
-                        $slug,
-                        $lang
-                    ),
+                    [
+                        ':id', ':slug', ':lang'
+                    ],
+                    [
+                        $item->id, $slug, $lang
+                    ],
                     config('cms.' . $this->module_type . '.preview')
                 )
             );
@@ -532,7 +501,7 @@ class ItemController extends BaseController
     public function postDelete(Request $request)
     {
         $id = $request->input('id');
-        if ($id != null) {
+        if (!is_null($id)) {
             $this->itemService->destroy($id);
             return 'OK';
         }
@@ -545,7 +514,7 @@ class ItemController extends BaseController
         $id = $request->input('id');
         $to_index = $request->input('index');
 
-        if ($id != null & $to_index != null && config("cms.$this->module_type.sortable") == true) {
+        if (!is_null($id) && !is_null($to_index) && config('cms.'.$this->module_type.'.sortable') == true) {
 
             $this->itemService->sortItems($id, $to_index);
             return 'OK';
