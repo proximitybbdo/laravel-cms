@@ -89,11 +89,13 @@
    
    Extra item can be added in the menu with the route item
    
-       'EXPORT'    => [ //Allow to add item in the admin menu. It take a named route and its parameters. Route can then be defined in the route of the project
-           'description'   => 'Export data',
-           'route'     => 'icontrol.export',
-           'params'    => []
-       ]
+            'EXPORT'    => [
+               'description'   => 'Export data',
+               'nav_mode'      => 'route',//url or route. if empty link will not be used
+               'url'       => '',
+               'route'     => 'icontrol.export',
+               'params'    => []
+            ]
        
    The route can then be defined in your project route. These middleware will do the usual check on this route and the user should have the permission {module}.vue
    
