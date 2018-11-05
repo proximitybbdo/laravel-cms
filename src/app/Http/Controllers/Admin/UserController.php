@@ -41,21 +41,26 @@ class UserController extends Controller
 
     public function create(Request $request) {
 
+
     }
 
     public function store(Request $request) {
 
     }
 
-    public function edit(Request $request) {
+    public function edit(Request $request, $userId) {
+        $sUser = Sentinel::getUserRepository()->findById($userId);
+
+        return view('bbdocms::admin.user.edit', ['sUser' => $sUser]);
+    }
+
+    public function update(Request $request, $userId) {
+        $sUser = Sentinel::getUserRepository()->findById($userId);
 
     }
 
-    public function update(Request $request) {
-
-    }
-
-    public function delete(Request $request) {
+    public function delete(Request $request, $userId) {
+        $sUser = Sentinel::getUserRepository()->findById($userId);
 
     }
 
