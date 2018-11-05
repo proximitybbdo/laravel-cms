@@ -18,11 +18,19 @@
             </thead>
             @foreach($users as $user)
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td> Edit / Delete </td>
+                    <td>{{ $user->id }}</td>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->email }}</td>
+                    <td>
+                        @foreach($user->roles() as $role)
+                            {{ $role->name }},
+                        @endforeach
+                    </td>
+                    <td>
+                        <a href="{{ route('icontrol.user.edit', $user->id) }}"> Edit</a>
+                        <a href="{{ route('icontrol.user.delete', $user->id) }}" onclick="return confirm('Are you sure you want to delete this item?');"> Delete</a>
+
+                    </td>
                 </tr>
             @endforeach
         </table>

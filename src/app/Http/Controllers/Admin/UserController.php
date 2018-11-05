@@ -32,24 +32,11 @@ class UserController extends Controller
 
 
         foreach($users as $user) {
-
             Sentinel::setUser( Sentinel::getUserRepository()->findById($user->id) );
-
-            $fullUsers[] = [
-                'user'  => $user,
-                'sUser' => Sentinel::getUser(),
-                'sRole' => Sentinel::getUser()->roles()
-            ];
-
-
-
+            $fullUsers[] = Sentinel::getUser();
         }
 
-        dd($fullUsers);
-
-
-
-        return view('bbdocms::admin.user.index', ['users'   => $users]);
+        return view('bbdocms::admin.user.index', ['users'   => $fullUsers]);
     }
 
     public function create(Request $request) {
