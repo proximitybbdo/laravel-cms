@@ -32,7 +32,7 @@ class UserController extends Controller
         $userRepository->findById( Sentinel::getUser()->getUserId());
 
 
-        $request->validate([
+        $this->validate($request,[
             'password'  => 'required|min:8|confirmed'
         ]);
 
