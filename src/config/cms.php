@@ -186,6 +186,6 @@ return array(
         'url'       => '',
         'route'     => 'icontrol.export',
         'params'    => [],
-        'always_visible_for_admin' => true,//if false, only permission will be checked
+        'always_visible_for_admin' => true,//if false, only permission will be checked. It require to explicitly provide permission
     ]
 );
