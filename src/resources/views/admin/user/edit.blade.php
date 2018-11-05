@@ -78,7 +78,7 @@
             <div class="col-md-6">
                 <select name="roles" class="form-control" id="roles">
                     @foreach($sRoles as $sRole)
-                        <option value="{{ $sRole->id}}" {{ old('roles', (isset($sUser->roles->first) ? 'selected' : '')) }}>{{ $sRole->name }}</option>
+                        <option value="{{ $sRole->id}}" {{ old('roles', (isset($sUser->roles()->first()->id) ? 'selected' : '')) }}>{{ $sRole->name }}</option>
                     @endforeach
                 </select>
 
