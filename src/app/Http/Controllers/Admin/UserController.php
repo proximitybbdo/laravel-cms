@@ -49,6 +49,21 @@ class UserController extends Controller
 
     public function store(Request $request) {
 
+        $this->validate(
+            $request,
+            [
+                'password' => 'required|confirmed',
+                'email'    => 'required|unique:users'
+            ]
+        );
+
+        $credentials = $request->all();
+
+        $user = Sentinel::registerAndActivate($credentials);
+        $adminRole = Sentinel::getRoleRepository()->findById($request->get('roles'));
+        $adminRole->users()->attach($user);
+
+        return redirect()->route('icontrol.user.edit', $user->id);
     }
 
     public function edit(Request $request, $userId) {
@@ -60,6 +75,10 @@ class UserController extends Controller
 
     public function update(Request $request, $userId) {
         $sUser = Sentinel::getUserRepository()->findById($userId);
+
+        $adminRole = Sentinel::getRoleRepository()->findById($sUser->roles()->first()->id);
+        $adminRole->users()->detach($sUser);
+
 
         $this->validate(
             $request,
@@ -82,6 +101,9 @@ class UserController extends Controller
         }
 
         Sentinel::getUserRepository()->update($sUser, $crendential);
+
+        $adminRole = Sentinel::getRoleRepository()->findById($request->get('roles'));
+        $adminRole->users()->attach($sUser);
 
         return redirect()->route('icontrol.user.edit', $userId);
 
