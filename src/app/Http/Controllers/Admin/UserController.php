@@ -36,7 +36,7 @@ class UserController extends Controller
             $fullUsers[] = Sentinel::getUser();
         }
 
-        return view('bbdocms::admin.user.index', ['users'   => $fullUsers]);
+        return view('bbdocms::admin.user.index', ['sUsers'   => $fullUsers]);
     }
 
     public function create(Request $request) {
