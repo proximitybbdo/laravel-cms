@@ -44,7 +44,7 @@
         @endif
 
         @foreach ($modules as $module)
-            @if( Sentinel::hasAccess( strtolower($module) . '.view') || Sentinel::inRole('admin') )
+            @if( Sentinel::hasAccess( strtolower($module) . '.view') || (config('cms.'.$module.'.always_visible_for_admin') === true && Sentinel::inRole('admin')) )
                 <li class="{{ $module_type == $module ? 'active' : '' }}">
                     @if(!is_null(config('cms.'.$module.'.nav_mode')) && config('cms.'.$module.'.nav_mode') == 'route')
                         <a href="{{ route(config('cms.'.$module.'.route'), config('cms.'.$module.'.params')) }}">

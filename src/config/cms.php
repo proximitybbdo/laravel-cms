@@ -185,6 +185,7 @@ return array(
         'nav_mode'      => 'route',//url or route. if empty link will not be used
         'url'       => '',
         'route'     => 'icontrol.export',
-        'params'    => []
+        'params'    => [],
+        'always_visible_for_admin' => true,//if false, only permission will be checked
     ]
 );
