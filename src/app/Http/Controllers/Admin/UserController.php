@@ -27,12 +27,12 @@ class UserController extends Controller
 
     public function index(Request $request) {
 
-        $users = User::all();
+        $usersFromDb = User::all();
         $fullUsers = [];
 
 
-        foreach($users as $user) {
-            Sentinel::setUser( Sentinel::getUserRepository()->findById($user->id) );
+        foreach($usersFromDb as $userFromDb) {
+            Sentinel::setUser( Sentinel::getUserRepository()->findById($userFromDb->id) );
             $fullUsers[] = Sentinel::getUser();
         }
 

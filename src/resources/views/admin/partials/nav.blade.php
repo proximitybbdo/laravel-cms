@@ -38,10 +38,10 @@
         <li class="<?= cleanSegments() == 'icontrol' ? 'active' : ''; ?>">
             <a href="<?= url('icontrol/dashboard'); ?>"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
         </li>
-        @if(false && Sentinel::inRole('admin') )
+        @if(Sentinel::inRole('admin') )
             <li class="">
-                <a href="<?= url('icontrol/roles'); ?>">
-                    <i class="fa fa-fw fa-user"></i> Roles
+                <a href="{{ route('icontrol.user.index') }}">
+                    <i class="fa fa-fw fa-user"></i> Users
                 </a>
             </li>
         @endif
