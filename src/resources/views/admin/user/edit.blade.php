@@ -2,7 +2,11 @@
 
 @section('content')
     <div class="span12">
-        <h1>Update user {{ $sUser->first_name }} ({{ $sUser->id }})</h1>
+        @if(isset($sUser))
+            <h1>Update user {{ $sUser->first_name }} ({{ $sUser->id }})</h1>
+        @else
+            <h1>Create user</h1>
+        @endif
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -14,15 +18,19 @@
             </div>
         @endif
 
-        {!! Form::open(['route' => ['icontrol.user.update', $sUser->id]]) !!}
-
+        @if(isset($sUser))
+            {!! Form::open(['route' => ['icontrol.user.update', $sUser->id]]) !!}
+        @else
+            {!! Form::open(['route' => 'icontrol.user.store']) !!}
+        @endif
 
         <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
             <label for="first_name" class="col-md-4 control-label">First Name</label>
 
             <div class="col-md-6">
                 <input id="first_name" type="text" class="form-control" name="first_name"
-                       value="{{ old('first_name', (isset($sUser->first_name) ? $sUser->first_name : '')) }}" required autofocus>
+                       value="{{ old('first_name', (isset($sUser->first_name) ? $sUser->first_name : '')) }}" required
+                       autofocus>
 
                 @if ($errors->has('first_name'))
                     <span class="help-block">
@@ -37,7 +45,8 @@
 
             <div class="col-md-6">
                 <input id="last_name" type="text" class="form-control" name="last_name"
-                       value="{{ old('last_name', (isset($sUser->last_name) ? $sUser->last_name : '')) }}" required autofocus>
+                       value="{{ old('last_name', (isset($sUser->last_name) ? $sUser->last_name : '')) }}" required
+                       autofocus>
 
                 @if ($errors->has('last_name'))
                     <span class="help-block">
