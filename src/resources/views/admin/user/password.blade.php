@@ -4,20 +4,20 @@
     <div class="span12">
         <h1>Update your password</h1>
 
-        @if($cat_item != null)
-            <h3>
-                <a href="<?= url()->to("icontrol/items/$cat_item->module_type/overview"); ?>">{{ $cat_item->description }}</a>
-            </h3>
-        @endif
 
-        <div class="form-line overview padding-bottom">
-            <?= view('bbdocms::admin.partials.links_overview', array('links' => $links, 'category_id' => $active_cat)) ?>
-        </div>
+        {!! Form::open(['route' => 'icontrol.user.updatePassword']) !!}
 
-        <?= $overview_data ?>
+            <div class="form-group">
+                <label for="password" class="control-label">Password</label>
+                <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+            </div>
 
-        <a style="font-size:20px" href="<?= url()->to("icontrol/items/$module_type/add"); ?>" class="btn">
-            <i class="fa fa-plus-circle"></i>
-        </a>
+            <div class="form-group">
+                <label for="password_confirmation" class="control-label">Password confirmation</label>
+                <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Password">
+            </div>
+
+            <button type="submit">Update</button>
+        {!! Form::close() !!}
     </div>
 @endsection('content')

@@ -76,7 +76,19 @@ class SentinelController extends Controller
     }
 
     public function updatePassword(Request $request) {
-        $user = Sentinel::getUser();
+        $userRepository = Sentinel::getUserRepository();
+        $userRepository->findById( Sentinel::getUser()->getUserId());
+
+
+        $request->validate([
+            'password'  => 'required|min:8|confirmed'
+        ]);
+
+        $userRepository->update([], ['password' => $request->get('password')]
+        );
+
+        return redirect()->route('dashboard');
+
     }
 
 }
