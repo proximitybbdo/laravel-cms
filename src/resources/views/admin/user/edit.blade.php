@@ -122,7 +122,11 @@
         <div class="form-group">
             <div class="col-md-6 col-md-offset-4">
                 <button type="submit" class="btn btn-primary">
-                    Update
+                    @if(isset($sUser))
+                        Update
+                    @else
+                        Create
+                    @endif
                 </button>
             </div>
         </div>
