@@ -25,22 +25,6 @@ class SentinelController extends Controller
         // $this->middleware('guest', ['except' => array('logout')]);
     }
 
-    public function register(Request $request)
-    {
-        $user = Sentinel::registerAndActivate($request->all());
-
-        //temporary auto assign publisher role
-        $role = Sentinel::findRoleBySlug('publisher');
-        $role->users()->attach($user);
-
-        return redirect()->route('login');
-    }
-
-    public function showRegistrationForm()
-    {
-        return view('bbdocms::admin.register');
-    }
-
     public function login(Request $request)
     {
         $user = Sentinel::authenticate($request->all());

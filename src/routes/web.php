@@ -59,8 +59,6 @@ Route::group(['prefix' => 'icontrol', 'middleware' => 'web', 'namespace' => '\BB
         Route::group(['middleware' => \BBDO\Cms\Http\Middleware\Admin\AdminMiddleware::class], function () {
             Route::get('roles', 'SentinelController@showRolesForm');
             Route::post('roles', 'SentinelController@assign_roles');
-            Route::get('register', 'SentinelController@showRegistrationForm')->name('register');
-            Route::post('register', 'SentinelController@register');
 
             Route::get('/user', 'UserController@index')->name('icontrol.user.index');
             Route::get('/user/create', 'UserController@create')->name('icontrol.user.create');
