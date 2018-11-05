@@ -70,26 +70,5 @@ class SentinelController extends Controller
     {
         return view('bbdocms::admin.register');
     }
-
-    public function editPassword(Request $request) {
-        return view('bbdocms::admin.user.password');
-    }
-
-    public function updatePassword(Request $request) {
-        $userRepository = Sentinel::getUserRepository();
-        $userRepository->findById( Sentinel::getUser()->getUserId());
-
-
-        $request->validate([
-            'password'  => 'required|min:8|confirmed'
-        ]);
-
-        $userRepository->update([], ['password' => $request->get('password')]
-        );
-
-        return redirect()->route('dashboard');
-
-    }
-
 }
 
