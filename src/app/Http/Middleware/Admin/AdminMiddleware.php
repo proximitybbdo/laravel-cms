@@ -16,10 +16,10 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (Sentinel::getUser()->roles()->first()) {
-            if (Sentinel::getUser()->roles()->first()->slug == 'admin') {
-                return $next($request);
-            }
-        } else return redirect()->route('login');
+        if (Sentinel::getUser()->roles()->first() && Sentinel::getUser()->roles()->first()->slug == 'admin') {
+            return $next($request);
+        } else {
+            return redirect()->route('login');
+        }
     }
 }
