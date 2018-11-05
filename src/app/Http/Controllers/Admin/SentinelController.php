@@ -72,9 +72,6 @@ class SentinelController extends Controller
     }
 
     public function editPassword(Request $request) {
-
-        $user = Sentinel::getUser();
-
         return view('bbdocms::admin.user.password');
     }
 

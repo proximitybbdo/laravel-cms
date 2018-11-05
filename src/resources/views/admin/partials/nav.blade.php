@@ -22,7 +22,7 @@
                     <a href="<?= route('icontrol.clearcache') ?>"><i class="fa fa-fw fa-database"></i> Clear Cache</a>
                 </li>
                 <li>
-                    <a href="{{ route('icontrol.user.editPassword') }}"> Edit password</a>
+                    <a href="{{ route('icontrol.user.editPassword') }}"><i class="fa fa-fw fa-key"></i> Edit password</a>
                 </li>
                 <li>
                     <a href="<?= route('sentinel.logout') ?>"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
