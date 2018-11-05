@@ -3,6 +3,8 @@
 namespace BBDO\Cms\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use BBDO\Cms\Helpers\SentinelHelper;
+use BBDO\Cms\Models\User;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Http\Request;
 
@@ -21,6 +23,53 @@ class UserController extends Controller
         view()->share('user', \Auth::User()); // null hier
         view()->share('module_type', $this->module_type);
         view()->share('module_title', config('cms.' . $this->module_type . '.description'));
+    }
+
+    public function index(Request $request) {
+
+        $users = User::all();
+        $fullUsers = [];
+
+
+        foreach($users as $user) {
+
+            Sentinel::setUser( Sentinel::getUserRepository()->findById($user->id) );
+
+            $fullUsers[] = [
+                'user'  => $user,
+                'sUser' => Sentinel::getUser(),
+                'sRole' => Sentinel::getUser()->roles()
+            ];
+
+
+
+        }
+
+        dd($fullUsers);
+
+
+
+        return view('bbdocms::admin.user.index', ['users'   => $users]);
+    }
+
+    public function create(Request $request) {
+
+    }
+
+    public function store(Request $request) {
+
+    }
+
+    public function edit(Request $request) {
+
+    }
+
+    public function update(Request $request) {
+
+    }
+
+    public function delete(Request $request) {
+
     }
 
     public function editPassword(Request $request) {

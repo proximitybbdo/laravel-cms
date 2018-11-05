@@ -53,13 +53,22 @@ Route::group(['prefix' => 'icontrol', 'middleware' => 'web', 'namespace' => '\BB
             'as' => 'icontrol.postUrlFriendlyText'
         ]);
 
+        Route::get('user/password', 'UserController@editPassword')->name('icontrol.user.editPassword');
+        Route::post('user/password', 'UserController@updatePassword')->name('icontrol.user.updatePassword');
+
         Route::group(['middleware' => \BBDO\Cms\Http\Middleware\Admin\AdminMiddleware::class], function () {
             Route::get('roles', 'SentinelController@showRolesForm');
             Route::post('roles', 'SentinelController@assign_roles');
             Route::get('register', 'SentinelController@showRegistrationForm')->name('register');
             Route::post('register', 'SentinelController@register');
-            Route::get('user/password', 'UserController@editPassword')->name('icontrol.user.editPassword');
-            Route::post('user/password', 'UserController@updatePassword')->name('icontrol.user.updatePassword');
+
+            Route::get('/user', 'UserController@index')->name('icontrol.user.index');
+            Route::get('/user/create', 'UserController@create')->name('icontrol.user.create');
+            Route::get('/user/store', 'UserController@store')->name('icontrol.user.store');
+            Route::get('/user/edit/{userId}', 'UserController@edit')->name('icontrol.user.edit');
+            Route::get('/user/update/{userId}', 'UserController@update')->name('icontrol.user.update');
+            Route::get('/user/delete/{userId}', 'UserController@delete')->name('icontrol.user.delete');
+
         });
 
         Route::group(['middleware' => \BBDO\Cms\Http\Middleware\Admin\CheckPermissionMiddleware::class], function () {
