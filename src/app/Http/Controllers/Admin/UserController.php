@@ -89,6 +89,10 @@ class UserController extends Controller
     public function delete(Request $request, $userId) {
         $sUser = Sentinel::getUserRepository()->findById($userId);
 
+        $sUser->delete();
+
+        return redirect()->route('icontrol.user.index');
+
     }
 
     public function editPassword(Request $request) {

@@ -4,7 +4,7 @@
     <div class="span12">
         <h1>Users</h1>
 
-        <a href="{{ route('icontrol.user.create') }}">Add user</a>
+        <a href="{{ route('icontrol.user.create') }}" class="btn btn-primary">Add user</a>
 
         <table class="table table-striped">
             <thead>
