@@ -16,19 +16,19 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            @foreach($users as $user)
+            @foreach($sUsers as $sUser)
                 <tr>
-                    <td>{{ $user->id }}</td>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
+                    <td>{{ $sUser->id }}</td>
+                    <td>{{ $sUser->name }}</td>
+                    <td>{{ $sUser->email }}</td>
                     <td>
-                        @foreach($user->roles as $role)
+                        @foreach($sUser->roles as $role)
                             {{ $role->name }},
                         @endforeach
                     </td>
                     <td>
-                        <a href="{{ route('icontrol.user.edit', $user->id) }}"> Edit</a>
-                        <a href="{{ route('icontrol.user.delete', $user->id) }}" onclick="return confirm('Are you sure you want to delete this item?');"> Delete</a>
+                        <a href="{{ route('icontrol.user.edit', $sUser->id) }}"> Edit</a>
+                        <a href="{{ route('icontrol.user.delete', $sUser->id) }}" onclick="return confirm('Are you sure you want to delete this item?');"> Delete</a>
 
                     </td>
                 </tr>

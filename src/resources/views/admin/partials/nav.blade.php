@@ -15,7 +15,7 @@
     <!-- Top Menu Items -->
     <ul class="nav navbar-right top-nav">
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?= $user ?> <b
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ $user }} <b
                         class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li>
@@ -35,7 +35,7 @@
 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav side-nav">
-        <li class="<?= cleanSegments() == 'icontrol' ? 'active' : ''; ?>">
+        <li class="{{ cleanSegments() == 'icontrol' ? 'active' : '' }}">
             <a href="<?= url('icontrol/dashboard'); ?>"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
         </li>
         @if(Sentinel::inRole('admin') )
