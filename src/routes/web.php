@@ -64,9 +64,9 @@ Route::group(['prefix' => 'icontrol', 'middleware' => 'web', 'namespace' => '\BB
 
             Route::get('/user', 'UserController@index')->name('icontrol.user.index');
             Route::get('/user/create', 'UserController@create')->name('icontrol.user.create');
-            Route::get('/user/store', 'UserController@store')->name('icontrol.user.store');
+            Route::post('/user/store', 'UserController@store')->name('icontrol.user.store');
             Route::get('/user/edit/{userId}', 'UserController@edit')->name('icontrol.user.edit');
-            Route::get('/user/update/{userId}', 'UserController@update')->name('icontrol.user.update');
+            Route::post('/user/update/{userId}', 'UserController@update')->name('icontrol.user.update');
             Route::get('/user/delete/{userId}', 'UserController@delete')->name('icontrol.user.delete');
 
         });
