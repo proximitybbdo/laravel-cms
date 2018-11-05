@@ -19,7 +19,7 @@
             @foreach($sUsers as $sUser)
                 <tr>
                     <td>{{ $sUser->id }}</td>
-                    <td>{{ $sUser->name }}</td>
+                    <td>{{ $sUser->first_name }} {{ $sUser->last_name }}</td>
                     <td>{{ $sUser->email }}</td>
                     <td>
                         @foreach($sUser->roles as $role)

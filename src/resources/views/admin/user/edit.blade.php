@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="span12">
-        <h1>Update user {{ $sUser->name }}</h1>
+        <h1>Update user {{ $sUser->first_name }} ({{ $sUser->id }})</h1>
 
         @if ($errors->any())
             <div class="alert alert-danger">
