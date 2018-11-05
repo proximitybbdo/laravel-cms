@@ -14,7 +14,7 @@
             </div>
         @endif
 
-        {!! Form::open(['route' => ['icontrol.user.updateUser', $sUser->id]]) !!}
+        {!! Form::open(['route' => ['icontrol.user.update', $sUser->id]]) !!}
 
 
             <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
