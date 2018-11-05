@@ -22,7 +22,7 @@
 
             <div class="col-md-6">
                 <input id="first_name" type="text" class="form-control" name="first_name"
-                       value="{{ old('first_name', $sUser->first_name) }}" required autofocus>
+                       value="{{ old('first_name', (isset($sUser->first_name) ? $sUser->first_name : '')) }}" required autofocus>
 
                 @if ($errors->has('first_name'))
                     <span class="help-block">
@@ -37,7 +37,7 @@
 
             <div class="col-md-6">
                 <input id="last_name" type="text" class="form-control" name="last_name"
-                       value="{{ old('last_name', $sUser->last_name) }}" required autofocus>
+                       value="{{ old('last_name', (isset($sUser->last_name) ? $sUser->last_name : '')) }}" required autofocus>
 
                 @if ($errors->has('last_name'))
                     <span class="help-block">
@@ -52,11 +52,30 @@
 
             <div class="col-md-6">
                 <input id="email" type="email" class="form-control" name="email"
-                       value="{{ old('email', $sUser->email) }}" required>
+                       value="{{ old('email', (isset($sUser->email) ? $sUser->email : '')) }}" required>
 
                 @if ($errors->has('email'))
                     <span class="help-block">
                         <strong>{{ $errors->first('email') }}</strong>
+                    </span>
+                @endif
+            </div>
+        </div>
+
+        <div class="form-group{{ $errors->has('roles') ? ' has-error' : '' }}">
+            <label for="roles" class="col-md-4 control-label">Roles</label>
+
+
+            <div class="col-md-6">
+                <select name="roles" class="form-control" id="roles">
+                    @foreach($sRoles as $sRole)
+                        <option value="{{ $sRole->id}}" {{ old('roles', (isset($sUser->roles->first) ? 'selected' : '')) }}>{{ $sRole->name }}</option>
+                    @endforeach
+                </select>
+
+                @if ($errors->has('roles'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('roles') }}</strong>
                     </span>
                 @endif
             </div>

@@ -42,9 +42,9 @@ class UserController extends Controller
     }
 
     public function create(Request $request) {
+        $sRoles = \DB::table('roles')->get();
 
-
-
+        return view('bbdocms::admin.user.edit', ['sRoles'    => $sRoles]);
     }
 
     public function store(Request $request) {
@@ -53,8 +53,9 @@ class UserController extends Controller
 
     public function edit(Request $request, $userId) {
         $sUser = Sentinel::getUserRepository()->findById($userId);
+        $sRoles = \DB::table('roles')->get();
 
-        return view('bbdocms::admin.user.edit', ['sUser' => $sUser]);
+        return view('bbdocms::admin.user.edit', ['sUser' => $sUser, 'sRoles'    => $sRoles]);
     }
 
     public function update(Request $request, $userId) {
