@@ -7,6 +7,8 @@ use BBDO\Cms\Helpers\SentinelHelper;
 use BBDO\Cms\Models\User;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -42,6 +44,7 @@ class UserController extends Controller
     public function create(Request $request) {
 
 
+
     }
 
     public function store(Request $request) {
@@ -56,6 +59,30 @@ class UserController extends Controller
 
     public function update(Request $request, $userId) {
         $sUser = Sentinel::getUserRepository()->findById($userId);
+
+        $this->validate(
+            $request,
+            [
+                'password' => 'confirmed',
+                'email'    => ['required', Rule::unique('users','email')->ignore($userId)]
+            ]
+        );
+
+        $crendential = [
+            'first_name'    => $request->first_name,
+            'last_name'    => $request->last_name,
+            'email'    => $request->email,
+        ];
+
+        if(!empty($request->get('password')) && strlen($request->get('password')) < 8 ) {
+            Throw ValidationException::withMessages('Password should have minimum 8 chars.');
+        } elseif(!empty($request->get('password'))) {
+            $crendential['password'] = $request->get('password');
+        }
+
+        Sentinel::getUserRepository()->update($sUser, $crendential);
+
+        return redirect()->route('icontrol.user.edit', $userId);
 
     }
 
