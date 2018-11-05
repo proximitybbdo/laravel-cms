@@ -31,7 +31,6 @@ class UserController extends Controller
         $userRepository = Sentinel::getUserRepository();
         $user = $userRepository->findById( Sentinel::getUser()->getUserId());
 
-
         $this->validate($request,[
             'password'  => 'required|min:8|confirmed'
         ]);
@@ -39,6 +38,5 @@ class UserController extends Controller
         $userRepository->update($user, ['password' => $request->get('password')]);
 
         return redirect()->route('dashboard');
-
     }
 }
