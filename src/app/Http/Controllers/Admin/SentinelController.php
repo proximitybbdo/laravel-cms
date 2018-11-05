@@ -71,5 +71,16 @@ class SentinelController extends Controller
         return view('bbdocms::admin.register');
     }
 
+    public function editPassword(Request $request) {
+
+        $user = Sentinel::getUser();
+
+        return view('bbdocms::admin.user.password');
+    }
+
+    public function updatePassword(Request $request) {
+        $user = Sentinel::getUser();
+    }
+
 }
 
