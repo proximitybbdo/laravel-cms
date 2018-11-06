@@ -59,8 +59,9 @@
 
             @if(Sentinel::inRole('admin') && config('cms.enable_user_managment') )
                 <li class="nav-main-item">
-                    <a href="{{ route('icontrol.user.index') }}">
-                        <i class="fa fa-fw fa-user"></i> Users
+                    <a class="nav-main-link" href="{{ route('icontrol.user.index') }}">
+                        <i class="nav-main-link-icon si si-cursor"></i>
+                        <span class="nav-main-link-name">Users</span>
                     </a>
                 </li>
             @endif
