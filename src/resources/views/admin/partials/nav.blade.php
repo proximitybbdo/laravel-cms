@@ -46,28 +46,25 @@
     </div>
     <!-- END Side Header -->
 
-<<<<<<< HEAD
+
      <!-- Side Navigation -->
      <div class="content-side content-side-full">
         <ul class="nav-main">
             <li class="nav-main-item">
                 <a class="nav-main-link" href="<?=url('icontrol/dashboard');?>" aria-expanded="<?=cleanSegments() == 'icontrol' ? 'true' : 'false';?>">
                     <i class="nav-main-link-icon si si-cursor"></i>
-                    <span class="nav-main-link-name">Dashboard</span>                    
-=======
-<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-<div class="collapse navbar-collapse navbar-ex1-collapse">
-    <ul class="nav navbar-nav side-nav">
-        <li class="{{ cleanSegments() == 'icontrol' ? 'active' : '' }}">
-            <a href="<?= url('icontrol/dashboard'); ?>"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-        </li>
-        @if(Sentinel::inRole('admin') && config('cms.enable_user_managment') )
-            <li class="">
-                <a href="{{ route('icontrol.user.index') }}">
-                    <i class="fa fa-fw fa-user"></i> Users
->>>>>>> bdfea5e63723d0d942a854bc3a38ebe96ff80bf2
+                    <span class="nav-main-link-name">Dashboard</span>
                 </a>
             </li>
+
+            @if(Sentinel::inRole('admin') && config('cms.enable_user_managment') )
+                <li class="nav-main-item">
+                    <a href="{{ route('icontrol.user.index') }}">
+                        <i class="fa fa-fw fa-user"></i> Users
+                    </a>
+                </li>
+            @endif
+
             <li class="nav-main-heading">Base</li>
             @foreach ($modules as $module)
                 @if( Sentinel::hasAccess( strtolower($module) . '.view') || Sentinel::inRole('admin') )
