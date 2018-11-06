@@ -1,8 +1,6 @@
 <div class="form-group">
-    <label class="control-label col-sm-12" for="$field">
-        {{ $title }}
-    </label>
-    <div class="controls col-sm-12">
-        <?= Form::select($field, $options, null, array('class' => 'form-control')); ?>
-    </div>
+      <label for="$field">
+         {{ $title }}
+      </label>
+      <?= Form::select($field, $options ,null, array('class' => 'custom-select')); ?>
 </div>

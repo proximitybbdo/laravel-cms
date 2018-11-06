@@ -1,4 +1,4 @@
-@extends('bbdocms::admin.template')
+@extends('bbdocms::admin.layouts.template')
 
 @section('content')
     <div class="span12">

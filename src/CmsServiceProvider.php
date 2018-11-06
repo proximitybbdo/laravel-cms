@@ -24,27 +24,34 @@ class CmsServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'bbdocms');
 
         $this->publishes([
-            __DIR__ . '/resources/assets' => resource_path('assets/cms'),
-            __DIR__ . '/resources/assets/admin' => public_path('admin'),
+            __DIR__ . '/resources/assets' => public_path('admin'),
         ], 'cms-asset');
-
 
         $this->publishes([
             __DIR__ . '/resources/views/front' => resource_path('views/front'),
-            __DIR__ . '/app/Http/Controllers/BBDOHomeController.php' => app_path('Http/Controllers/BBDOHomeController.php')
+            __DIR__ . '/app/Http/Controllers/BBDOHomeController.php' => app_path('Http/Controllers/BBDOHomeController.php'),
         ], 'cms-front-view');
 
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'bbdocms');
 
-
         if ($this->app->runningInConsole()) {
             $this->commands([
-                AddAdminUser::class
+                AddAdminUser::class,
             ]);
         }
 
         $this->registerSeedsFrom(__DIR__ . '/database/seeds');
 
+    }
+
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        include __DIR__ . '/app/Helpers/function.php';
     }
 
     protected function registerSeedsFrom($path)
@@ -63,15 +70,5 @@ class CmsServiceProvider extends ServiceProvider
             }
 
         }
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        include __DIR__ . '/app/Helpers/function.php';
     }
 }
