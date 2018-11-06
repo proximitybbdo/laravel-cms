@@ -25,6 +25,10 @@ class UserController extends Controller
         view()->share('user', \Auth::User()); // null hier
         view()->share('module_type', $this->module_type);
         view()->share('module_title', config('cms.' . $this->module_type . '.description'));
+
+        if(!config('cms.enable_user_managment')) {
+            die('You don\'t have access to this part');
+        }
     }
 
     public function index(Request $request) {
