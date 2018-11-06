@@ -115,6 +115,9 @@
                         User Options
                     </div>
                     <div class="p-2">
+                        <a class="dropdown-item" href="{{ route('icontrol.user.editPassword') }}">
+                            <i class="far fa-fw fa-user mr-1"></i> Update password
+                        </a>
                         <a class="dropdown-item" href="<?=route('icontrol.clearcache')?>">
                             <i class="far fa-fw fa-user mr-1"></i> Clear cache
                         </a>

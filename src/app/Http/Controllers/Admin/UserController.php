@@ -26,12 +26,12 @@ class UserController extends Controller
         view()->share('module_type', $this->module_type);
         view()->share('module_title', config('cms.' . $this->module_type . '.description'));
 
-        if(!config('cms.enable_user_managment')) {
-            die('You don\'t have access to this part');
-        }
     }
 
     public function index(Request $request) {
+        if(!config('cms.enable_user_managment')) {
+            return redirect()->route('dashboard');
+        }
 
         $usersFromDb = User::all();
         $fullUsers = [];
@@ -46,12 +46,19 @@ class UserController extends Controller
     }
 
     public function create(Request $request) {
+        if(!config('cms.enable_user_managment')) {
+            return redirect()->route('dashboard');
+        }
+
         $sRoles = \DB::table('roles')->get();
 
         return view('bbdocms::admin.user.edit', ['sRoles'    => $sRoles]);
     }
 
     public function store(Request $request) {
+        if(!config('cms.enable_user_managment')) {
+            return redirect()->route('dashboard');
+        }
 
         $this->validate(
             $request,
@@ -71,6 +78,10 @@ class UserController extends Controller
     }
 
     public function edit(Request $request, $userId) {
+        if(!config('cms.enable_user_managment')) {
+            return redirect()->route('dashboard');
+        }
+
         $sUser = Sentinel::getUserRepository()->findById($userId);
         $sRoles = \DB::table('roles')->get();
 
@@ -78,6 +89,10 @@ class UserController extends Controller
     }
 
     public function update(Request $request, $userId) {
+        if(!config('cms.enable_user_managment')) {
+            return redirect()->route('dashboard');
+        }
+
         $sUser = Sentinel::getUserRepository()->findById($userId);
 
         $adminRole = Sentinel::getRoleRepository()->findById($sUser->roles()->first()->id);
@@ -114,6 +129,10 @@ class UserController extends Controller
     }
 
     public function delete(Request $request, $userId) {
+        if(!config('cms.enable_user_managment')) {
+            return redirect()->route('dashboard');
+        }
+
         $sUser = Sentinel::getUserRepository()->findById($userId);
 
         $sUser->delete();
