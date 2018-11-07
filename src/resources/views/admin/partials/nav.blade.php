@@ -60,7 +60,7 @@
             @if(Sentinel::inRole('admin') && config('cms.enable_user_managment') )
                 <li class="nav-main-item">
                     <a class="nav-main-link" href="{{ route('icontrol.user.index') }}">
-                        <i class="nav-main-link-icon si si-cursor"></i>
+                        <i class="nav-main-link-icon si si-users"></i>
                         <span class="nav-main-link-name">Users</span>
                     </a>
                 </li>
@@ -68,11 +68,26 @@
 
             <li class="nav-main-heading">Base</li>
             @foreach ($modules as $module)
-                @if( Sentinel::hasAccess( strtolower($module) . '.view') || Sentinel::inRole('admin') )
-                <li class="nav-main-item">
-                        <a class="nav-main-link" href="<?=url('icontrol/items/' . $module . '/overview');?>" aria-expanded="<?=$module_type == $module ? 'true' : 'false';?>">
-                        <i class="nav-main-link-icon si si-grid"></i>
-                        <span class="nav-main-link-name">{{ config('cms.' . $module . '.description') }}</span>
+                @if( Sentinel::hasAccess( strtolower($module) . '.view')
+                        ||
+                    (
+                        config('cms.'.$module.'.always_visible_for_admin') === true && !empty(config('cms.'.$module.'.nav_mode')) && Sentinel::inRole('admin')
+                    )
+                        ||
+                    (
+                        empty(config('cms.'.$module.'.nav_mode')) && Sentinel::inRole('admin')
+                    )
+                )
+                    <li class="nav-main-item">
+                        @if(!is_null(config('cms.'.$module.'.nav_mode')) && config('cms.'.$module.'.nav_mode') == 'route')
+                            <a href="{{ route(config('cms.'.$module.'.route'), config('cms.'.$module.'.params')) }}" class="nav-main-link" aria-expanded="<?=$module_type == $module ? 'true' : 'false';?>">
+                        @elseif(!is_null(config('cms.'.$module.'.nav_mode')) && config('cms.'.$module.'.nav_mode') == 'url')
+                            <a href="{{ config('cms.'.$module.'.url') }}" target="_blank" class="nav-main-link" aria-expanded="<?=$module_type == $module ? 'true' : 'false';?>">
+                        @else
+                            <a href="{{ url('icontrol/items/' . $module . '/overview') }}" class="nav-main-link" aria-expanded="<?=$module_type == $module ? 'true' : 'false';?>">
+                        @endif
+                                <i class="nav-main-link-icon si si-grid"></i>
+                                <span class="nav-main-link-name">{{ config('cms.' . $module . '.description') }}</span>
                         </a>
                     </li>
                 @endif
@@ -111,15 +126,12 @@
                     <i class="fa fa-fw fa-angle-down ml-1 d-none d-sm-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right p-0" aria-labelledby="page-header-user-dropdown">
-                    <div class="bg-primary-darker rounded-top font-w600 text-white text-center p-3">
-                        User Options
-                    </div>
                     <div class="p-2">
                         <a class="dropdown-item" href="{{ route('icontrol.user.editPassword') }}">
-                            <i class="far fa-fw fa-user mr-1"></i> Update password
+                            <i class="far fa-fw fa-key mr-1"></i> Update password
                         </a>
                         <a class="dropdown-item" href="<?=route('icontrol.clearcache')?>">
-                            <i class="far fa-fw fa-user mr-1"></i> Clear cache
+                            <i class="far fa-fw fa-sync-alt mr-1"></i> Clear cache
                         </a>
                         <div role="separator" class="dropdown-divider"></div>
                             <a class="dropdown-item" href="<?=route('sentinel.logout')?>">
