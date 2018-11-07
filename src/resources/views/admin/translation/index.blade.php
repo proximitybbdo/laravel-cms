@@ -8,13 +8,13 @@
                 <ul class="nav flex-column">
                     @foreach($langs as $lang)
                         <li class="nav-item">
-                            <a href="" class="nav-link active">{{ $lang }}</a>
+                            <a href="{{ route('icontrol.translation.show', $lang) }}" class="nav-link js-translation-tabs active">{{ $lang }}</a>
                         </li>
                     @endforeach
                 </ul>
 
             </div>
-            <div class="col-md-11">
+            <div class="col-md-11" class="js-translation-content-tab">
                 ---
             </div>
 

@@ -11,6 +11,7 @@ import './../bootstrap.js';
 // Import required modules
 import Tools from './tools';
 import Helpers from './helpers';
+import Translations from './translations';
 
 // Template
 export default class Template {
@@ -722,5 +723,9 @@ export default class Template {
      */
     helpers(helpers, options = {}) {
         Helpers.run(helpers, options);
+    }
+
+    translation() {
+        Translations.run()
     }
 }

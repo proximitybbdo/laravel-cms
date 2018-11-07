@@ -1,7 +1,4 @@
-@extends('bbdocms::admin.layouts.template')
-
-@section('content')
-
-
-
-@endsection
+<pre>
+{{ var_dump($lang) }}
+{{ var_dump($translations) }}
+</pre>
