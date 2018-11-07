@@ -21,11 +21,9 @@
                     </div>
                 @endforeach
 
-
-                <button type="button" class="btn btn-primary">Add a key</button>
-
                 <button type="submit" class="btn btn-success">Save</button> <span id="saved-status-{{ str_slug($page) }}" class="js-saved-status"></span>
 
+                <input type="hidden" name="page" value="{{ $page }}" />
                 {!! Form::close() !!}
             </div>
 

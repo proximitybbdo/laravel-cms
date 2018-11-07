@@ -59,7 +59,10 @@ class TranslationController extends Controller
 
     public function update(Request $request, $lang) {
 
-        dd($request->all());
+        $page = $request->get('page');
+        $translations = $request->get('trans');
+
+        dd($page, $translations);
 
         return response()->json(true);
     }
