@@ -13,12 +13,17 @@
         @foreach($translations as $page => $trans)
 
             <div class="content-page-translation" id="content-page-{{ str_slug($page) }}" style="display: none;">
+                {!! Form::open() !!}
                 @foreach($trans as $k=>$t)
                     <div class="form-group">
                         <label for="trans-{{ str_slug($page) }}-{{ str_slug($k) }}" class="label-control">{{ $page.'.'.$k }}</label>
                         <input type="text" id="trans-{{ str_slug($page) }}-{{ str_slug($k) }}" class="form-control" name="trans[{{ $page.'.'.$k }}" value="{{ $t }}" />
                     </div>
                 @endforeach
+
+                <button type="submit" class="btn btn-success">Save</button>
+
+                {!! Form::close() !!}
             </div>
 
         @endforeach
