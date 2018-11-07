@@ -17,7 +17,7 @@
                 @foreach($trans as $k=>$t)
                     <div class="form-group">
                         <label for="trans-{{ str_slug($page) }}-{{ str_slug($k) }}" class="label-control">{{ $page.'.'.$k }}</label>
-                        <input type="text" id="trans-{{ str_slug($page) }}-{{ str_slug($k) }}" class="form-control" name="trans[{{ $page.'.'.$k }}" value="{{ $t }}" />
+                        <input type="text" id="trans-{{ str_slug($page) }}-{{ str_slug($k) }}" class="form-control" name="trans[{{ $page.'.'.$k }}]" value="{{ $t }}" />
                     </div>
                 @endforeach
 

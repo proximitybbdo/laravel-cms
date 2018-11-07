@@ -72,4 +72,37 @@ class Translation
         return substr($name, 0, strpos($name, '.'));
     }
 
+    /**
+     * @param $lang
+     * @param $file
+     * @param $data
+     * @throws \Exception
+     */
+    public function pushTranslation($lang, $file, $data) {
+        $x = $this->getPathForFile($lang, $file);
+
+        var_dump($x);
+    }
+
+    /**
+     * @param $lang
+     * @param $file
+     * @throws \Exception
+     */
+    protected function getPathForFile($lang, $file, $subDir = '') {
+        if(!isset($this->getLangDirectory()[$lang])) {
+            Throw new \Exception('Lang ' . $lang . ' is not in the list. Use one of them : ' . var_export($this->getAvailableLang()));
+        }
+
+        foreach(glob($this->getLangDirectory()[$lang].''.$subDir.'/*') as $item) {
+            if(is_file($item) && $this->cleanName($item) == $file) {
+                return $item;
+            } elseif(is_dir($item)) {
+                $subDir = dirname($item);
+                return $this->getPathForFile($lang, $file, '/'.$subDir);
+            }
+        }
+
+    }
+
 }
