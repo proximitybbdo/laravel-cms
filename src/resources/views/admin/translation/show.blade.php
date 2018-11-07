@@ -13,7 +13,7 @@
         @foreach($translations as $page => $trans)
 
             <div class="content-page-translation" id="content-page-{{ str_slug($page) }}" style="display: none;">
-                {!! Form::open() !!}
+                {!! Form::open(['route' => ['icontrol.translation.update', $lang], 'class' => 'js-translation-form', 'data-statustarget' => 'saved-status-'.str_slug($page)]) !!}
                 @foreach($trans as $k=>$t)
                     <div class="form-group">
                         <label for="trans-{{ str_slug($page) }}-{{ str_slug($k) }}" class="label-control">{{ $page.'.'.$k }}</label>
@@ -21,7 +21,10 @@
                     </div>
                 @endforeach
 
-                <button type="submit" class="btn btn-success">Save</button>
+
+                <button type="button" class="btn btn-primary">Add a key</button>
+
+                <button type="submit" class="btn btn-success">Save</button> <span id="saved-status-{{ str_slug($page) }}" class="js-saved-status"></span>
 
                 {!! Form::close() !!}
             </div>

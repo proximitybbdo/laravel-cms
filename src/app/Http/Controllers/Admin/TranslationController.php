@@ -57,7 +57,10 @@ class TranslationController extends Controller
         ]);
     }
 
-    public function pushTranslation(Request $request, $lang) {
+    public function update(Request $request, $lang) {
 
+        dd($request->all());
+
+        return response()->json(true);
     }
 }

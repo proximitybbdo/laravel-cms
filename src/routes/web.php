@@ -58,7 +58,7 @@ Route::group(['prefix' => 'icontrol', 'middleware' => 'web', 'namespace' => '\BB
 
         Route::get('translations', 'TranslationController@index')->name('icontrol.translation.index');
         Route::get('translations/{lang}', 'TranslationController@show')->name('icontrol.translation.show');
-        Route::post('translations/{lang}', 'TranslationController@pushTranslation')->name('icontrol.translation.push');
+        Route::post('translations/{lang}', 'TranslationController@update')->name('icontrol.translation.update');
 
         Route::group(['middleware' => \BBDO\Cms\Http\Middleware\Admin\AdminMiddleware::class], function () {
             Route::get('roles', 'SentinelController@showRolesForm');

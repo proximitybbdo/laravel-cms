@@ -1111,10 +1111,30 @@ jQuery(() => {
 
       $('.js-open-page-translation').removeClass('active');
       $(this).addClass('active');
+      $('.js-saved-status').empty();
 
       $('.content-page-translation').hide();
 
       $('#' + $(this).data('target')).show();
     })
+
+  $(document).on('submit', '.js-translation-form', function(e) {
+    e.preventDefault()
+
+    var method = $(this).attr('method')
+    var action = $(this).attr('action')
+    var datas = $(this).serialize()
+    var statustarget = $(this).data('statustarget')
+
+    $.ajax({
+        url: action,
+        type: method,
+        data: datas,
+        success: function(result) {
+          $('#' + statustarget).text('Saved !')
+        }
+    })
+
+  })
 
 });
