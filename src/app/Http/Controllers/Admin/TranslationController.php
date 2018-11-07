@@ -31,8 +31,33 @@ class TranslationController extends Controller
 
         $transDomain = new Translation();
 
-        $allTranslations = $transDomain->getAllTranslations();
+        $data = [
+            'langs' =>   $transDomain->getAvailableLang(),
+        ];
 
+        return view('bbdocms::translation.index', $data);
+    }
+
+    public function show(Request $request, $lang) {
+
+        if(!config('cms.enable_translation_manager')) {
+            return redirect()->route('dashboard');
+        }
+
+        $transDomain = new Translation();
+
+        $data = [
+            'langs' =>   $transDomain->getAvailableLang(),
+            'lang'  => $lang,
+            'translations'  => $transDomain->getTranslationsByLang($lang)
+        ];
+
+        return response()->json([
+            'html' => view('bbdocms::translation.show', $data)->render()
+        ]);
+    }
+
+    public function pushTranslation(Request $request, $lang) {
 
     }
 }

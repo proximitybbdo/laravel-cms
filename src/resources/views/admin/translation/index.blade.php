@@ -1,0 +1,1 @@
+@extends('bbdocms::layouts.template')
