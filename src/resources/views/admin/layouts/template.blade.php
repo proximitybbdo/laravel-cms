@@ -22,7 +22,7 @@
   <!-- <link rel="stylesheet" href="assets/js/plugins/summernote/summernote-bs4.css"> -->
 
   <!-- Fonts and Dashmix framework -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,400i,600,700">
   <link rel="stylesheet" id="css-main" href="<?=asset('admin/css/dashmix.min.css')?>">
 
   <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->

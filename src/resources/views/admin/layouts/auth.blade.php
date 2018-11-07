@@ -7,7 +7,7 @@
   <!-- Stylesheets -->
 
   <!-- Fonts and Dashmix framework -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,400i,600,700">
   <link rel="stylesheet" href="<?=asset('admin/css/dashmix.min.css')?>">
   <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
   <!-- <link rel="stylesheet" id="css-theme" href="assets/css/themes/xwork.min.css"> -->
