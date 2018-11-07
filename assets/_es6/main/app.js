@@ -1092,6 +1092,9 @@ jQuery(() => {
 
       var route = $(this).attr('href');
 
+      $('.js-translation-tabs').removeClass('active')
+      $(this).addClass('active')
+
       $.ajax({
         url: route,
         type: 'GET',
@@ -1101,7 +1104,19 @@ jQuery(() => {
       })
     })
 
+    $('.js-translation-tabs:first').click();
+
+    $(document).on('click', '.js-open-page-translation', function(e) {
+      e.preventDefault()
+
+      $('.js-open-page-translation').removeClass('active');
+      $(this).addClass('active');
+
+      $('.content-page-translation').hide();
+
+      $('#' + $(this).data('target')).show();
 
 
+    })
 
 });
