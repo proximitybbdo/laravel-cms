@@ -62,8 +62,9 @@ class TranslationController extends Controller
         $page = $request->get('page');
         $translations = $request->get('trans');
 
-        dd($page, $translations);
+        $transDomain = new Translation();
+        $push = $transDomain->pushTranslation($lang, $page, $translations);
 
-        return response()->json(true);
+        return response()->json( ($push > 0) );
     }
 }

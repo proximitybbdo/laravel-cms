@@ -3,6 +3,8 @@
 namespace BBDO\Cms\Domain;
 
 
+use Symfony\Component\Yaml\Yaml;
+
 class Translation
 {
     /**
@@ -76,17 +78,19 @@ class Translation
      * @param $lang
      * @param $file
      * @param $data
+     * @return int
      * @throws \Exception
      */
     public function pushTranslation($lang, $file, $data) {
-        $x = $this->getPathForFile($lang, $file);
+        $yaml = Yaml::dump($data);
 
-        var_dump($x);
+        return \File::put($this->getPathForFile($lang, $file), $yaml);
     }
 
     /**
      * @param $lang
      * @param $file
+     * @return
      * @throws \Exception
      */
     protected function getPathForFile($lang, $file, $subDir = '') {
@@ -95,13 +99,15 @@ class Translation
         }
 
         foreach(glob($this->getLangDirectory()[$lang].''.$subDir.'/*') as $item) {
-            if(is_file($item) && $this->cleanName($item) == $file) {
+            if(is_file($item) && $this->cleanName(basename($item)) == $file) {
                 return $item;
             } elseif(is_dir($item)) {
                 $subDir = dirname($item);
                 return $this->getPathForFile($lang, $file, '/'.$subDir);
             }
         }
+
+        Throw new \Exception('No file found for page ' . $file);
 
     }
 
