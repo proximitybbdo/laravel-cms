@@ -46,22 +46,25 @@ class Translation
      * @return array
      * @throws \Exception
      */
-    protected function fetchTranslations($lang) {
+    protected function fetchTranslations($lang, $subDir = '') {
         $translations = [];
 
         if(!isset($this->getLangDirectory()[$lang])) {
             Throw new \Exception('Lang ' . $lang . ' is not in the list. Use one of them : ' . var_export($this->getAvailableLang()));
         }
 
-        $langDirectory = $this->getLangDirectory()[$lang];
+        $langDirectory = $this->getLangDirectory()[$lang] . $subDir;
 
-        foreach( glob($langDirectory.'/*') as $item) {
-            if(is_dir($item)) {
-                $translations[$this->cleanName(dirname($item))] = $this->fetchTranslations($item);
+        foreach( scandir($langDirectory) as $item) {
+            if($item == '.' || $item == '..')
+                continue;
+
+            $pathItem = $langDirectory.'/'.$item;
+            if(is_dir($pathItem)) {
+                $translations[$item] = array_dot($this->fetchTranslations($lang, '/'.$item));
             } else {
-                $translations[$this->cleanName(basename($item))] = trans($this->cleanName(basename($item)), [], $lang);
+                $translations[$this->cleanName($item)] = trans($this->cleanName($item), [], $lang);
             }
-
         }
         return $translations;
     }
