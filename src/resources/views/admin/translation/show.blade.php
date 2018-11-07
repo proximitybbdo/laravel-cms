@@ -1,10 +1,10 @@
 <div class="row">
 
-    <div class="col-md-1">
+    <div class="col-md-2" style="background-color: rgb(250,250,250); word-break: break-all">
         <ul class="nav flex-column">
             @foreach($translations as $page => $trans)
                 <li class="nav-item">
-                    <a class="nav-link js-open-page-translation" data-target="content-page{{ str_slug($page) }}">{{ $page }}</a>
+                    <a class="nav-link js-open-page-translation" data-target="content-page{{ str_slug($page) }}">{{ ucfirst($page) }}</a>
                 </li>
             @endforeach
         </ul>
