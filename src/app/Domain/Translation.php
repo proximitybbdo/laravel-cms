@@ -82,9 +82,19 @@ class Translation
      * @throws \Exception
      */
     public function pushTranslation($lang, $file, $data) {
-        $yaml = Yaml::dump($data);
 
-        return \File::put($this->getPathForFile($lang, $file), $yaml);
+        $filePath = $this->getPathForFile($lang, $file);
+        $extension = extractExtension(basename($filePath));
+
+        if( $extension == 'php' ) {
+            $content = '<?php return ' . var_export($content, true) . ';';
+            return \File::put($filePath, $content);
+        } elseif( in_array($extension, ['yml','yaml']) ) {
+            $yaml = Yaml::dump($data);
+            return \File::put($filePath, $yaml);
+        } else {
+            return false;
+        }
     }
 
     /**
