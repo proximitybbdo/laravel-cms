@@ -61,7 +61,8 @@ class Translation
 
             $pathItem = $langDirectory.'/'.$item;
             if(is_dir($pathItem)) {
-                $translations[$item] = array_dot($this->fetchTranslations($lang, '/'.$item));
+                //TODO for now, subdirectory are not managed yet.
+                //$translations[$item] = array_dot($this->fetchTranslations($lang, '/'.$item));
             } else {
                 $translations[$this->cleanName($item)] = trans($this->cleanName($item), [], $lang);
             }
