@@ -1085,4 +1085,23 @@ jQuery(() => {
       $(this).hide();
     }
   });
+
+
+    $(document).on('.js-translation-tabs', 'click', function(e) {
+      e.preventDefault()
+
+      var route = $(this).attr('href');
+
+      $.ajax({
+        url: route,
+        type: 'GET',
+        success: function(result) {
+          $('.js-translation-content-tab').html(result.html);
+        }
+      })
+    })
+
+
+
+
 });
