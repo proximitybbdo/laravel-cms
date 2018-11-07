@@ -1115,8 +1115,6 @@ jQuery(() => {
       $('.content-page-translation').hide();
 
       $('#' + $(this).data('target')).show();
-
-
     })
 
 });
