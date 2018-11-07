@@ -1087,7 +1087,7 @@ jQuery(() => {
   });
 
 
-    $(document).on('.js-translation-tabs', 'click', function(e) {
+    $(document).on('click', '.js-translation-tabs', function(e) {
       e.preventDefault()
 
       var route = $(this).attr('href');
