@@ -1,7 +1,7 @@
 @extends('bbdocms::admin.layouts.template')
 
 @section('content')
-    <div class="span12">
+    <div class="content">
         <h1>Users</h1>
 
         <a href="{{ route('icontrol.user.create') }}" class="btn btn-primary">Add user</a>

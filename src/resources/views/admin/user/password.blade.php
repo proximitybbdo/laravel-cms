@@ -1,7 +1,7 @@
 @extends('bbdocms::admin.layouts.template')
 
 @section('content')
-    <div class="span12">
+    <div class="content">
         <h1>Update your password</h1>
 
         @if ($errors->any())

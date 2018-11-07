@@ -1,7 +1,7 @@
 @extends('bbdocms::admin.layouts.template')
 
 @section('content')
-    <div class="span12">
+    <div class="content">
         @if(isset($sUser))
             <h1>Update user {{ $sUser->first_name }} ({{ $sUser->id }})</h1>
         @else
