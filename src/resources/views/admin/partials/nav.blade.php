@@ -14,7 +14,7 @@
     <div class="bg-header-dark">
         <div class="content-header bg-white-10">
             <!-- Logo -->
-            <a class="link-fx font-w600 font-size-lg text-white" href="index.html">
+            <a class="link-fx font-w600 font-size-lg text-white" href="{{ route('dashboard') }}">
                 <span class="smini-visible">
                     <span class="text-white-75">B</span><span class="text-white">cms</span>
                 </span>
@@ -128,10 +128,10 @@
                 <div class="dropdown-menu dropdown-menu-right p-0" aria-labelledby="page-header-user-dropdown">
                     <div class="p-2">
                         <a class="dropdown-item" href="{{ route('icontrol.user.editPassword') }}">
-                            <i class="far fa-fw fa-key mr-1"></i> Update password
+                            <i class="fa fa-fw fa-key mr-1"></i> Update password
                         </a>
                         <a class="dropdown-item" href="<?=route('icontrol.clearcache')?>">
-                            <i class="far fa-fw fa-sync-alt mr-1"></i> Clear cache
+                            <i class="fa fa-fw fa-sync-alt mr-1"></i> Clear cache
                         </a>
                         <div role="separator" class="dropdown-divider"></div>
                             <a class="dropdown-item" href="<?=route('sentinel.logout')?>">
