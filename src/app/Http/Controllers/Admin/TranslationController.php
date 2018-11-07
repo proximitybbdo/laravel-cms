@@ -3,6 +3,7 @@
 namespace BBDO\Cms\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use BBDO\Cms\Domain\Translation;
 use Illuminate\Http\Request;
 
 class TranslationController extends Controller
@@ -27,6 +28,10 @@ class TranslationController extends Controller
         if(!config('cms.enable_translation_manager')) {
             return redirect()->route('dashboard');
         }
+
+        $transDomain = new Translation();
+
+        $allTranslations = $transDomain->getAllTranslations();
 
 
     }
