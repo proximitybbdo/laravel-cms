@@ -1,1 +1,1 @@
-@extends('bbdocms::layouts.template')
+@extends('bbdocms::admin.layouts.template')
