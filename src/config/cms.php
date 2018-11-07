@@ -3,6 +3,7 @@ return array(
     'default_locale' => 'nl-BE',
     'default_cache_duration' => 60 * 24 * 30,
     'enable_user_managment' => true,
+    'enable_translation_manager' => true,
     // Modules used by asset managers to list the linked modules.
     'modules' => array('CASES', 'PRODUCTS', 'CATEGORIES', 'CATEGORIESTEST',),
 

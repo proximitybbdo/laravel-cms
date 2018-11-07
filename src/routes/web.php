@@ -56,6 +56,8 @@ Route::group(['prefix' => 'icontrol', 'middleware' => 'web', 'namespace' => '\BB
         Route::get('user/password', 'UserController@editPassword')->name('icontrol.user.editPassword');
         Route::post('user/password', 'UserController@updatePassword')->name('icontrol.user.updatePassword');
 
+        Route::get('translations', 'TranslationController@index')->name('icontrol.translation.index');
+
         Route::group(['middleware' => \BBDO\Cms\Http\Middleware\Admin\AdminMiddleware::class], function () {
             Route::get('roles', 'SentinelController@showRolesForm');
             Route::post('roles', 'SentinelController@assign_roles');

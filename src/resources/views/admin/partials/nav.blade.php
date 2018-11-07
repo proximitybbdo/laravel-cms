@@ -66,6 +66,15 @@
                 </li>
             @endif
 
+            @if(config('cms.enable_translation_manager') )
+                <li class="nav-main-item">
+                    <a class="nav-main-link" href="{{ route('icontrol.translation.index') }}">
+                        <i class="nav-main-link-icon si si-book-open"></i>
+                        <span class="nav-main-link-name">Translations</span>
+                    </a>
+                </li>
+            @endif
+
             <li class="nav-main-heading">Base</li>
             @foreach ($modules as $module)
                 @if( Sentinel::hasAccess( strtolower($module) . '.view')
