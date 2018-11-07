@@ -87,7 +87,7 @@ class Translation
         $extension = extractExtension(basename($filePath));
 
         if( $extension == 'php' ) {
-            $content = '<?php return ' . var_export($content, true) . ';';
+            $content = '<?php return ' . var_export($data, true) . ';';
             return \File::put($filePath, $content);
         } elseif( in_array($extension, ['yml','yaml']) ) {
             $yaml = Yaml::dump($data);
