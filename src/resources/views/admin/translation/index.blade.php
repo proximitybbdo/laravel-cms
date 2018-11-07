@@ -15,7 +15,7 @@
 
             </div>
             <div class="col-md-11 js-translation-content-tab">
-                ---
+
             </div>
 
         </div>

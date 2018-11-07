@@ -21,6 +21,7 @@ class TranslationController extends Controller
         view()->share('user', \Auth::User()); // null hier
         view()->share('module_type', $this->module_type);
         view()->share('module_title', 'Translations');
+        view()->share('module_subtitle', '/!\ Take care to fetch the updated file in the repository before deploying or change will be lost');
 
     }
 
