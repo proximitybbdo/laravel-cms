@@ -9,7 +9,7 @@
     "repositories": [
             {
                 "type": "vcs",
-                "url": "https://proximity-bbdo.git.beanstalkapp.com/bbdo-cms-laravel-package.git"
+                "url": "https://github.com/proximitybbdo/laravel-cms.git"
             }
         ],
         
