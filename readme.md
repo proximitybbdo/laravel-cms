@@ -81,8 +81,8 @@
    in config/app.php, add the locales
    
         'locales' => array(
-                array('short' => 'nl-BE', 'long' => 'Nederlands'),
-                array('short' => 'fr-BE', 'long' => 'Français'),
+                array('short' => 'nl', 'long' => 'Nederlands'),
+                array('short' => 'fr', 'long' => 'Français'),
             ),        
  
    ### Extend the cms with custom controller
