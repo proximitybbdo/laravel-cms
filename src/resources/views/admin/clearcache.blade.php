@@ -23,6 +23,7 @@
                                 </button>
                                 {!! Form::close() !!}
                             </p>
+                            @if(isset($tags))
                             <p>
                                 Or clear only some items in these available tags
                             </p>
@@ -40,6 +41,7 @@
                                 @endforeach
                             </ul>
                             </p>
+                            @endif
 
 
                         </div>

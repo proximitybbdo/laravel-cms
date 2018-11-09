@@ -36,7 +36,9 @@ class AdminController extends Controller
     public function getClearcache(Request $request)
     {
         $data['cleared'] = $request->get('cleared', false);
-        $data['tags'] = Cache::getTagsList();
+        if(env('CACHE_DRIVER') == 'redis') {
+            $data['tags'] = Cache::getTagsList();
+        }
 
         return view('bbdocms::admin.clearcache', $data);
     }
