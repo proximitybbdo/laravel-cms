@@ -15,6 +15,10 @@ class Cache
      * @throws \Exception
      */
     public static function cacheWithTags(...$params) {
+
+        var_dump($params);
+        dd(func_get_args());
+
         if(func_num_args() == 4) {
             list($tags, $key, $minutes, $callback) = func_get_args();
         } elseif(func_num_args() == 3) {
