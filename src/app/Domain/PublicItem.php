@@ -4,7 +4,7 @@ namespace BBDO\Cms\Domain;
 
 use Auth;
 use BBDO\Cms\Models;
-use Cache;
+use BBDO\Cms\app\Helpers\Cache;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 
@@ -179,6 +179,7 @@ class PublicItem
     public function getOneFeatured($module_type)
     {
         $cache_key = 'item_featured_' . $module_type . '_lang_' . $this->lang;
+
 
         if (Cache::has($cache_key) && !$this->preview) {
             $result = Cache::get($cache_key);
