@@ -21,12 +21,10 @@ class Cache
             list($key, $minutes, $callback) = func_get_args();
         }
 
-        $cache = \Cache::class;
-
         if (isset($tags) && method_exists(cache()->getStore(), 'tags')) {
-            $cache->tags($tags);
+            return \Cache::tags($tags)->remember($key, $minutes, $callback);
+        } else {
+            return cache()->remember($key, $minutes, $callback);
         }
-
-        return $cache->remember($key, $minutes, $callback);
     }
 }
