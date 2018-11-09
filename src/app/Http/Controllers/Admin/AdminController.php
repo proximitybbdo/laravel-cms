@@ -33,11 +33,12 @@ class AdminController extends Controller
         return view('bbdocms::admin.dashboard');
     }
 
-    public function getClearcache()
+    public function getClearcache(Request $request)
     {
-        $this->data['cleared'] = false;
-        $this->data['tags'] = Cache::getTagsList();
-        return view('bbdocms::admin.clearcache', $this->data);
+        $data['cleared'] = $request->get('cleared', false);
+        $data['tags'] = Cache::getTagsList();
+
+        return view('bbdocms::admin.clearcache', $data);
     }
 
     public function postClearcache(Request $request)
@@ -48,9 +49,7 @@ class AdminController extends Controller
             \Cache::flush();
         }
 
-        $this->data['cleared'] = true;
-        $this->data['tags'] = Cache::getTagsList();
-        return view('bbdocms::admin.clearcache', $this->data);
+        return redirect()->route('icontrol.clearcache',['cleared' => 1]);
     }
 
     public function getLogin()
