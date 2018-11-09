@@ -41,28 +41,20 @@ class PublicItem
 
     public function getAll($module_type, $link_type, $links, $sort, $pagesize = null, $amount = null, $desc = false, $mustApplyAllLinks = false, $exclude_ids = null)
     {
-        $cache_key = 'item_get_all_' . trim($module_type) . '_' .
-            $this->lang . '_' .
-            ($link_type != null ? $link_type : '') . '_' .
-            ($links != null ? implode('-', $links) : '') . '_' .
-            ($sort != null ? $sort : '') . '_' .
-            ($pagesize != null ? $pagesize : '') . '_' .
-            ($amount != null ? $amount : '') . '_' .
-            ($desc != null ? $desc : '') . '_' .
-            ($mustApplyAllLinks != null ? $mustApplyAllLinks : '') . '_' .
-            ($exclude_ids != null && count($exclude_ids) == 1 ? $exclude_ids[0] : '');
+        $cache_key = 'item_get_all_' . $this->lang . '_';
 
-        $cache_disabled = false;
-        if (($exclude_ids != null && count($exclude_ids) > 1) || $this->preview) {
-            $cache_disabled = true;
+        foreach(func_get_args() as $p) {
+            if(!is_null($p)) {
+                $cache_key .= (is_array($p) ? implode('-', $p) : $p) . '_';
+            }
         }
 
-        return Cache::cacheWithTags('cms-publicitem', $cache_key, ($cache_disabled ? -1 : config('cms.default_cache_duration')), function() use($sort,$desc,$module_type,$link_type,$exclude_ids,$mustApplyAllLinks, $links, $amount, $pagesize) {
-            if ($sort == null) {
-                $sort = 'id';
-            }
+        $cache_disabled = ((!is_null($exclude_ids) && count($exclude_ids) > 1) || $this->preview);
+        $sort = is_null($sort) ? 'id' : $sort;
+        $order = $desc ? 'desc' : 'asc';
 
-            $order = $desc ? 'desc' : 'asc';
+        return Cache::cacheWithTags($module_type, $cache_key, ($cache_disabled ? -1 : config('cms.default_cache_duration')), function() use($sort,$order, $desc,$module_type,$link_type,$exclude_ids,$mustApplyAllLinks, $links, $amount, $pagesize) {
+
             $result = Models\Item::select('id', 'description', 'status', 'editor_id', 'module_type', 'sort', 'start_date', 'end_date', 'type')
                 ->where('module_type', strtoupper($module_type))
                 ->where('status', 1)
@@ -125,9 +117,8 @@ class PublicItem
     public function getOneSlug($slug, $module_type)
     {
         $cache_key = 'item_' . $slug . '_mod_' . $module_type . '_lang' . $this->lang;
-        if (Cache::has($cache_key) && !$this->preview) {
-            $result = Cache::get($cache_key);
-        } else {
+
+        return Cache::cacheWithTags($module_type, $cache_key, ($this->preview ? -1 : config('cms.default_cache_duration')), function() use($module_type, $slug) {
             $result = Models\Item::select('id', 'description', 'status', 'editor_id', 'module_type', 'sort', 'created_at', 'start_date', 'end_date', 'type')
                 ->where('module_type', strtoupper($module_type))
                 ->whereHas('content', function ($q) use ($slug) {
@@ -136,63 +127,42 @@ class PublicItem
                     $q->where('type', 'slug');
                     $q->where('content', $slug);
                 });
+
             if (!$this->preview) {
                 $result->where('status', 1);
             }
 
-            $result = $result->first();
-            if (!$this->preview) {
-                Cache::put($cache_key, $result, Carbon::now()->addDays(30));
-            }
-        }
-
-        return $result;
+            return $result->first();
+        });
     }
 
     public function getOne($id, $module_type)
     {
         $cache_key = 'item_' . $id . '_lang' . $this->lang;
 
-        if (Cache::has($cache_key) && !$this->preview) {
-            $result = Cache::get($cache_key);
-        } else {
-            $result = Models\Item::select('id', 'description', 'status', 'editor_id', 'module_type', 'sort', 'start_date', 'end_date', 'type')->where('id', $id)
+        return Cache::cacheWithTags($module_type, $cache_key, ($this->preview ? -1 : config('cms.default_cache_duration')), function() use($id, $module_type) {
+            return Models\Item::select('id', 'description', 'status', 'editor_id', 'module_type', 'sort', 'start_date', 'end_date', 'type')->where('id', $id)
                 ->where('module_type', strtoupper($module_type))
                 ->whereHas('content', function ($q) {
                     $q->where('version', '<=', $this->preview ? 1 : 0);
                     $q->where('lang', '=', $this->lang);
                 })->where('status', 1)->first();
-            if (!$this->preview) {
-                Cache::put($cache_key, $result, Carbon::now()->addDays(30));
-            }
-        }
-
-        return $result;
+        });
     }
 
     public function getOneFeatured($module_type)
     {
         $cache_key = 'item_featured_' . $module_type . '_lang_' . $this->lang;
 
-
-        if (Cache::has($cache_key) && !$this->preview) {
-            $result = Cache::get($cache_key);
-        } else {
-            $result = Models\Item::select('id', 'description', 'status', 'editor_id', 'module_type', 'sort', 'start_date', 'end_date', 'type')
+        return Cache::cacheWithTags($module_type, $cache_key, ($this->preview ? -1 : config('cms.default_cache_duration')), function() use($module_type) {
+            return Models\Item::select('id', 'description', 'status', 'editor_id', 'module_type', 'sort', 'start_date', 'end_date', 'type')
                 ->where('is_featured', 1)
                 ->where('module_type', strtoupper($module_type))
                 ->whereHas('content', function ($q) {
                     $q->where('version', '<=', $this->preview ? 1 : 0);
                     $q->where('lang', '=', $this->lang);
                 })->where('status', 1)->first();
-            //dd($result);
-            if (!$this->preview) {
-                Cache::put($cache_key, $result, Carbon::now()->addDays(30));
-            }
-
-        }
-
-        return $result;
+        });
     }
 
     public function getActiveItem($module_type)

@@ -23,7 +23,7 @@ class Cache
         }
 
         if($minutes <= 0) {
-            return $callback;
+            return $callback();
         }
 
         if (isset($tags) && method_exists(cache()->getStore(), 'tags')) {
