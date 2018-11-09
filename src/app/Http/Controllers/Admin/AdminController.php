@@ -3,6 +3,7 @@
 namespace BBDO\Cms\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -33,14 +34,28 @@ class AdminController extends Controller
 
     public function getClearcache()
     {
-        $this->data["cleared"] = false;
+        $appNameRedis = \Cache::getPrefix();
+
+        $taggedCache  = \Cache::getRedis()->connection()->keys($appNameRedis. 'tag:*');
+
+        foreach($taggedCache as $redisTagLine) {
+            preg_match('#^'.$appNameRedis.'tag:(.*?):#', $redisTagLine, $matches);
+            $tags[] = $matches[1];
+        }
+
+        $this->data['cleared'] = false;
+        $this->data['tags'] = $tags;
         return view('bbdocms::admin.clearcache', $this->data);
     }
 
-    public function postClearcache()
+    public function postClearcache(Request $request)
     {
-        \Cache::flush();
-        $this->data["cleared"] = true;
+        if( !empty($request->get('tag'))) {
+            \Cache::tags($request->get('tag'))->flush();
+        } else {
+            \Cache::flush();
+        }
+        $this->data['cleared'] = true;
         return view('bbdocms::admin.clearcache', $this->data);
     }
 
