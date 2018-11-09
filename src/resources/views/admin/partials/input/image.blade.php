@@ -9,7 +9,7 @@
                 {{ $title }}
         </label>
         @endif
-        <div class="input-group image-preview" data-content="{{ $has_value ? $model->file_content($content[$type],$type) : '' }}" data-toggle="{{ $has_value ? 'popover' : '' }}">
+        <div class="input-group image-preview" data-content="{{ $has_value ? $model->fileContent($content[$type],$type) : '' }}" data-toggle="{{ $has_value ? 'popover' : '' }}">
           <div class="input-group-prepend" style="{{ $has_value ? "" : "display:none;" }}">
             <span class="input-group-text input-group-text-alt image-preview-clear"><i class="fa fa-euro-sign">clear</i></span>
           </div>
