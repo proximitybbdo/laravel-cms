@@ -16,6 +16,7 @@ class Cache
      */
     public static function cacheWithTags(...$params) {
 
+        echo '<pre>';
         var_dump($params);
         dd(func_get_args());
 
