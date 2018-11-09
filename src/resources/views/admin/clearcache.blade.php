@@ -28,12 +28,14 @@
                                 <p>
                                     <ul>
                                         @foreach($tags as $tag)
-                                            {!! Form::open(['enctype' => 'multipart/form-data', 'role' => 'form', 'id' => 'form']);  !!}
-                                            <input type="hidden" name="tag" value="{{ $tag }}" />
-                                            <button type="submit" id="draft" name="draft" class="btn btn-primary">
-                                                Clear cache {{ $tag }}
-                                            </button>
-                                            {!! Form::close() !!}
+                                            <li style="list-style: none; margin-bottom: 10px">
+                                                {!! Form::open(['enctype' => 'multipart/form-data', 'role' => 'form', 'id' => 'form']);  !!}
+                                                <input type="hidden" name="tag" value="{{ $tag }}" />
+                                                <button type="submit" id="draft" name="draft" class="btn btn-primary">
+                                                    Clear cache {{ $tag }}
+                                                </button>
+                                                {!! Form::close() !!}
+                                            </li>
                                         @endforeach
                                     </ul>
                                 </p>
