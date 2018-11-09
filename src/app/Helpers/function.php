@@ -309,7 +309,3 @@ if (!function_exists('is_countable')) {
         return (is_array($var) || $var instanceof Countable);
     }
 }
-
-function cacheWithTags(...$params) {
-    return \BBDO\Cms\app\Helpers\Cache::cacheWithTags(func_get_args());
-}

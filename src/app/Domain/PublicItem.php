@@ -57,7 +57,7 @@ class PublicItem
             $cache_disabled = true;
         }
 
-        return cacheWithTags('tags-cms', $cache_key, ($cache_disabled ? -1 : Carbon::now()->addDays(30)), function() use($sort,$desc,$module_type,$link_type,$exclude_ids,$mustApplyAllLinks, $links, $amount, $pagesize) {
+        return Cache::cacheWithTags('tags-cms', $cache_key, ($cache_disabled ? -1 : Carbon::now()->addDays(30)), function() use($sort,$desc,$module_type,$link_type,$exclude_ids,$mustApplyAllLinks, $links, $amount, $pagesize) {
             if ($sort == null) {
                 $sort = 'id';
             }
