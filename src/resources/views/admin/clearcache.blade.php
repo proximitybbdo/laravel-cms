@@ -11,35 +11,36 @@
                                 <div class="alert alert-success">
                                     Cache cleared successfully.
                                 </div>
-                            @else
-                                <p>
-                                    Do you wish to clear all the cached data (tags and free data)?
-                                </p>
-                                <p>
-                                    {!! Form::open(['enctype' => 'multipart/form-data', 'role' => 'form', 'id' => 'form']);  !!}
-                                    <button type="submit" id="draft" name="draft" class="btn btn-primary">
-                                        Clear cache
-                                    </button>
-                                    {!! Form::close() !!}
-                                </p>
-                                <p>
-                                    Or clear only some items in these available tags
-                                </p>
-                                <p>
-                                    <ul>
-                                        @foreach($tags as $tag)
-                                            <li style="list-style: none; margin-bottom: 10px">
-                                                {!! Form::open(['enctype' => 'multipart/form-data', 'role' => 'form', 'id' => 'form']);  !!}
-                                                <input type="hidden" name="tag" value="{{ $tag }}" />
-                                                <button type="submit" id="draft" name="draft" class="btn btn-primary">
-                                                    Clear cache {{ $tag }}
-                                                </button>
-                                                {!! Form::close() !!}
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </p>
                             @endif
+
+                            <p>
+                                Do you wish to clear all the cached data (tags and free data)?
+                            </p>
+                            <p>
+                                {!! Form::open(['enctype' => 'multipart/form-data', 'role' => 'form', 'id' => 'form']);  !!}
+                                <button type="submit" id="draft" name="draft" class="btn btn-primary">
+                                    Clear cache
+                                </button>
+                                {!! Form::close() !!}
+                            </p>
+                            <p>
+                                Or clear only some items in these available tags
+                            </p>
+                            <p>
+                            <ul>
+                                @foreach($tags as $tag)
+                                    <li style="list-style: none; margin-bottom: 10px">
+                                        {!! Form::open(['enctype' => 'multipart/form-data', 'role' => 'form', 'id' => 'form']);  !!}
+                                        <input type="hidden" name="tag" value="{{ $tag }}" />
+                                        <button type="submit" id="draft" name="draft" class="btn btn-primary">
+                                            Clear cache {{ $tag }}
+                                        </button>
+                                        {!! Form::close() !!}
+                                    </li>
+                                @endforeach
+                            </ul>
+                            </p>
+
 
                         </div>
                     </div>
