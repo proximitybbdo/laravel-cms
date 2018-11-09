@@ -28,7 +28,7 @@ class Input
         $field = $fieldgroup . '[' . $cfg_type . ']';
         $asset_field_name = str_replace('[', '_', str_replace(']', '_', $fieldgroup)) . '_' . $cfg_type;
         $field_index = substr($cfg_type, strrpos($cfg_type, '_'));
-        \Debugbar::log($cfg_type, $field_index, strrpos($cfg_type, '_'));
+
         $input_type = $cfg_type;
         if ($multiple_index !== null) {
             $field = str_replace($cfg_type, $cfg_type . '_' . $multiple_index, $field);
