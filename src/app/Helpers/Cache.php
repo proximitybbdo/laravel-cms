@@ -3,31 +3,30 @@
 namespace BBDO\Cms\app\Helpers;
 
 use Closure;
-use Illuminate\Cache\Repository;
 
-class Cache extends Repository
+class Cache
 {
-
     /**
-     * Begin executing a new tags operation if the store supports it.
-     *
-     * @param  array|mixed  $names
-     * @return \Illuminate\Cache\TaggedCache
-     *
-     * @throws \BadMethodCallException
+     * @param string $tags
+     * @param string $key
+     * @param int $minutes
+     * @param Closure $callback
+     * @return mixed
+     * @throws \Exception
      */
-    public function tags($names)
-    {
-        if (! method_exists($this->store, 'tags')) {
-            return $this;
+    public static function cacheWithTags(...$params) {
+        if(func_num_args() == 4) {
+            list($tags, $key, $minutes, $callback) = func_get_args();
+        } elseif(func_num_args() == 3) {
+            list($key, $minutes, $callback) = func_get_args();
         }
 
-        $cache = $this->store->tags(is_array($names) ? $names : func_get_args());
+        $cache = \Cache::class;
 
-        if (! is_null($this->events)) {
-            $cache->setEventDispatcher($this->events);
+        if (isset($tags) && method_exists(cache()->getStore(), 'tags')) {
+            $cache->tags($tags);
         }
 
-        return $cache->setDefaultCacheTime($this->default);
+        return $cache->remember($key, $minutes, $callback);
     }
 }

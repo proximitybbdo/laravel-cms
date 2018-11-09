@@ -57,10 +57,7 @@ class PublicItem
             $cache_disabled = true;
         }
 
-        if (Cache::has($cache_key) && !$cache_disabled) {
-            $result = Cache::get($cache_key);
-        } else {
-
+        return cacheWithTags('tags-cms', $cache_key, ($cache_disabled ? -1 : Carbon::now()->addDays(30)), function() use($sort,$desc,$module_type,$link_type,$exclude_ids,$mustApplyAllLinks, $links, $amount, $pagesize) {
             if ($sort == null) {
                 $sort = 'id';
             }
@@ -108,12 +105,9 @@ class PublicItem
                 $result = $result->limit($amount)->get();
             }
 
-            if (!$cache_disabled) {
-                Cache::put($cache_key, $result, Carbon::now()->addDays(30));
-            }
-        }
+            return $result;
+        });
 
-        return $result;
     }
 
     public function getIds($module_type, $ids)
