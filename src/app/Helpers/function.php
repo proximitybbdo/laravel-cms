@@ -311,8 +311,5 @@ if (!function_exists('is_countable')) {
 }
 
 function cacheWithTags(...$params) {
-    var_dump($params);
-    var_dump(func_get_args());
-    var_dump('____');
-    return \BBDO\Cms\app\Helpers\Cache::cacheWithTags($params);
+    return \BBDO\Cms\app\Helpers\Cache::cacheWithTags(func_get_args());
 }
