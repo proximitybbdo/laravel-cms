@@ -32,4 +32,21 @@ class Cache
             return cache()->remember($key, $minutes, $callback);
         }
     }
+
+    /**
+     * @return array
+     */
+    public static function getTagsList() {
+        $appNameRedis = \Cache::getPrefix();
+
+        $taggedCache  = \Cache::getRedis()->connection()->keys($appNameRedis. 'tag:*');
+
+        $tags = [];
+        foreach($taggedCache as $redisTagLine) {
+            preg_match('#^'.$appNameRedis.'tag:(.*?):#', $redisTagLine, $matches);
+            $tags[] = $matches[1];
+        }
+
+        return $tags;
+    }
 }
