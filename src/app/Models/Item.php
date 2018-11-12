@@ -207,9 +207,9 @@ class Item extends Model
         });
     }
 
-    public function fileContent($id, $type, $base64 = true)
+    public function fileContent($id, $type)
     {
-        return \BBDO\Cms\Domain\File::getImageContainer($id, $type, $base64);
+        return \BBDO\Cms\Domain\File::getImageContainer($id, $type);
     }
 
     public function getStartDateAttribute($value)

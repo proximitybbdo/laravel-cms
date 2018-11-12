@@ -6,7 +6,7 @@ use BBDO\Cms\Models;
 
 class File
 {
-    public static function getImageContainer($id, $type, $base64 = true)
+    public static function getImageContainer($id, $type)
     {
         $file = Models\MyFile::find($id);
         $result = '';
@@ -18,15 +18,9 @@ class File
                 $path = $path . 'thumbs/';
             }
             $path = $path . $file->file;
-
-
-            if($base64) {
-                $type = pathinfo($path, PATHINFO_EXTENSION);
-                $data = file_get_contents($path);
-                $result = '<img id="dynamic" src="data:image/' . $type . ';base64,' . base64_encode($data) . '" style="width:150px">';
-            } else {
-                $result = '<img id="dynamic" src="'.$path.'" style="width:150px" />';
-            }
+            $type = pathinfo($path, PATHINFO_EXTENSION);
+            $data = file_get_contents($path);
+            $result = '<img id="dynamic" src="data:image/' . $type . ';base64,' . base64_encode($data) . '" style="width:150px">';
         } catch (\Exception $ex) {
             \Log::error($ex->getTraceAsString());
         }
