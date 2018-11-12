@@ -161,7 +161,7 @@
         <script src="<?=asset('admin/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
         <script src="<?=asset('admin/js/plugins/jquery-ui/jquery-ui.min.js')?>"></script>
         <script src="<?=asset('admin/js/plugins/dropzone/dropzone.min.js')?>"></script>
-        <script src="<?=asset('admin/js/pages/admin.min.js')?>"></script>
+        <script src="<?=asset('admin/js/plugins/bbdo-admin/admin.min.js')?>"></script>
 
         <!-- Page JS Helpers (Summernote + SimpleMDE + CKEditor plugins) -->
         <script>jQuery(function(){ Dashmix.helpers(['ckeditor']); });</script>
