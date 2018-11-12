@@ -36,9 +36,6 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        if (view()->exists('auth.authenticate')) {
-            return view('bbdocms::auth.authenticate');
-        }
         return view('bbdocms::admin.login');
     }
 
