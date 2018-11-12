@@ -15,15 +15,15 @@ class Cache
      * @return mixed
      * @throws \Exception
      */
-    public static function cacheWithTags(...$params) {
-
-        if(func_num_args() == 4) {
+    public static function cacheWithTags(...$params)
+    {
+        if (func_num_args() == 4) {
             list($tags, $key, $minutes, $callback) = func_get_args();
-        } elseif(func_num_args() == 3) {
+        } elseif (func_num_args() == 3) {
             list($key, $minutes, $callback) = func_get_args();
         }
 
-        if($minutes <= 0) {
+        if ($minutes <= 0) {
             return $callback();
         }
 
@@ -37,13 +37,14 @@ class Cache
     /**
      * @return array
      */
-    public static function getTagsList() {
+    public static function getTagsList()
+    {
         $appNameRedis = \Cache::getPrefix();
 
         $taggedCache  = \Cache::getRedis()->connection()->keys($appNameRedis. 'tag:*');
 
         $tags = [];
-        foreach($taggedCache as $redisTagLine) {
+        foreach ($taggedCache as $redisTagLine) {
             preg_match('#^'.$appNameRedis.'tag:(.*?):#', $redisTagLine, $matches);
             $tags[] = $matches[1];
         }

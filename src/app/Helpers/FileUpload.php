@@ -6,7 +6,6 @@ class FileUpload
 {
     public static function saveFile($file, $destination)
     {
-
         $teller = '';
 
         if ($file != null) {

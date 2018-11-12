@@ -78,7 +78,6 @@ class Input
      */
     public static function linksArray($module, $item, $lang, $block_type = null, $version = 1, $index = 0)
     {
-
         $configKey = strtoupper($module);
         if ($block_type != null) {
             $configKey = strtoupper($module) . '.blocks.' . $block_type;
@@ -87,7 +86,6 @@ class Input
         $itemService = new Domain\Item($module);
         $links = [];
         if (config("cms.$configKey.links") != null) {
-
             foreach (config("cms.$configKey.links") as $key => $link_cfg) {
                 $type = $key;
                 if (array_key_exists('fake_type_for', $link_cfg) && $link_cfg['fake_type_for'] != null) {

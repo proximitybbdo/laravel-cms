@@ -12,7 +12,7 @@ class Helpers
             foreach ($parts as $part) {
                 $path .= '/' . $part;
             }
-        } else if (!is_null($parts)) {
+        } elseif (!is_null($parts)) {
             $path = '/' . $parts;
         }
 
@@ -73,5 +73,4 @@ class Helpers
             return $d;
         }
     }
-
 }
