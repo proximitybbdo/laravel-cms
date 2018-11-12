@@ -49,7 +49,7 @@
               <i class="fa check-circle mr-1"></i>
             </a>
             @if ($file->id == $value)
-                <a href="#" class="btn btn-sm btn-danger detach_image" data-module="{{ $module_type }}" data-id="{{ $file->id }}" data-input="{{ $input_id }}">
+                <a href="#" class="btn btn-sm btn-danger detach_image" data-manager-type="{{ $manager_type }}" data-module="{{ $module_type }}" data-id="{{ $file->id }}" data-input="{{ $input_id }}">
                 <i class="fa fa-times mr-1"></i>
                 </a>
             @endif
