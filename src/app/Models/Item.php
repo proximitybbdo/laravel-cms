@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Input;
 
 class Item extends Model
 {
-
     public $timestamps = true;
     public $my_content = null;
     public $my_content_online = null;
@@ -35,7 +34,6 @@ class Item extends Model
                 $item->content()->delete();
             }
         });
-
     }
 
     //RELATIONS
@@ -219,10 +217,11 @@ class Item extends Model
 
     public function getStartDateAttribute($value)
     {
-        if (is_null($value))
+        if (is_null($value)) {
             return Carbon::now()->format('d-m-Y');
-        else
+        } else {
             return Carbon::parse($value)->format('d-m-Y');
+        }
     }
 
     //BLOCKS functions

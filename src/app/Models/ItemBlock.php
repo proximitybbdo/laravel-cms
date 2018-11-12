@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Input;
 
 class ItemBlock extends Model
 {
-
     public $timestamps = true;
     protected $table = 'items_block';
     protected $softDelete = false;
@@ -22,13 +21,11 @@ class ItemBlock extends Model
         parent::boot();
 
         static::deleting(function ($block) {
-
             if ($block->content()->count() > 0) {
                 $block->links()->sync(array());
                 $block->content()->delete();
             }
         });
-
     }
 
     public function item()
@@ -123,7 +120,6 @@ class ItemBlock extends Model
 
     public function linksFirst($link_type)
     {
-
         return Cache::remember('block_firstlink_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function () use ($link_type) {
             $result = $this->links->filter(function ($item) use ($link_type) {
                 return $item->module_type == $link_type;
@@ -137,7 +133,6 @@ class ItemBlock extends Model
 
     public function linksFirstType($link_type)
     {
-
         return Cache::remember('block_firstlinktype_' . $this->id . 'type_' . $link_type, config('cms.default_cache_duration'), function () use ($link_type) {
             $result = $this->links->filter(function ($item) use ($link_type) {
                 return $item->getOriginal("pivot_link_type") == $link_type;

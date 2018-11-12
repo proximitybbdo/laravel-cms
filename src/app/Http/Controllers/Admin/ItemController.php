@@ -166,7 +166,6 @@ class ItemController extends BaseController
      */
     public function getAddItem(Request $request, $module_type, $action, $lang = null, $id = null, $back_module_id = null, $back_link_id = null, $custom_view = null)
     {
-
         if ($lang == null) {
             $lang = $this->default_lang;
         }
@@ -200,7 +199,6 @@ class ItemController extends BaseController
         $this->data['block_list'] = null;
 
         if (!empty(config('cms.' . $this->module_type . '.blocks'))) {
-
             $arr_block_list = collect(config('cms.' . $this->module_type . '.blocks'))->map(function ($item, $key) {
                 return [
                     'type' => $key,
@@ -218,7 +216,6 @@ class ItemController extends BaseController
             $content = $item->contentLang($lang)->where('version', 1);
             if ($item->contentLang($lang)->where('version', 0)->count() > 0) {
                 $content_online = $item->contentLang($lang)->where('version', 0);
-
             }
         } else {
             $content = $item->contentLang($lang)->where('version', 0);
@@ -508,7 +505,6 @@ class ItemController extends BaseController
         $to_index = $request->input('index');
 
         if (!is_null($id) && !is_null($to_index) && config('cms.'.$this->module_type.'.sortable') == true) {
-
             $this->itemService->sortItems($id, $to_index);
             return 'OK';
         }

@@ -19,8 +19,9 @@ class CheckPermissionMiddleware
         $hasPermission = $this->hasPermission(\Route::current(), Sentinel::getUser());
         if ($hasPermission === true) {
             return $next($request);
-        } else return redirect()->back()->with("sentinel", "You dont have the rights to do: " . $hasPermission);
-
+        } else {
+            return redirect()->back()->with("sentinel", "You dont have the rights to do: " . $hasPermission);
+        }
     }
 
     public function hasPermission($route, $user)
@@ -75,8 +76,9 @@ class CheckPermissionMiddleware
             case 'files':
                 $module_type = 'files';
                 $action = 'manage';
-                if ($route->getName() == 'file_delete')
+                if ($route->getName() == 'file_delete') {
                     $action = 'delete';
+                }
                 break;
         }
         //content module

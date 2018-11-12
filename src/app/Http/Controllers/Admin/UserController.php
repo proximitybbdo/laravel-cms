@@ -24,11 +24,11 @@ class UserController extends Controller
         view()->share('user', \Auth::User()); // null hier
         view()->share('module_type', $this->module_type);
         view()->share('module_title', config('cms.' . $this->module_type . '.description'));
-
     }
 
-    public function index(Request $request) {
-        if(!config('cms.enable_user_managment')) {
+    public function index(Request $request)
+    {
+        if (!config('cms.enable_user_managment')) {
             return redirect()->route('dashboard');
         }
 
@@ -36,16 +36,17 @@ class UserController extends Controller
         $fullUsers = [];
 
 
-        foreach($usersFromDb as $userFromDb) {
-            Sentinel::setUser( Sentinel::getUserRepository()->findById($userFromDb->id) );
+        foreach ($usersFromDb as $userFromDb) {
+            Sentinel::setUser(Sentinel::getUserRepository()->findById($userFromDb->id));
             $fullUsers[] = Sentinel::getUser();
         }
 
         return view('bbdocms::admin.user.index', ['sUsers'   => $fullUsers]);
     }
 
-    public function create(Request $request) {
-        if(!config('cms.enable_user_managment')) {
+    public function create(Request $request)
+    {
+        if (!config('cms.enable_user_managment')) {
             return redirect()->route('dashboard');
         }
 
@@ -54,8 +55,9 @@ class UserController extends Controller
         return view('bbdocms::admin.user.edit', ['sRoles'    => $sRoles]);
     }
 
-    public function store(Request $request) {
-        if(!config('cms.enable_user_managment')) {
+    public function store(Request $request)
+    {
+        if (!config('cms.enable_user_managment')) {
             return redirect()->route('dashboard');
         }
 
@@ -76,8 +78,9 @@ class UserController extends Controller
         return redirect()->route('icontrol.user.edit', $user->id);
     }
 
-    public function edit(Request $request, $userId) {
-        if(!config('cms.enable_user_managment')) {
+    public function edit(Request $request, $userId)
+    {
+        if (!config('cms.enable_user_managment')) {
             return redirect()->route('dashboard');
         }
 
@@ -87,8 +90,9 @@ class UserController extends Controller
         return view('bbdocms::admin.user.edit', ['sUser' => $sUser, 'sRoles'    => $sRoles]);
     }
 
-    public function update(Request $request, $userId) {
-        if(!config('cms.enable_user_managment')) {
+    public function update(Request $request, $userId)
+    {
+        if (!config('cms.enable_user_managment')) {
             return redirect()->route('dashboard');
         }
 
@@ -102,7 +106,7 @@ class UserController extends Controller
             $request,
             [
                 'password' => 'confirmed',
-                'email'    => ['required', Rule::unique('users','email')->ignore($userId)]
+                'email'    => ['required', Rule::unique('users', 'email')->ignore($userId)]
             ]
         );
 
@@ -112,9 +116,9 @@ class UserController extends Controller
             'email'    => $request->email,
         ];
 
-        if(!empty($request->get('password')) && strlen($request->get('password')) < 8 ) {
-            Throw ValidationException::withMessages('Password should have minimum 8 chars.');
-        } elseif(!empty($request->get('password'))) {
+        if (!empty($request->get('password')) && strlen($request->get('password')) < 8) {
+            throw ValidationException::withMessages('Password should have minimum 8 chars.');
+        } elseif (!empty($request->get('password'))) {
             $crendential['password'] = $request->get('password');
         }
 
@@ -124,11 +128,11 @@ class UserController extends Controller
         $adminRole->users()->attach($sUser);
 
         return redirect()->route('icontrol.user.edit', $userId);
-
     }
 
-    public function delete(Request $request, $userId) {
-        if(!config('cms.enable_user_managment')) {
+    public function delete(Request $request, $userId)
+    {
+        if (!config('cms.enable_user_managment')) {
             return redirect()->route('dashboard');
         }
 
@@ -137,18 +141,19 @@ class UserController extends Controller
         $sUser->delete();
 
         return redirect()->route('icontrol.user.index');
-
     }
 
-    public function editPassword(Request $request) {
-        return view('bbdocms::admin.user.password', ['ok' => $request->get('ok',0)]);
+    public function editPassword(Request $request)
+    {
+        return view('bbdocms::admin.user.password', ['ok' => $request->get('ok', 0)]);
     }
 
-    public function updatePassword(Request $request) {
+    public function updatePassword(Request $request)
+    {
         $userRepository = Sentinel::getUserRepository();
-        $user = $userRepository->findById( Sentinel::getUser()->getUserId());
+        $user = $userRepository->findById(Sentinel::getUser()->getUserId());
 
-        $this->validate($request,[
+        $this->validate($request, [
             'password'  => 'required|min:8|confirmed'
         ]);
 

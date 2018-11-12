@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class MyFile extends Model
 {
-
     public $timestamps = true;
     protected $table = 'files';
     protected $softDelete = false;
@@ -23,7 +22,6 @@ class MyFile extends Model
                 $item->modules()->delete();
             }
         });
-
     }
 
     public function modules()
@@ -35,5 +33,4 @@ class MyFile extends Model
     {
         return $this->hasMany('BBDO\Cms\Models\ItemContent');
     }
-
 }

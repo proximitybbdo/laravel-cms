@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ItemContent extends Model
 {
-
     public $timestamps = true;
     protected $table = 'items_content';
     protected $softDelete = false;

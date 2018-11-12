@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class SlugHistory extends Model
 {
-
     public $timestamps = true;
     protected $table = 'slug_history';
     protected $softDelete = false;
@@ -18,5 +17,4 @@ class SlugHistory extends Model
     {
         return $this->belongsTo('BBDO\Cms\Models\Item');
     }
-
 }

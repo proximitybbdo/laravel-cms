@@ -41,4 +41,3 @@ class SentinelController extends Controller
         return view('bbdocms::admin.register');
     }
 }
-

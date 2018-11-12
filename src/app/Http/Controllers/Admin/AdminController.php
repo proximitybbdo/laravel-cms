@@ -36,7 +36,7 @@ class AdminController extends Controller
     public function getClearcache(Request $request)
     {
         $data['cleared'] = $request->get('cleared', false);
-        if(env('CACHE_DRIVER') == 'redis') {
+        if (env('CACHE_DRIVER') == 'redis') {
             $data['tags'] = Cache::getTagsList();
         }
 
@@ -45,13 +45,13 @@ class AdminController extends Controller
 
     public function postClearcache(Request $request)
     {
-        if( !empty($request->get('tag'))) {
+        if (!empty($request->get('tag'))) {
             \Cache::tags($request->get('tag'))->flush();
         } else {
             \Cache::flush();
         }
 
-        return redirect()->route('icontrol.clearcache',['cleared' => 1]);
+        return redirect()->route('icontrol.clearcache', ['cleared' => 1]);
     }
 
     public function getLogin()

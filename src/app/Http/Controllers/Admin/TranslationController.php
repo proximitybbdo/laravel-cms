@@ -22,11 +22,11 @@ class TranslationController extends Controller
         view()->share('module_type', $this->module_type);
         view()->share('module_title', 'Translations');
         view()->share('module_subtitle', '/!\ Take care to fetch the updated file in the repository before deploying or change will be lost');
-
     }
 
-    public function index(Request $request) {
-        if(!config('cms.enable_translation_manager')) {
+    public function index(Request $request)
+    {
+        if (!config('cms.enable_translation_manager')) {
             return redirect()->route('dashboard');
         }
 
@@ -39,9 +39,9 @@ class TranslationController extends Controller
         return view('bbdocms::admin.translation.index', $data);
     }
 
-    public function show(Request $request, $lang) {
-
-        if(!config('cms.enable_translation_manager')) {
+    public function show(Request $request, $lang)
+    {
+        if (!config('cms.enable_translation_manager')) {
             return redirect()->route('dashboard');
         }
 
@@ -58,14 +58,14 @@ class TranslationController extends Controller
         ]);
     }
 
-    public function update(Request $request, $lang) {
-
+    public function update(Request $request, $lang)
+    {
         $page = $request->get('page');
         $translations = $request->get('trans');
 
         $transDomain = new Translation();
         $push = $transDomain->pushTranslation($lang, $page, $translations);
 
-        return response()->json( ($push > 0) );
+        return response()->json(($push > 0));
     }
 }

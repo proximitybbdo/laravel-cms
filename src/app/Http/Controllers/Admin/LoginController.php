@@ -38,5 +38,4 @@ class LoginController extends Controller
     {
         return view('bbdocms::admin.login');
     }
-
 }

@@ -21,5 +21,4 @@ class BasicMiddleware
         }
         return redirect()->route('login');
     }
-
 }
