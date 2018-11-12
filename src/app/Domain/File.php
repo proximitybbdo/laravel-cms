@@ -25,7 +25,7 @@ class File
                 $data = file_get_contents($path);
                 $result = '<img id="dynamic" src="data:image/' . $type . ';base64,' . base64_encode($data) . '" style="width:150px">';
             } else {
-                $result = '<img id="dynamic" src="'.$path.'" style="width:150px">';
+                $result = '<img id="dynamic" src="'.$path.'" style="width:150px" />';
             }
         } catch (\Exception $ex) {
             \Log::error($ex->getTraceAsString());
