@@ -26,13 +26,10 @@ class Item extends Model
 
         static::deleting(function ($item) {
             $item->blocksAllVersions()->delete();
-        });
-
-        static::deleted(function ($item) {
             if ($item->content()->count() > 0) {
-                $item->links()->sync(array());
                 $item->content()->delete();
             }
+            $item->links()->sync(array());
         });
     }
 
