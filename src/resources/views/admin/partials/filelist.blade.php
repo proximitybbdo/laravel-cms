@@ -1,4 +1,4 @@
-@foreach ($files as $file) {
+@foreach ($files as $file)
 
   @if ($manager_type == 'file')
   <div class="col-md-2  {{ $file->id == $value ? 'active' : '' }}">
