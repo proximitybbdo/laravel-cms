@@ -31,16 +31,14 @@
 
 
   <script type="text/javascript">
-    window.base_url = '<?=url("/");?>';
-    window.module_type = '<?=$module_type;?>';
-    window.default_lang = '<?=\Lang::getLocale();?>';
+    window.base_url = '{{ url("/")  }}';
+    window.module_type = '{{ $module_type  }}';
+    window.default_lang = '{{ \Lang::getLocale()  }}';
   </script>
 
     <!-- Scripts -->
     <script>
-        window.Laravel = <?php echo json_encode([
-    'csrfToken' => csrf_token(),
-]); ?>
+        window.Laravel = {{ json_encode(['csrfToken' => csrf_token()]) }}
     </script>
 </head>
 <body>

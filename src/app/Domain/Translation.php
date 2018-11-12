@@ -43,6 +43,7 @@ class Translation
 
     /**
      * @param $lang
+     * @param string $subDir
      * @return array
      * @throws \Exception
      */
@@ -104,7 +105,8 @@ class Translation
     /**
      * @param $lang
      * @param $file
-     * @return
+     * @param string $subDir
+     * @return mixed
      * @throws \Exception
      */
     protected function getPathForFile($lang, $file, $subDir = '') {

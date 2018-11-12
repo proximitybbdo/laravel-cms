@@ -33,6 +33,7 @@ class CheckPermissionMiddleware
                 return $this->checkPermission($route, $user);
             }
         }
+        return false;
     }
 
     public function checkPermission($route, $user)
@@ -40,7 +41,6 @@ class CheckPermissionMiddleware
         // Check  the route versus the permissions of the user/role
         // based on: route name, action or first part of URI
 
-        $action = 'view';
         $module_type = $route->getParameter('module_type');
         $first_uri = explode('/', $route->uri())[1]; // /items, /files
         switch ($route->getName()) {
@@ -69,7 +69,6 @@ class CheckPermissionMiddleware
                 break;
             case 'get':
                 $action = 'create';
-            default:
                 break;
         }
         switch ($first_uri) {
@@ -79,10 +78,6 @@ class CheckPermissionMiddleware
                 if ($route->getName() == 'file_delete')
                     $action = 'delete';
                 break;
-
-            default:
-                break;
-
         }
         //content module
         //general db config

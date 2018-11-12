@@ -47,9 +47,8 @@ class AddAdminUser extends Command
             'password' => $password,
             'name' => $name
         );
-        // $credentials['password'] = \Hash::make($credentials['password']);
+
         try {
-            // $user = \BBDO\Cms\Models\User::create($credentials);
             $user = Sentinel::registerAndActivate($credentials);
             $adminRole = Sentinel::findRoleBySlug('admin');
             $adminRole->users()->attach($user);

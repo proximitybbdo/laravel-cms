@@ -11,7 +11,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 class Item
 {
-    private $module = "";
+    private $module = '';
+    public $module_type;
 
     public function __construct($module_type = null)
     {
@@ -208,11 +209,11 @@ class Item
     {
         $item = Models\Item::find($id);
         Models\ItemContent::destroy($item->contentLang($lang)->where("version", 0)->pluck('id')->toArray());
-        $content = $item->contentLang($lang)->where("version", 1)->update(array("version" => 0));
+        $item->contentLang($lang)->where("version", 1)->update(array("version" => 0));
 
         //destory all online blocks
         Models\ItemBlock::destroy($item->blocksLang($lang, 0)->pluck('id')->toArray());
-        $blocks = $item->blocksLang($lang)->update(['version' => 0]);
+        $item->blocksLang($lang)->update(['version' => 0]);
 
         $slug_content = $item->contentLang($lang)->where('version', 0)->where('type', 'slug')->first();
         if (!is_null($slug_content)) {
@@ -231,7 +232,7 @@ class Item
     {
         $item = Models\Item::find($id);
         Models\ItemContent::destroy($item->contentLang($lang)->where("version", 1)->pluck('id')->toArray());
-        $content = $item->contentLang($lang)->where("version", 0)->update(array("version" => 1));
+        $item->contentLang($lang)->where("version", 0)->update(array("version" => 1));
         $item = \Item::find($id);
 
         logAction($this->module, 'REVERT', $id, $lang);
@@ -470,7 +471,6 @@ class Item
     {
         $items = $this->getAllAdmin(null);
 
-        $i = 1;
         $keys = $items->modelKeys();
         $from_index = array_search($id, $items->modelKeys());
 
@@ -509,7 +509,6 @@ class Item
         $blocks = $this->blocks();
         //TODO
 
-        $i = 1;
         $keys = $items->modelKeys();
         $from_index = array_search($id, $items->modelKeys());
 

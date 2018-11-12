@@ -20,6 +20,8 @@ class ItemController extends BaseController
     protected $itemService = null;
     protected $module_type = '';
     protected $editor_id = 0;
+    protected $default_lang;
+    protected $languages;
 
     /**
      * ItemController constructor.
@@ -145,18 +147,9 @@ class ItemController extends BaseController
         if (array_key_exists('custom_popup_overview', $link_cfg) && !empty($link_cfg['custom_popup_overview'])) {
             $view_custom = "bbdocms::admin.partials.input.custom." . $link_cfg['custom_popup_overview'];
         }
-        $module = $module_type;
-        if (isset($back_module_type)) {
-            $module = $back_module_type;
-        }
 
-        //try{
         $custom_view = $view_custom == null ? $custom_views[$view_name] : $view_custom;
         return $this->getAddItem($request, $module_type, $action, $lang, $id, $back_module_type, null, $custom_view);
-        // }
-        // catch(\Exception $e){
-        //   return "view name '$view_name' doesnt exist yet for '$module'";
-        // }
     }
 
     /**

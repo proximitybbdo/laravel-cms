@@ -10,7 +10,6 @@ class ActionLog
 
     public static function log($lead, $action, $category_id = null, $data = null, $info = null, $my_score = null)
     {
-        $score = 0;
         $action = strtoupper($action);
         $score_cfg = config('scoring.scores.' . $action);
         $item_domain = new PublicItem();

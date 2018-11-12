@@ -7,10 +7,11 @@ use Closure;
 class Cache
 {
     /**
-     * @param string $tags
-     * @param string $key
-     * @param int $minutes
-     * @param Closure $callback
+     * @param array $params
+     * $params string $tags
+     * $params string $key
+     * $params int $minutes
+     * $params Closure $callback
      * @return mixed
      * @throws \Exception
      */

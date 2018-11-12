@@ -3,7 +3,6 @@
 namespace BBDO\Cms\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use BBDO\Cms\Helpers\SentinelHelper;
 use BBDO\Cms\Models\User;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Http\Request;

@@ -7,8 +7,8 @@ use Carbon\Carbon;
 class General
 {
     /**
-     * @param $startdate
-     * @param $enddate
+     * @param $startDate
+     * @param $endDate
      * @return bool
      */
     public static function IsRunning($startDate, $endDate)

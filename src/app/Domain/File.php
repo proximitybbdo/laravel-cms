@@ -77,7 +77,7 @@ class File
 
         $content_types = config::get('cms.files.' . $item->type . '.content_type');
         $itemService = new Item("");
-        $item_content = $itemService->removeContentSearch($content_types, $item->id); //item content delete
+        $itemService->removeContentSearch($content_types, $item->id); //item content delete
         $item->garbage = 1;
         $item->save();
 

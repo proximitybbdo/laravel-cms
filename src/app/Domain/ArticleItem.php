@@ -5,6 +5,7 @@ namespace BBDO\Cms\Domain;
 class ArticleItem extends PublicItem
 {
 
+    public $module;
     private $lead = null;
 
     function __construct($lead)
@@ -69,9 +70,6 @@ class ArticleItem extends PublicItem
 
     private function getMoreData($exclude_ids, $filter = null)
     {
-        $levels = $this->getAll('LEVEL', null, null, null, null, null, true, false, null)->pluck('id');
-
-        $result = collect([]);
         $items = null;
         $amount = array_sum(head(config('app.overview_scores')));
         $items = $this->getAll($this->module, 'LEVEL', [], 'id', null, $amount, false, false, $exclude_ids);

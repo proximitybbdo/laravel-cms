@@ -142,9 +142,12 @@ class ItemBlock extends Model
             $result = $this->links->filter(function ($item) use ($link_type) {
                 return $item->getOriginal("pivot_link_type") == $link_type;
             })->first();
+
             if (!$result) {
-                return new Item();
+                $result = new Item();
             }
+
+            return $result;
         });
     }
 

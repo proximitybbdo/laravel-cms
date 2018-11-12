@@ -12,13 +12,15 @@ class FilesController extends BaseController
     protected $layout = 'admin.template';
     protected $service = null;
     protected $module_type = 'FILESMOD';
+    protected $languages;
+    protected $default_lang;
 
     public function __construct()
     {
         $this->module_type = 'FILES';
 
-        $this->default_lang = config("cms.default_locale");
-        $this->languages = config("app.locales");
+        $this->default_lang = config('cms.default_locale');
+        $this->languages = config('app.locales');
 
         view()->share('modules', config('cms.modules'));
         view()->share('user', "");
@@ -178,6 +180,8 @@ class FilesController extends BaseController
                 return response()->json('error', 400);
             }
         }
+
+        return response()->json('error no file', 400);
     }
 
     public function postAssignCategory(Request $request)

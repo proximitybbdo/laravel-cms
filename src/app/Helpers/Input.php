@@ -27,7 +27,6 @@ class Input
         $amount = array_key_exists('amount', $config) ? $config['amount'] : 0;
         $field = $fieldgroup . '[' . $cfg_type . ']';
         $asset_field_name = str_replace('[', '_', str_replace(']', '_', $fieldgroup)) . '_' . $cfg_type;
-        $field_index = substr($cfg_type, strrpos($cfg_type, '_'));
 
         $input_type = $cfg_type;
         if ($multiple_index !== null) {
