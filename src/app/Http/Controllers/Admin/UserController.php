@@ -142,7 +142,7 @@ class UserController extends Controller
     }
 
     public function editPassword(Request $request) {
-        return view('bbdocms::admin.user.password');
+        return view('bbdocms::admin.user.password', ['ok' => $request->get('ok',0)]);
     }
 
     public function updatePassword(Request $request) {
@@ -155,6 +155,6 @@ class UserController extends Controller
 
         $userRepository->update($user, ['password' => $request->get('password')]);
 
-        return redirect()->route('dashboard');
+        return redirect()->route('icontrol.user.editPassword', ['ok' => 1]);
     }
 }

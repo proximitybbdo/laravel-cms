@@ -14,6 +14,12 @@
             </div>
         @endif
 
+        @if( isset($ok) && $ok == 1)
+            <div class="alert alert-success">
+                Password updated
+            </div>
+        @endif
+
         {!! Form::open(['route' => 'icontrol.user.updatePassword']) !!}
 
             <div class="form-group">
