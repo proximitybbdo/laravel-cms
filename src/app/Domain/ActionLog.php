@@ -7,7 +7,6 @@ use Carbon\Carbon;
 
 class ActionLog
 {
-
     public static function log($lead, $action, $category_id = null, $data = null, $info = null, $my_score = null)
     {
         $action = strtoupper($action);
@@ -97,6 +96,4 @@ class ActionLog
         $sums = $sums->groupBy('category_id')->get();
         return $sums->pluck('sum_score', 'category_id');
     }
-
-
 }

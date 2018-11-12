@@ -4,11 +4,10 @@ namespace BBDO\Cms\Domain;
 
 class ArticleItem extends PublicItem
 {
-
     public $module;
     private $lead = null;
 
-    function __construct($lead)
+    public function __construct($lead)
     {
         $this->module = 'ARTICLES';
         $this->lead = $lead;
@@ -79,7 +78,6 @@ class ArticleItem extends PublicItem
 
     public function get_categorycontent($id, $exclude_ids)
     {
-
         $result = $this->getAll($this->module, 'CATEGORY', [$id], 'start_date', null, null, false, true, $exclude_ids);
 
         return $result->shuffle();
@@ -87,7 +85,6 @@ class ArticleItem extends PublicItem
 
     public function get_tagcontent($id, $exclude_ids)
     {
-
         $result = $this->getAll($this->module, 'TAG', [$id], 'start_date', null, null, false, true, $exclude_ids);
 
         return $result->shuffle();
@@ -116,7 +113,7 @@ class ArticleItem extends PublicItem
 
             if (abs($level_item - $level) == 1) {
                 $take = $rest + 1;
-            } else if ($level == $level_item) {
+            } elseif ($level == $level_item) {
                 $take = $rest + 2;
             }
 
@@ -165,5 +162,4 @@ class ArticleItem extends PublicItem
 
         return $result->random($amount);
     }
-
 }

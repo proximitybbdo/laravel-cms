@@ -23,7 +23,7 @@ class Logging
 
         // check if a user is logged in
         // there might be no user in case of a command
-        // @todo Should we log this as 'command'? 
+        // @todo Should we log this as 'command'?
         if ($user = Sentinel::getUser()) {
             $userId = $user->id;
         }

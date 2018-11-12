@@ -13,7 +13,7 @@ class PublicItem
     protected $lang = '';
     protected $preview = false;
 
-    function __construct()
+    public function __construct()
     {
         $this->lang = \LaravelLocalization::getCurrentLocale();
 
@@ -43,8 +43,8 @@ class PublicItem
     {
         $cache_key = 'item_get_all_' . $this->lang . '_';
 
-        foreach(func_get_args() as $p) {
-            if(!is_null($p)) {
+        foreach (func_get_args() as $p) {
+            if (!is_null($p)) {
                 $cache_key .= (is_array($p) ? implode('-', $p) : $p) . '_';
             }
         }
@@ -53,8 +53,7 @@ class PublicItem
         $sort = is_null($sort) ? 'id' : $sort;
         $order = $desc ? 'desc' : 'asc';
 
-        return Cache::cacheWithTags($module_type, $cache_key, ($cache_disabled ? -1 : config('cms.default_cache_duration')), function() use($sort,$order, $desc,$module_type,$link_type,$exclude_ids,$mustApplyAllLinks, $links, $amount, $pagesize) {
-
+        return Cache::cacheWithTags($module_type, $cache_key, ($cache_disabled ? -1 : config('cms.default_cache_duration')), function () use ($sort,$order, $desc,$module_type,$link_type,$exclude_ids,$mustApplyAllLinks, $links, $amount, $pagesize) {
             $result = Models\Item::select('id', 'description', 'status', 'editor_id', 'module_type', 'sort', 'start_date', 'end_date', 'type')
                 ->where('module_type', strtoupper($module_type))
                 ->where('status', 1)
@@ -99,7 +98,6 @@ class PublicItem
 
             return $result;
         });
-
     }
 
     public function getIds($module_type, $ids)
@@ -118,7 +116,7 @@ class PublicItem
     {
         $cache_key = 'item_' . $slug . '_mod_' . $module_type . '_lang' . $this->lang;
 
-        return Cache::cacheWithTags($module_type, $cache_key, ($this->preview ? -1 : config('cms.default_cache_duration')), function() use($module_type, $slug) {
+        return Cache::cacheWithTags($module_type, $cache_key, ($this->preview ? -1 : config('cms.default_cache_duration')), function () use ($module_type, $slug) {
             $result = Models\Item::select('id', 'description', 'status', 'editor_id', 'module_type', 'sort', 'created_at', 'start_date', 'end_date', 'type')
                 ->where('module_type', strtoupper($module_type))
                 ->whereHas('content', function ($q) use ($slug) {
@@ -140,7 +138,7 @@ class PublicItem
     {
         $cache_key = 'item_' . $id . '_lang' . $this->lang;
 
-        return Cache::cacheWithTags($module_type, $cache_key, ($this->preview ? -1 : config('cms.default_cache_duration')), function() use($id, $module_type) {
+        return Cache::cacheWithTags($module_type, $cache_key, ($this->preview ? -1 : config('cms.default_cache_duration')), function () use ($id, $module_type) {
             return Models\Item::select('id', 'description', 'status', 'editor_id', 'module_type', 'sort', 'start_date', 'end_date', 'type')->where('id', $id)
                 ->where('module_type', strtoupper($module_type))
                 ->whereHas('content', function ($q) {
@@ -154,7 +152,7 @@ class PublicItem
     {
         $cache_key = 'item_featured_' . $module_type . '_lang_' . $this->lang;
 
-        return Cache::cacheWithTags($module_type, $cache_key, ($this->preview ? -1 : config('cms.default_cache_duration')), function() use($module_type) {
+        return Cache::cacheWithTags($module_type, $cache_key, ($this->preview ? -1 : config('cms.default_cache_duration')), function () use ($module_type) {
             return Models\Item::select('id', 'description', 'status', 'editor_id', 'module_type', 'sort', 'start_date', 'end_date', 'type')
                 ->where('is_featured', 1)
                 ->where('module_type', strtoupper($module_type))

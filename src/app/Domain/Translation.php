@@ -2,7 +2,6 @@
 
 namespace BBDO\Cms\Domain;
 
-
 use Symfony\Component\Yaml\Yaml;
 
 class Translation
@@ -12,7 +11,8 @@ class Translation
      * @return array
      * @throws \Exception
      */
-    public function getTranslationsByLang($lang) {
+    public function getTranslationsByLang($lang)
+    {
         $translations = $this->fetchTranslations($lang);
         return $translations;
     }
@@ -20,7 +20,8 @@ class Translation
     /**
      * @return array
      */
-    public function getAvailableLang() {
+    public function getAvailableLang()
+    {
         return array_keys($this->getLangDirectory());
     }
 
@@ -28,11 +29,12 @@ class Translation
     /**
      * @return array
      */
-    protected function getLangDirectory() {
+    protected function getLangDirectory()
+    {
         $langDirectory = [];
 
-        foreach(glob(resource_path('lang').'/*') as $item) {
-            if(is_dir($item)) {
+        foreach (glob(resource_path('lang').'/*') as $item) {
+            if (is_dir($item)) {
                 $lang = explode('/', $item);
                 $langDirectory[end($lang)] = $item;
             }
@@ -47,21 +49,23 @@ class Translation
      * @return array
      * @throws \Exception
      */
-    protected function fetchTranslations($lang, $subDir = '') {
+    protected function fetchTranslations($lang, $subDir = '')
+    {
         $translations = [];
 
-        if(!isset($this->getLangDirectory()[$lang])) {
-            Throw new \Exception('Lang ' . $lang . ' is not in the list. Use one of them : ' . var_export($this->getAvailableLang()));
+        if (!isset($this->getLangDirectory()[$lang])) {
+            throw new \Exception('Lang ' . $lang . ' is not in the list. Use one of them : ' . var_export($this->getAvailableLang()));
         }
 
         $langDirectory = $this->getLangDirectory()[$lang] . $subDir;
 
-        foreach( scandir($langDirectory) as $item) {
-            if($item == '.' || $item == '..')
+        foreach (scandir($langDirectory) as $item) {
+            if ($item == '.' || $item == '..') {
                 continue;
+            }
 
             $pathItem = $langDirectory.'/'.$item;
-            if(is_dir($pathItem)) {
+            if (is_dir($pathItem)) {
                 //TODO for now, subdirectory are not managed yet.
                 //$translations[$item] = array_dot($this->fetchTranslations($lang, '/'.$item));
             } else {
@@ -75,7 +79,8 @@ class Translation
      * @param $name
      * @return bool|string
      */
-    protected function cleanName($name) {
+    protected function cleanName($name)
+    {
         return substr($name, 0, strpos($name, '.'));
     }
 
@@ -86,15 +91,15 @@ class Translation
      * @return int
      * @throws \Exception
      */
-    public function pushTranslation($lang, $file, $data) {
-
+    public function pushTranslation($lang, $file, $data)
+    {
         $filePath = $this->getPathForFile($lang, $file);
         $extension = extractExtension(basename($filePath));
 
-        if( $extension == 'php' ) {
+        if ($extension == 'php') {
             $content = '<?php return ' . var_export($data, true) . ';';
             return \File::put($filePath, $content);
-        } elseif( in_array($extension, ['yml','yaml']) ) {
+        } elseif (in_array($extension, ['yml','yaml'])) {
             $yaml = Yaml::dump($data);
             return \File::put($filePath, $yaml);
         } else {
@@ -109,22 +114,21 @@ class Translation
      * @return mixed
      * @throws \Exception
      */
-    protected function getPathForFile($lang, $file, $subDir = '') {
-        if(!isset($this->getLangDirectory()[$lang])) {
-            Throw new \Exception('Lang ' . $lang . ' is not in the list. Use one of them : ' . var_export($this->getAvailableLang()));
+    protected function getPathForFile($lang, $file, $subDir = '')
+    {
+        if (!isset($this->getLangDirectory()[$lang])) {
+            throw new \Exception('Lang ' . $lang . ' is not in the list. Use one of them : ' . var_export($this->getAvailableLang()));
         }
 
-        foreach(glob($this->getLangDirectory()[$lang].''.$subDir.'/*') as $item) {
-            if(is_file($item) && $this->cleanName(basename($item)) == $file) {
+        foreach (glob($this->getLangDirectory()[$lang].''.$subDir.'/*') as $item) {
+            if (is_file($item) && $this->cleanName(basename($item)) == $file) {
                 return $item;
-            } elseif(is_dir($item)) {
+            } elseif (is_dir($item)) {
                 $subDir = dirname($item);
                 return $this->getPathForFile($lang, $file, '/'.$subDir);
             }
         }
 
-        Throw new \Exception('No file found for page ' . $file);
-
+        throw new \Exception('No file found for page ' . $file);
     }
-
 }

@@ -259,7 +259,6 @@ class Item
         }
         if (count($blocks) != 0) {
             foreach ($blocks as $block) {
-
                 $block_arr = $block->toArray();
                 $block_arr['id'] = null;
                 $block_arr['lang'] = $destination_lang;
@@ -289,7 +288,6 @@ class Item
                     ];
                 }
                 $new_block->links()->sync($link_arr);
-
             }
         }
 
@@ -358,7 +356,6 @@ class Item
         if ($cat != null) {
             $result->whereHas('links', function ($q) use ($cat) {
                 $q->where('link_id', '=', $cat);
-
             });
         }
         return $result->first();
@@ -390,7 +387,6 @@ class Item
 
     public function getAllAdminListInception($module_type, $link_item_id, $link_type = '%')
     {
-
         $result = \DB::select('select i1.id, i1.description, i2.item_id
                         from items i1
                         inner join items_link i3 on i3.item_id = i1.id and i3.link_id = ?
@@ -452,7 +448,6 @@ class Item
             ->orderBy('version', 'Asc')->get();
         $value = array();
         foreach ($item_langs as $item_lang) {
-
             if (array_key_exists($item_lang->lang, $value)) {
                 $langvalue = $value[$item_lang->lang];
                 if ($langvalue == 'online') {
@@ -498,7 +493,6 @@ class Item
         if ($cat != null) {
             $result->whereHas('links', function ($q) use ($cat) {
                 $q->where('link_id', '=', $cat);
-
             });
         }
         return $result->get();
@@ -530,7 +524,6 @@ class Item
     {
         Cache::flush();
         return Models\ItemContent::whereIn('type', $content_types)->where('content', $id)->delete();
-
     }
 
     public function getContentsearchIds($content_types)
