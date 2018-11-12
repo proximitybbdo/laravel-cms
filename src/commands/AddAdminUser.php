@@ -52,12 +52,10 @@ class AddAdminUser extends Command
             $user = Sentinel::registerAndActivate($credentials);
             $adminRole = Sentinel::findRoleBySlug('admin');
             $adminRole->users()->attach($user);
-
         } catch (\Exception $e) {
             $this->error('User creation failed - ' . $e);
         }
 
         $this->info('User created!');
-
     }
 }

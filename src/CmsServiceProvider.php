@@ -41,7 +41,6 @@ class CmsServiceProvider extends ServiceProvider
         }
 
         $this->registerSeedsFrom(__DIR__ . '/database/seeds');
-
     }
 
     /**
@@ -68,7 +67,6 @@ class CmsServiceProvider extends ServiceProvider
                     \Artisan::call('db:seed', ['--class' => $class]);
                 }
             }
-
         }
     }
 }

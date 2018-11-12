@@ -27,7 +27,6 @@ class CreateItemsBlockContent extends Migration
 
             $table->foreign('block_id', 'foreign_items_block_content')->references('id')->on('items_block');
         });
-
     }
 
     /**

@@ -6,8 +6,8 @@
     </label>
     @endif
     <div class="input-group">
-      <?= Form::hidden($field,null,array('class' => 'form-control','id'=>$asset_field_name)); ?>
-      <?= Form::text('',($has_value ? $model->file($content[$type])->file : ''),array('class' => 'form-control image-preview-filename','id'=>$asset_field_name,'disabled'=>'disabled')); ?>
+      <?= Form::hidden($field, null, array('class' => 'form-control','id'=>$asset_field_name)); ?>
+      <?= Form::text('', ($has_value ? $model->file($content[$type])->file : ''), array('class' => 'form-control image-preview-filename','id'=>$asset_field_name,'disabled'=>'disabled')); ?>
       <span class="input-group-btn">          
           <button type="button" class="btn btn-default image-preview-clear" style="{{ $has_value ? "" : "display:none;" }}" data-input="<?= $asset_field_name ?>">
               <span class="fa fa-times"></span>

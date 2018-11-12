@@ -27,7 +27,6 @@ class CreateItemsBlockLinks extends Migration
 
             $table->foreign('block_id', 'foreign_item_block_links')->references('id')->on('items_block');
         });
-
     }
 
     /**

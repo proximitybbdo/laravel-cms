@@ -12,7 +12,6 @@
 */
 
 Route::group(['prefix' => 'icontrol', 'middleware' => 'web', 'namespace' => '\BBDO\Cms\Http\Controllers\Admin'], function () {
-
     Route::get('logout', [
         'uses' => 'SentinelController@logout',
         'as' => 'sentinel.logout'
@@ -32,7 +31,6 @@ Route::group(['prefix' => 'icontrol', 'middleware' => 'web', 'namespace' => '\BB
 
 
     Route::group(['middleware' => \BBDO\Cms\Http\Middleware\Admin\BasicMiddleware::class], function () {
-
         Route::get('dashboard', [
             'uses' => 'AdminController@index',
             'as' => 'dashboard'
@@ -70,40 +68,41 @@ Route::group(['prefix' => 'icontrol', 'middleware' => 'web', 'namespace' => '\BB
             Route::get('/user/edit/{userId}', 'UserController@edit')->name('icontrol.user.edit');
             Route::post('/user/update/{userId}', 'UserController@update')->name('icontrol.user.update');
             Route::get('/user/delete/{userId}', 'UserController@delete')->name('icontrol.user.delete');
-
         });
 
         Route::group(['middleware' => \BBDO\Cms\Http\Middleware\Admin\CheckPermissionMiddleware::class], function () {
             Route::group(
                 [
                     'prefix' => 'items',
-                ], function () {
-                Route::get('{module_type}/overview', 'ItemController@getOverview')->name('overview');
-                Route::get('{module_type}/overview/{link_id}', 'ItemController@getOverview')->name('overview');
+                ],
+                function () {
+                    Route::get('{module_type}/overview', 'ItemController@getOverview')->name('overview');
+                    Route::get('{module_type}/overview/{link_id}', 'ItemController@getOverview')->name('overview');
 
-                Route::post('{module_type}/overviewdata', 'ItemController@postOverviewData')->name('overviewdata');
-                Route::post('{module_type}/publish', 'ItemController@postPublish')->name('publish');
-                Route::post('{module_type}/featured', 'ItemController@postFeatured')->name('featured');
-                Route::post('{module_type}/delete', 'ItemController@postDelete')->name('delete');
-                Route::post('{module_type}/sortitems', 'ItemController@postSortPost')->name('sort');
-                Route::post('{module_type}/renderblock', 'ItemController@postRenderBlock')->name('render_block');
+                    Route::post('{module_type}/overviewdata', 'ItemController@postOverviewData')->name('overviewdata');
+                    Route::post('{module_type}/publish', 'ItemController@postPublish')->name('publish');
+                    Route::post('{module_type}/featured', 'ItemController@postFeatured')->name('featured');
+                    Route::post('{module_type}/delete', 'ItemController@postDelete')->name('delete');
+                    Route::post('{module_type}/sortitems', 'ItemController@postSortPost')->name('sort');
+                    Route::post('{module_type}/renderblock', 'ItemController@postRenderBlock')->name('render_block');
 
-                Route::get('custom_view/{module_type}/{action}/{lang}/{view_name}/{id}/{back_module_type}/', 'ItemController@getAddItemCustomView');
-                Route::get('custom_view/{module_type}/{action}/{lang}/{view_name}', 'ItemController@getAddItemCustomView');
-                Route::get('{module_type}/copylang/{id}/{source_lang}/{destination_lang}', 'ItemController@getCopyLangItem')->name('copylang');
-                Route::get('{module_type}/revert/{lang}/{id}', 'ItemController@getRevertItem')->name('revert');
-                Route::get('{module_type}/{action}/{lang}/{id}/{back_module_type}/{back_id}', 'ItemController@getAddItem');
-                Route::post('{module_type}/{action}/{lang}/{id}/{back_module_type}/{back_id}', 'ItemController@getAddItem');
-                Route::get('{module_type}/{action}/{lang}/{id}/{back_module_type}', 'ItemController@getAddItem');
-                Route::post('{module_type}/{action}/{lang}/{id}/{back_module_type}', 'ItemController@getAddItem');
-                Route::get('{module_type}/{action}/{lang}/{id}', 'ItemController@getAddItem')->name('items.edit');
-                Route::get('{module_type}/{action}/{lang}', 'ItemController@getAddItem')->name('items.add');
-                //Route::post('{module_type}/{action}/{lang}', 'ItemController@getAddItem');
+                    Route::get('custom_view/{module_type}/{action}/{lang}/{view_name}/{id}/{back_module_type}/', 'ItemController@getAddItemCustomView');
+                    Route::get('custom_view/{module_type}/{action}/{lang}/{view_name}', 'ItemController@getAddItemCustomView');
+                    Route::get('{module_type}/copylang/{id}/{source_lang}/{destination_lang}', 'ItemController@getCopyLangItem')->name('copylang');
+                    Route::get('{module_type}/revert/{lang}/{id}', 'ItemController@getRevertItem')->name('revert');
+                    Route::get('{module_type}/{action}/{lang}/{id}/{back_module_type}/{back_id}', 'ItemController@getAddItem');
+                    Route::post('{module_type}/{action}/{lang}/{id}/{back_module_type}/{back_id}', 'ItemController@getAddItem');
+                    Route::get('{module_type}/{action}/{lang}/{id}/{back_module_type}', 'ItemController@getAddItem');
+                    Route::post('{module_type}/{action}/{lang}/{id}/{back_module_type}', 'ItemController@getAddItem');
+                    Route::get('{module_type}/{action}/{lang}/{id}', 'ItemController@getAddItem')->name('items.edit');
+                    Route::get('{module_type}/{action}/{lang}', 'ItemController@getAddItem')->name('items.add');
+                    //Route::post('{module_type}/{action}/{lang}', 'ItemController@getAddItem');
 
-                Route::get('{module_type}/{action}', 'ItemController@getAddItem');
-                Route::post('{module_type}/{action}/{lang?}', 'ItemController@store');
-                Route::post('{module_type}/{action}/{lang}/{id}', 'ItemController@store')->name('items.update');
-            });
+                    Route::get('{module_type}/{action}', 'ItemController@getAddItem');
+                    Route::post('{module_type}/{action}/{lang?}', 'ItemController@store');
+                    Route::post('{module_type}/{action}/{lang}/{id}', 'ItemController@store')->name('items.update');
+                }
+            );
 
             Route::get('files/getimagecontainer/{id}/{type}', 'FilesController@getImageContainer');
             Route::get('files/{manager_type}/manager', 'FilesController@getManager');

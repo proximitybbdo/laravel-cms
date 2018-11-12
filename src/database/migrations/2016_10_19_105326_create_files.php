@@ -31,7 +31,6 @@ class CreateFiles extends Migration
             $table->index('module_type');
             $table->index(array('file_id', 'module_type'));
         });
-
     }
 
     /**

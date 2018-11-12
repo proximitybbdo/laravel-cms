@@ -9,7 +9,7 @@
            <div class="block-content">
 
 
-                <?php if ($single_item == false) {?>
+                @if ($single_item == false)
                    <block class="block-content">
                         @if (Sentinel::hasAccess(strtolower($module_type) . '.view'))
                             <a id="overview" href="<?=$back_link?>" class="button">
@@ -19,13 +19,13 @@
 
                         @if (isset($model->id))
                             @if (Sentinel::hasAccess(strtolower($module_type) . '.create'))
-                                <a href="<?=url()->to("icontrol/items/$module_type/add");?>" class="btn btn-primary pull-right">
+                                <a href="<?=url()->to("icontrol/items/$module_type/add"); ?>" class="btn btn-primary pull-right">
                                     Add new {{ config('cms.' . $module_type . '.description') }} <i class="fa fa-plus-circle"></i>
                                 </a>
                             @endif
                         @endif
                     </block>
-                <?php }?>
+                @endif
 
                 @include('bbdocms::admin.partials.form')
 

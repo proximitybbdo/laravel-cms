@@ -2,5 +2,5 @@
       <label for="$field">
          {{ $title }}
       </label>
-      <?= Form::select($field, $options ,null, array('class' => 'custom-select')); ?>
+      <?= Form::select($field, $options, null, array('class' => 'custom-select')); ?>
 </div>

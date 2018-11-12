@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
                     'permissions' => json_encode($roles->editor)
 
                 ]
-            ));
+            )
+        );
     }
 }

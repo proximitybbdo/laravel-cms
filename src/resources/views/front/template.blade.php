@@ -13,10 +13,11 @@
 
     <?php
     $title_tag = trans('site.meta.title');
-    if (isset($slug_title))
+    if (isset($slug_title)) {
         $title_tag .= ' - ' . $slug_title;
-    elseif (isset($route_title))
+    } elseif (isset($route_title)) {
         $title_tag .= ' - ' . trans($route_title);
+    }
     ?>
 
     <meta charset="utf-8"/>
