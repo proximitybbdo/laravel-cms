@@ -317,13 +317,21 @@ if (!function_exists('is_countable')) {
  * @return string
  */
 function viewPrefixCmsNamespace($viewName) {
-    if(view()->exists('bbdocms::'.$viewName)) {
+    if(view()->exists($viewName)) {
+        return $viewName;
+    } elseif(view()->exists('bbdocms::'.$viewName)) {
         return 'bbdocms::'.$viewName;
+    } else {
+        Throw new \http\Exception\InvalidArgumentException('View ' . $viewName . ' not found in your views neither in the bbdocms namespace');
     }
-
-    return $viewName;
 }
 
+/**
+ * @param null $view
+ * @param array $data
+ * @param array $mergeData
+ * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+ */
 function bbdoview($view = null, $data = [], $mergeData = []) {
     return view( viewPrefixCmsNamespace($view), $data, $mergeData);
 }
