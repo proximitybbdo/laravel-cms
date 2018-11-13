@@ -163,8 +163,8 @@
         <script src="<?=asset('admin/js/plugins/dropzone/dropzone.min.js')?>"></script>
         <script src="<?=asset('admin/js/plugins/bbdo-admin/admin.js')?>"></script>
 
-        <!-- Page JS Helpers (Summernote + SimpleMDE + CKEditor plugins) -->
-        <script>jQuery(function(){ Dashmix.helpers(['ckeditor']); });</script>
+        <!-- Page JS Helpers (Summernote + SimpleMDE + CKEditor plugins)
+        <script>jQuery(function(){ Dashmix.helpers(['ckeditor']); });</script>-->
 
 </body>
 </html>
