@@ -233,7 +233,6 @@ class Item
         $item = Models\Item::find($id);
         Models\ItemContent::destroy($item->contentLang($lang)->where("version", 1)->pluck('id')->toArray());
         $item->contentLang($lang)->where("version", 0)->update(array("version" => 1));
-        $item = \Item::find($id);
 
         logAction($this->module, 'REVERT', $id, $lang);
 
