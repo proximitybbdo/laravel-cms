@@ -86,7 +86,7 @@ class ItemController extends BaseController
             }
         }
         $this->data['links'] = $links;
-        return view('bbdocms::admin.items.overview', $this->data);
+        return bbdoview('admin.items.overview', $this->data);
     }
 
     protected function getOverviewData($module_type, $cat = null)
@@ -121,9 +121,9 @@ class ItemController extends BaseController
         $this->data['languages'] = $languages;
         $this->data['sortable'] = $sortable;
 
-        $view = 'bbdocms::admin.partials.overview_data';
-        if (config("cms.$module_type.overview_custom") == true) {
-            $view = 'bbdocms::admin.partials.overview.' . strtolower($module_type);
+        $view = viewPrefixCmsNamespace('admin.partials.overview_data');
+        if (config('cms.'.$module_type.'.overview_custom') == true) {
+            $view = viewPrefixCmsNamespace('admin.partials.overview.' . strtolower($module_type));
         }
         return view($view, $this->data);
     }
@@ -145,7 +145,7 @@ class ItemController extends BaseController
         $link_cfg = config("cms." . $module_type . ".links." . $back_module_type);
         $view_custom = null;
         if (array_key_exists('custom_popup_overview', $link_cfg) && !empty($link_cfg['custom_popup_overview'])) {
-            $view_custom = "bbdocms::admin.partials.input.custom." . $link_cfg['custom_popup_overview'];
+            $view_custom = viewPrefixCmsNamespace('admin.partials.input.custom.' . $link_cfg['custom_popup_overview']);
         }
 
         $custom_view = $view_custom == null ? $custom_views[$view_name] : $view_custom;
@@ -291,10 +291,10 @@ class ItemController extends BaseController
         $this->data['version'] = $version;
 
         if ($this->data['custom_view']) {
-            return view()->make('bbdocms::' . $this->data['custom_view'], $this->data)->render();
+            return view()->make(viewPrefixCmsNamespace($this->data['custom_view']), $this->data)->render();
         }
 
-        return view('bbdocms::admin.items.add', $this->data);
+        return bbdoview('admin.items.add', $this->data);
     }
 
     /**
@@ -523,7 +523,7 @@ class ItemController extends BaseController
 
         $model = $this->itemService->getAdmin($id, $lang);
 
-        return view('bbdocms::admin.partials.form_block', [
+        return bbdoview('admin.partials.form_block', [
             'type' => $type,
             'data' => config('cms.' . strtoupper($module_type) . '.blocks.' . $type),
             'index' => $count,

@@ -310,3 +310,20 @@ if (!function_exists('is_countable')) {
         return (is_array($var) || $var instanceof Countable);
     }
 }
+
+/**
+ * Add cms namespace for view if view is not overrided.
+ * @param $viewName
+ * @return string
+ */
+function viewPrefixCmsNamespace($viewName) {
+    if(view()->exists('bbdocms::'.$viewName)) {
+        return 'bbdocms::'.$viewName;
+    }
+
+    return $viewName;
+}
+
+function bbdoview($view = null, $data = [], $mergeData = []) {
+    return view( viewPrefixCmsNamespace($view), $data, $mergeData);
+}

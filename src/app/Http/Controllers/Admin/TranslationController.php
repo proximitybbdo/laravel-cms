@@ -36,7 +36,7 @@ class TranslationController extends Controller
             'langs' =>   $transDomain->getAvailableLang(),
         ];
 
-        return view('bbdocms::admin.translation.index', $data);
+        return bbdoview('admin.translation.index', $data);
     }
 
     public function show(Request $request, $lang)
@@ -54,7 +54,7 @@ class TranslationController extends Controller
         ];
 
         return response()->json([
-            'html' => view('bbdocms::admin.translation.show', $data)->render()
+            'html' => bbdoview('admin.translation.show', $data)->render()
         ]);
     }
 

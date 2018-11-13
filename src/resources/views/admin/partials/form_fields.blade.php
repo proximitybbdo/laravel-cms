@@ -6,10 +6,10 @@
         <div class="block-content">
             @if (!config('cms.' . strtoupper($module_type) . '.hide_mandatory_fields'))
                 <!--Mandatory CMS fields-->
-                @include('bbdocms::admin.partials.input.text', inputArray(['title'=>'Page Title','type'=>'page_title','id'=>'title_page'],'content',$model))
-                @include('bbdocms::admin.partials.input.text', inputArray(['title'=>'Meta Title (seo & share)','type'=>'seo_title','id'=>'title_seo'],'content',$model))
-                @include('bbdocms::admin.partials.input.slug', inputArray(['title'=>'Slug','type'=>'slug'],'content',$model))
-                @include('bbdocms::admin.partials.input.text', inputArray(['title'=>'Meta Description','type'=>'seo_description','id'=>'description_seo'],'content',$model))
+                @include(viewPrefixCmsNamespace('admin.partials.input.text'), inputArray(['title'=>'Page Title','type'=>'page_title','id'=>'title_page'],'content',$model))
+                @include(viewPrefixCmsNamespace('admin.partials.input.text'), inputArray(['title'=>'Meta Title (seo & share)','type'=>'seo_title','id'=>'title_seo'],'content',$model))
+                @include(viewPrefixCmsNamespace('admin.partials.input.slug'), inputArray(['title'=>'Slug','type'=>'slug'],'content',$model))
+                @include(viewPrefixCmsNamespace('admin.partials.input.text'), inputArray(['title'=>'Meta Description','type'=>'seo_description','id'=>'description_seo'],'content',$model))
             @endif
         </div>
     </div>
@@ -21,7 +21,7 @@
         <div class="block-content">
             <!--Content type item fields-->
             @foreach (config('cms.' . strtoupper($module_type) . '.fields') as $field_arr)
-                @include('bbdocms::admin.partials.input.' . $field_arr['form'], inputArray($field_arr, 'content', $model))
+                @include(viewPrefixCmsNamespace('admin.partials.input.' . $field_arr['form']), inputArray($field_arr, 'content', $model))
             @endforeach
         </div>
     </div>
@@ -50,7 +50,7 @@
 
         <div id="blocks">
             @foreach( $model->blocksLang($lang,$version)->get() as $block )
-                @include( 'bbdocms::admin.partials.form_block', ['type'=>formatBlockType($block->type),'data'=>config('cms.'.strtoupper($module_type).'.blocks.' . formatBlockType($block->type) ), 'index'=>\InputHelper::indexBlockType($block->type)])
+                @include( viewPrefixCmsNamespace('admin.partials.form_block'), ['type'=>formatBlockType($block->type),'data'=>config('cms.'.strtoupper($module_type).'.blocks.' . formatBlockType($block->type) ), 'index'=>\InputHelper::indexBlockType($block->type)])
             @endforeach
         </div>
 

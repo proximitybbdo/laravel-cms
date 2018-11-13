@@ -97,7 +97,7 @@
 <!-- ============================================================== -->
 <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-fixed page-header-dark main-content-narrow">
 
-    @include('bbdocms::admin.partials.nav')
+    @include(viewPrefixCmsNamespace('admin.partials.nav'))
 
 
     <!-- Main Container -->

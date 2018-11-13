@@ -1,4 +1,4 @@
-@extends('bbdocms::admin.layouts.auth')
+@extends(viewPrefixCmsNamespace('admin.layouts.auth'))
 
 <!-- Main Content -->
 @section('content')

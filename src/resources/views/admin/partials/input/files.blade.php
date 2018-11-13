@@ -4,6 +4,6 @@
  </label>
 
 @for ($i = 0; $i < $amount; $i++)
-@include( 'bbdocms::admin.partials.input.file',inputArray($field_arr,'content',$model,$i))
+@include( viewPrefixCmsNamespace('admin.partials.input.file'),inputArray($field_arr,'content',$model,$i))
 @endfor
 </div>

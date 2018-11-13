@@ -10,7 +10,6 @@ return array(
     // List of all the content modules ( single page modules )
     'content_modules' => array(),
 
-    'sentinel' => array(),
     'custom_views' => array(
         'links' => 'admin.partials.input.links',
         'form' => 'admin.partials.form',

@@ -1,4 +1,4 @@
-@extends('bbdocms::admin.layouts.template')
+@extends(viewPrefixCmsNamespace('admin.layouts.template'))
 
 @section('content')
     <div class="content">

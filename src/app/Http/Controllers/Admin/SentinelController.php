@@ -27,7 +27,7 @@ class SentinelController extends Controller
 
     public function showLoginForm()
     {
-        return view('bbdocms::admin.login');
+        return bbdoview('admin.login');
     }
 
     public function logout()
@@ -38,6 +38,6 @@ class SentinelController extends Controller
 
     public function showRolesForm()
     {
-        return view('bbdocms::admin.register');
+        return bbdoview('admin.register');
     }
 }

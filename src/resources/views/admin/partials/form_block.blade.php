@@ -8,12 +8,12 @@
   </div>
   <div class="block-content">
     @foreach( $data['fields'] as $field_arr )
-      @include( 'bbdocms::admin.partials.input.'.$field_arr['form'], inputArray($field_arr,'block',$model,null,$type,$index))
+      @include( viewPrefixCmsNamespace('admin.partials.input.'.$field_arr['form']), inputArray($field_arr,'block',$model,null,$type,$index))
     @endforeach
 
     @if(array_key_exists('links',$data))
     @foreach( $data['links'] as $links_arr )
-      @include('bbdocms::admin/partials/links',array('links'=> (linksArray($module_type,$model,$lang,$type,$version,$index)), 'item_id' => $model->id, 'action' => $action))
+      @include(viewPrefixCmsNamespace('admin/partials/links'),array('links'=> (linksArray($module_type,$model,$lang,$type,$version,$index)), 'item_id' => $model->id, 'action' => $action))
     @endforeach
     @endif
   </div>
