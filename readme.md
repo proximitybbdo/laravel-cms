@@ -24,7 +24,6 @@
        
    And select the number of the vendor to install  (cms-* , sentinel service provider)
    
-   cms-front-view will load controller & vue for the front end as a example. It'll show how to fetch data from the CMS in the view.
    
    ### Sentinel stuff
    
@@ -110,6 +109,25 @@
            ]);
    
         });
+ ## Fetching data in views
+ 
+  In order to fetch datas from the CMS, your controller have to use the PublicItem Domain
+    
+    use BBDO\Cms\Domain\PublicItem;
+    
+    $domain = new PublicItem();
+    $products = $domain->getAll("PRODUCTS", null, null, 'sort');  
+    
+  Feel free to explore the domain to learn more about the different method.
+  
+  ### Getting data from domain's methods
+  
+  On `$products` you can call different method to get the items defined in the config file.
+  
+  - `->getContent($itemName)` will return one item. If $itemName is ommited, it'll return all the keys.     
+  - `->blocks()` will return you all the block (iterable), on each item in the block you can also call getContent()
+  - `->links` will return you the linked item.
+  - A lot of others methods are available, see in the model `BBDO\Cms\Models` to see more.    
     
  ## Using in dev mode
  
