@@ -27,11 +27,6 @@ class CmsServiceProvider extends ServiceProvider
             __DIR__ . '/resources/assets' => public_path('admin'),
         ], 'cms-asset');
 
-        $this->publishes([
-            __DIR__ . '/resources/views/front' => resource_path('views/front'),
-            __DIR__ . '/app/Http/Controllers/BBDOHomeController.php' => app_path('Http/Controllers/BBDOHomeController.php'),
-        ], 'cms-front-view');
-
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'bbdocms');
 
         if ($this->app->runningInConsole()) {
