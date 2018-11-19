@@ -34,8 +34,11 @@ class Item extends Model
     }
 
     //RELATIONS
-    public function contentLang($lang)
+    public function contentLang($lang = null)
     {
+        if(is_null($lang)) {
+            $lang = App::getLocale();
+        }
         return $this->content()->where('lang', $lang);
     }
 
