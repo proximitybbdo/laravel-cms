@@ -322,7 +322,7 @@ function viewPrefixCmsNamespace($viewName) {
     } elseif(view()->exists('bbdocms::'.$viewName)) {
         return 'bbdocms::'.$viewName;
     } else {
-        Throw new \http\Exception\InvalidArgumentException('View ' . $viewName . ' not found in your views neither in the bbdocms namespace');
+        Throw new \Exception('View ' . $viewName . ' not found in your views neither in the bbdocms namespace');
     }
 }
 
