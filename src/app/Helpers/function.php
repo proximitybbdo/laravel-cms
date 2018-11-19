@@ -327,6 +327,10 @@ function viewPrefixCmsNamespace($viewName) {
     }
 }
 
+/**
+ * @param $viewName
+ * @return bool
+ */
 function viewExists($viewName) {
     return (view()->exists($viewName) || view()->exists('bbdocms::'.$viewName));
 }
@@ -336,6 +340,7 @@ function viewExists($viewName) {
  * @param array $data
  * @param array $mergeData
  * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+ * @throws Exception
  */
 function bbdoview($view = null, $data = [], $mergeData = []) {
     return view( viewPrefixCmsNamespace($view), $data, $mergeData);
