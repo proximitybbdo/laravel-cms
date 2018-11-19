@@ -315,6 +315,7 @@ if (!function_exists('is_countable')) {
  * Add cms namespace for view if view is not overrided.
  * @param $viewName
  * @return string
+ * @throws Exception
  */
 function viewPrefixCmsNamespace($viewName) {
     if(view()->exists($viewName)) {
@@ -324,6 +325,10 @@ function viewPrefixCmsNamespace($viewName) {
     } else {
         Throw new \Exception('View ' . $viewName . ' not found in your views neither in the bbdocms namespace');
     }
+}
+
+function viewExists($viewName) {
+    return (view()->exists($viewName) || view()->exists('bbdocms::'.$viewName));
 }
 
 /**

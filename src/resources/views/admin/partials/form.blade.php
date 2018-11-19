@@ -158,10 +158,10 @@
 
                                         <!--Content type item fields-->
                                             @foreach( config('cms.'.strtoupper($module_type).'.fields') as $field_arr )
-                                                @if( $field_arr['form'] == 'select' || $field_arr['form'] == 'file' )
-                                                    @include( viewPrefixCmsNamespace('admin.partials.online.text'), $field_arr )
-                                                @else
+                                                @if( viewExists('admin.partials.online.'.$field_arr['form']) )
                                                     @include( viewPrefixCmsNamespace('admin.partials.online.'.$field_arr['form']) , $field_arr )
+                                                @else
+                                                    @include( viewPrefixCmsNamespace('admin.partials.online.text'), $field_arr )
                                                 @endif
                                             @endforeach
                                         </a>
