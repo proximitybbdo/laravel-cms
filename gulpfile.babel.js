@@ -92,7 +92,9 @@ const path = {
     jscore: dir.src + dir.assets + "js/core/",
     jsplugins: dir.src + dir.assets + "js/plugins/",
     jspages: dir.src + dir.assets + "js/pages/",
-    media: dir.src + dir.assets + "media/"
+    media: dir.src + dir.assets + "media/",
+    components: dir.src + dir.assets + 'components/',
+    components_tinymce: dir.src + dir.assets + 'components/tinymce'
   },
   build: {
     assets: dir.build + dir.assets,
@@ -175,6 +177,8 @@ const files = {
       path.src.jsplugins + "**/*.*",
       path.src.fonts + "**/*.*",
       path.src.media + "**/*.*",
+      path.src.components + "**/*.*",
+      path.src.components_tinymce + "**/*.*",
       path.dir.src + "**/*.php",
       path.dir.src + "**/*.html"
     ]
