@@ -36,6 +36,6 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return view('bbdocms::admin.login');
+        return bbdoview('admin.login');
     }
 }

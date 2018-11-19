@@ -1,4 +1,4 @@
-@extends('bbdocms::admin.layouts.template')
+@extends(viewPrefixCmsNamespace('admin.layouts.template'))
 
 @section('content')
  <!-- Page Content -->
@@ -16,7 +16,7 @@
         @endif
 
         <div class="form-line overview padding-bottom">
-            <?=view('bbdocms::admin.partials.links_overview', array('links' => $links, 'category_id' => $active_cat))?>
+            <?=bbdoview('admin.partials.links_overview', array('links' => $links, 'category_id' => $active_cat))?>
         </div>
 
         <?=$overview_data?>

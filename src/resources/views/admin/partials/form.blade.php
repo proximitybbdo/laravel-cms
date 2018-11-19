@@ -40,7 +40,7 @@
     </div>
 
     <?php if (Sentinel::inRole('admin') || Sentinel::inRole('admin')): ?>
-    @include('bbdocms::admin/partials/links',(linksArray($module_type,$model,$lang)))
+    @include(viewPrefixCmsNamespace('admin/partials/links'),(linksArray($module_type,$model,$lang)))
     <?php endif;?>
 
     @if($single_item == false)
@@ -104,7 +104,7 @@
     <h2 class="content-heading pt-0">Translated content</h2>
     <div class="block block-rounded block-bordered">
         <ul class="nav nav-tabs nav-tabs-block" role="tablist">
-            @if($custom_view != 'bbdocms::admin.partials.form')
+            @if($custom_view != viewPrefixCmsNamespace('admin.partials.form'))
                 @foreach($languages as $admin_lang)
                     <?php
                     $url = ($admin_lang['short'] == $lang ? '#' : url()->to("icontrol/items/$module_type/$action", array('lang' => $admin_lang['short'], 'id' => $model->id)));
@@ -130,7 +130,7 @@
             @if($action == 'update')
 
 
-                @include('bbdocms::admin.partials.form_draft_content')
+                @include(viewPrefixCmsNamespace('admin.partials.form_draft_content'))
 
                 @if($model->my_content_online != null)
                     <div class="block">
@@ -152,16 +152,16 @@
                                                 version
                                             </button>
                                             <!--Mandatory CMS fields-->
-                                        @include('bbdocms::admin.partials.online.text', ['title'=>'Meta Title','type'=>'seo_title'])
-                                        @include('bbdocms::admin.partials.online.text', ['title'=>'Slug','type'=>'slug'])
-                                        @include('bbdocms::admin.partials.online.text', ['title'=>'Meta Description','type'=>'seo_description'])
+                                        @include(viewPrefixCmsNamespace('admin.partials.online.text'), ['title'=>'Meta Title','type'=>'seo_title'])
+                                        @include(viewPrefixCmsNamespace('admin.partials.online.text'), ['title'=>'Slug','type'=>'slug'])
+                                        @include(viewPrefixCmsNamespace('admin.partials.online.text'), ['title'=>'Meta Description','type'=>'seo_description'])
 
                                         <!--Content type item fields-->
                                             @foreach( config('cms.'.strtoupper($module_type).'.fields') as $field_arr )
-                                                @if( $field_arr['form'] == 'select' || $field_arr['form'] == 'file' )
-                                                    @include( 'bbdocms::admin.partials.online.text', $field_arr )
+                                                @if( viewExists('admin.partials.online.'.$field_arr['form']) )
+                                                    @include( viewPrefixCmsNamespace('admin.partials.online.'.$field_arr['form']) , $field_arr )
                                                 @else
-                                                    @include( 'bbdocms::admin.partials.online.'.$field_arr['form'] , $field_arr )
+                                                    @include( viewPrefixCmsNamespace('admin.partials.online.text'), $field_arr )
                                                 @endif
                                             @endforeach
                                         </a>
@@ -174,11 +174,11 @@
 
             @endif
             <div class="panel-body panel-default">
-                @include('bbdocms::admin.partials.form_fields', array('model'=>$model,'error' => isset($error) ? $error : null, 'errors' => isset($errors) ? $errors : null, 'module_type'=>strtolower($module_type), 'action' => $action))
+                @include(viewPrefixCmsNamespace('admin.partials.form_fields'), array('model'=>$model,'error' => isset($error) ? $error : null, 'errors' => isset($errors) ? $errors : null, 'module_type'=>strtolower($module_type), 'action' => $action))
             </div>
             <hr/>
             <div class="form-group">
-                @include('bbdocms::admin.partials.form_draft_content')
+                @include(viewPrefixCmsNamespace('admin.partials.form_draft_content'))
             </div>
             @if(!array_key_exists($lang, $item_languages))
                 <div class="form-group">

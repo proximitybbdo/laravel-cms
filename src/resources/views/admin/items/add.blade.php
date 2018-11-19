@@ -1,4 +1,4 @@
-@extends('bbdocms::admin.layouts.template')
+@extends(viewPrefixCmsNamespace('admin.layouts.template'))
 
 @section('content')
 
@@ -27,7 +27,7 @@
                     </block>
                 @endif
 
-                @include('bbdocms::admin.partials.form')
+                @include(viewPrefixCmsNamespace('admin.partials.form'))
 
 
             @if (Sentinel::hasAccess(strtolower($module_type) . '.view'))

@@ -30,7 +30,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('bbdocms::admin.dashboard');
+        return bbdoview('admin.dashboard');
     }
 
     public function getClearcache(Request $request)
@@ -40,7 +40,7 @@ class AdminController extends Controller
             $data['tags'] = Cache::getTagsList();
         }
 
-        return view('bbdocms::admin.clearcache', $data);
+        return bbdoview('admin.clearcache', $data);
     }
 
     public function postClearcache(Request $request)
@@ -56,6 +56,6 @@ class AdminController extends Controller
 
     public function getLogin()
     {
-        return view('bbdocms::admin.login');
+        return bbdoview('admin.login');
     }
 }

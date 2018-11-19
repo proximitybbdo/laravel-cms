@@ -310,3 +310,38 @@ if (!function_exists('is_countable')) {
         return (is_array($var) || $var instanceof Countable);
     }
 }
+
+/**
+ * Add cms namespace for view if view is not overrided.
+ * @param $viewName
+ * @return string
+ * @throws Exception
+ */
+function viewPrefixCmsNamespace($viewName) {
+    if(view()->exists($viewName)) {
+        return $viewName;
+    } elseif(view()->exists('bbdocms::'.$viewName)) {
+        return 'bbdocms::'.$viewName;
+    } else {
+        Throw new \Exception('View ' . $viewName . ' not found in your views neither in the bbdocms namespace');
+    }
+}
+
+/**
+ * @param $viewName
+ * @return bool
+ */
+function viewExists($viewName) {
+    return (view()->exists($viewName) || view()->exists('bbdocms::'.$viewName));
+}
+
+/**
+ * @param null $view
+ * @param array $data
+ * @param array $mergeData
+ * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+ * @throws Exception
+ */
+function bbdoview($view = null, $data = [], $mergeData = []) {
+    return view( viewPrefixCmsNamespace($view), $data, $mergeData);
+}

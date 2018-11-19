@@ -41,7 +41,7 @@ class UserController extends Controller
             $fullUsers[] = Sentinel::getUser();
         }
 
-        return view('bbdocms::admin.user.index', ['sUsers'   => $fullUsers]);
+        return bbdoview('admin.user.index', ['sUsers'   => $fullUsers]);
     }
 
     public function create(Request $request)
@@ -52,7 +52,7 @@ class UserController extends Controller
 
         $sRoles = \DB::table('roles')->get();
 
-        return view('bbdocms::admin.user.edit', ['sRoles'    => $sRoles]);
+        return bbdoview('admin.user.edit', ['sRoles'    => $sRoles]);
     }
 
     public function store(Request $request)
@@ -87,7 +87,7 @@ class UserController extends Controller
         $sUser = Sentinel::getUserRepository()->findById($userId);
         $sRoles = \DB::table('roles')->get();
 
-        return view('bbdocms::admin.user.edit', ['sUser' => $sUser, 'sRoles'    => $sRoles]);
+        return bbdoview('admin.user.edit', ['sUser' => $sUser, 'sRoles'    => $sRoles]);
     }
 
     public function update(Request $request, $userId)
@@ -145,7 +145,7 @@ class UserController extends Controller
 
     public function editPassword(Request $request)
     {
-        return view('bbdocms::admin.user.password', ['ok' => $request->get('ok', 0)]);
+        return bbdoview('admin.user.password', ['ok' => $request->get('ok', 0)]);
     }
 
     public function updatePassword(Request $request)
