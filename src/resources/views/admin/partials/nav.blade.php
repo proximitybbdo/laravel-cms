@@ -66,7 +66,7 @@
                 </li>
             @endif
 
-            @if(config('cms.enable_translation_manager') )
+            @if(Sentinel::inRole('admin') && config('cms.enable_translation_manager') )
                 <li class="nav-main-item">
                     <a class="nav-main-link" href="{{ route('icontrol.translation.index') }}">
                         <i class="nav-main-link-icon si si-book-open"></i>
