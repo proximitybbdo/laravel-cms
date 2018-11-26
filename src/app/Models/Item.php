@@ -113,15 +113,22 @@ class Item extends Model
 
     //CONTENT functions
 
-    public function getContent($key = null)
+    /**
+     * @param null $key
+     * @param bool $strict if true, it'll return empty instead of a dump if key don't exists.
+     * @return null|string
+     */
+    public function getContent($key = null, $strict = false)
     {
         if ($this->arr_content == null) {
             $this->arr_content = $this->contentFe()->pluck("content", "type");
         }
         if (!is_null($key) && $this->arr_content->has($key)) {
             return $this->arr_content[$key];
-        } else {
+        } elseif(!$strict) {
             return $this->arr_content;
+        } else {
+            return '';
         }
     }
 
