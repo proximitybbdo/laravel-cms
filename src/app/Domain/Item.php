@@ -96,6 +96,7 @@ class Item
         logAction($this->module, 'UPDATE', $data['id'], $lang);
 
         Models\ItemContent::destroy($item->contentLang($lang)->where('version', 1)->pluck('id')->toArray());
+
         $item->content()->saveMany($data['content']);
 
         if (array_key_exists('block_content', $data) && $data['block_content'] != null) {
@@ -283,7 +284,7 @@ class Item
                         'link_id' => $link->id,
                         'link_type' => $item->module_type,
                         'created_at' => Carbon::now(),
-                        'updated_at' => Carbon::now()
+                        'updated_at' => Carbon::now(),
                     ];
                 }
                 $new_block->links()->sync($link_arr);
@@ -365,7 +366,7 @@ class Item
         $result = \DB::select('select i1.id, i1.description, i2.item_id
                         from items i1
                         left join items_link i2 on i2.link_id = i1.id and i2.item_id = ? and i2.link_type like ?
-                        where i1.module_type = ? 
+                        where i1.module_type = ?
                         order by i1.description
                         ', array($link_item_id, $link_type, $module_type));
 
@@ -376,9 +377,9 @@ class Item
     {
         $result = \DB::select('select i1.id, i1.description, ibl.item_id
                         from items i1
-                        left join items_block_links ibl on ibl.link_id = i1.id and ibl.block_id = ? and ibl.link_type like ? 
+                        left join items_block_links ibl on ibl.link_id = i1.id and ibl.block_id = ? and ibl.link_type like ?
                         left join items_block i2 on i2.id = ibl.item_id and i2.version = ? and i2.lang = ?
-                        where i1.module_type = ? 
+                        where i1.module_type = ?
                         order by i1.sort
                         ', array($link_block_id, $link_type, $version, $lang, $module_type));
         return $result;
@@ -390,7 +391,7 @@ class Item
                         from items i1
                         inner join items_link i3 on i3.item_id = i1.id and i3.link_id = ?
                         left join items_link i2 on i2.link_id = i1.id and i2.item_id = ? and i2.link_type like ?
-                        where i1.module_type = ? 
+                        where i1.module_type = ?
                         order by i1.sort
                         ', array($link_item_id, $link_item_id, $link_type, $module_type));
 
@@ -550,7 +551,7 @@ class Item
                 ->select('items_content.id', 'item_id', 'lang', 'type', 'content', 'items.module_type')
                 ->distinct('item_id', 'lang', 'version')
                 ->join('items', 'items.id', '=', 'items_content.item_id')
-                //->where('items.status',1)
+            //->where('items.status',1)
                 ->where('items.module_type', $module)
                 ->where('version', 0)
                 ->where('lang', $lang)

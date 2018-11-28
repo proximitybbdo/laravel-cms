@@ -91,14 +91,14 @@ class Item extends Model
     public function blocksLinks($lang, $version = 1)
     {
         return
-            \DB::table('items_block')
-                ->join('items_block_links', 'items_block.id', 'items_block_links.block_id')
-                ->join('items', 'items_block_links.link_id', 'items.id')
-                ->select('items_block.type', 'items.id')
-                ->where('items_block.item_id', $this->id)
-                ->where('items_block.version', $version)
-                ->where('items_block.lang', $lang)
-                ->get();
+        \DB::table('items_block')
+            ->join('items_block_links', 'items_block.id', 'items_block_links.block_id')
+            ->join('items', 'items_block_links.link_id', 'items.id')
+            ->select('items_block.type', 'items.id')
+            ->where('items_block.item_id', $this->id)
+            ->where('items_block.version', $version)
+            ->where('items_block.lang', $lang)
+            ->get();
     }
 
     public function getContentFile($key, $type)
@@ -125,7 +125,7 @@ class Item extends Model
         }
         if (!is_null($key) && $this->arr_content->has($key)) {
             return $this->arr_content[$key];
-        } elseif(!$strict) {
+        } elseif (!$strict) {
             return $this->arr_content;
         } else {
             return '';
@@ -241,5 +241,19 @@ class Item extends Model
                 ->orderBy('version', 'ASC')->orderBy('sort', 'ASC')
                 ->with('content')->with('links')->get();
         });
+    }
+
+    public function getBlocksType($block_type)
+    {
+        $block = $this->blocksFe()->filter(function ($value, $key) use ($block_type) {
+            if ($value->type == $block_type) {
+                return true;
+            }
+        })->first();
+
+        if ($block == null) {
+            return new ItemBlock();
+        }
+        return $block;
     }
 }
