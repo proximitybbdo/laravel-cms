@@ -48,15 +48,17 @@ class ItemBlock extends Model
         return '';
     }
 
-    public function getContent($key = null)
+    public function getContent($key = null, $strict = false)
     {
         if ($this->arr_content == null) {
             $this->arr_content = $this->contentFe()->pluck("content", "type");
         }
         if (!is_null($key) && $this->arr_content->has($key)) {
             return $this->arr_content[$key];
-        } else {
+        } elseif(!$strict) {
             return $this->arr_content;
+        } else {
+            return '';
         }
     }
 
