@@ -134,6 +134,19 @@ class PublicItem
         });
     }
 
+    public function getOneByDescription($description, $module_type) {
+        $cache_key = 'item_' . __FUNCTION__ . '_'. $description . '_lang' . $this->lang;
+
+        return Cache::cacheWithTags($module_type, $cache_key, ($this->preview ? -1 : config('cms.default_cache_duration')), function () use ($description, $module_type) {
+            return Models\Item::select('id', 'description', 'status', 'editor_id', 'module_type', 'sort', 'start_date', 'end_date', 'type')->where('description', $description)
+                ->where('module_type', strtoupper($module_type))
+                ->whereHas('content', function ($q) {
+                    $q->where('version', '<=', $this->preview ? 1 : 0);
+                    $q->where('lang', '=', $this->lang);
+                })->where('status', 1)->first();
+        });
+    }
+
     public function getOne($id, $module_type)
     {
         $cache_key = 'item_' . $id . '_lang' . $this->lang;
