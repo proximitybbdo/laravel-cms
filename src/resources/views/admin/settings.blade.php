@@ -3,9 +3,6 @@
 @section('content')
     <div class="container">
 
-
-        <h1>Settings</h1>
-
         {{ Form::open( ['route' => 'icontrol.settings.update','enctype'=>"multipart/form-data",'id'=>'form-'.$module_type, "data-module-type"=> $module_type, "class"=>"m-t-30"]) }}
 
         <div class="card card-body">
