@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    protected $module_type = 'DASHBOARD';
+    protected $module_type = '';
 
     /**
      * Create a new controller instance.
@@ -20,7 +20,7 @@ class AdminController extends Controller
         view()->share('modules', config('cms.modules'));
         view()->share('user', \Auth::User()); // null hier
         view()->share('module_type', $this->module_type);
-        view()->share('module_title', config('cms.' . $this->module_type . '.description'));
+        view()->share('module_title', 'DASHBOARD');
     }
 
     /**
