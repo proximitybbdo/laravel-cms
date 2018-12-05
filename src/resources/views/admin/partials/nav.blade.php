@@ -89,11 +89,11 @@
                 )
                     <li class="nav-main-item">
                         @if(!is_null(config('cms.'.$module.'.nav_mode')) && config('cms.'.$module.'.nav_mode') == 'route')
-                            <a href="{{ route(config('cms.'.$module.'.route'), config('cms.'.$module.'.params')) }}" class="nav-main-link" aria-expanded="<?=$module_type == $module ? 'true' : 'false';?>">
+                            <a href="{{ route(config('cms.'.$module.'.route'), config('cms.'.$module.'.params')) }}" class="nav-main-link" aria-expanded="{{ $module_type == $module ? 'true' : 'false'  }}">
                         @elseif(!is_null(config('cms.'.$module.'.nav_mode')) && config('cms.'.$module.'.nav_mode') == 'url')
-                            <a href="{{ config('cms.'.$module.'.url') }}" target="_blank" class="nav-main-link" aria-expanded="<?=$module_type == $module ? 'true' : 'false';?>">
+                            <a href="{{ config('cms.'.$module.'.url') }}" target="_blank" class="nav-main-link" aria-expanded="{{ $module_type == $module ? 'true' : 'false'  }}">
                         @else
-                            <a href="{{ url('icontrol/items/' . $module . '/overview') }}" class="nav-main-link" aria-expanded="<?=$module_type == $module ? 'true' : 'false';?>">
+                            <a href="{{ url('icontrol/items/' . $module . '/overview') }}" class="nav-main-link" aria-expanded="{{ $module_type == $module ? 'true' : 'false'  }}">
                         @endif
                                 <i class="nav-main-link-icon si si-grid"></i>
                                 <span class="nav-main-link-name">{{ config('cms.' . $module . '.description') }}</span>
