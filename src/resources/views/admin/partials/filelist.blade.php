@@ -3,7 +3,6 @@
   @if ($manager_type == 'file')
   <div class="col-md-2  {{ $file->id == $value ? 'active' : '' }}">
                             <div class="options-container">
-                                <img class="img-fluid options-item" src="assets/media/photos/photo1.jpg" alt="">
                                 <div class="options-overlay bg-black-75">
                                     <div class="options-overlay-content">
                                         <h3 class="h4 text-white mb-2">Main Title</h3>
@@ -32,7 +31,7 @@
       @endif
 
       <div class="options-overlay bg-black-75">
-        <div class="options-overlay-content"
+        <div class="options-overlay-content">
           <h4 class="h6 text-white-75 mb-4">{{ $file->file }}</h4>
 
           @if ($mode != "popup")
