@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class SettingsController extends Controller
 {
-    protected $module_type = '';
+    protected $module_type = 'SETTINGS';
 
     /**
      * Create a new controller instance.
