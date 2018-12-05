@@ -49,11 +49,12 @@ return array(
         'nav_mode'      => 'route',
         'route'     => 'icontrol.settings',
         'always_visible_for_admin' => true,
+        'params' => [],
         'settings'  => [
             'isLive'  => [
                 'fields' => [
-                    ['form' => 'radio', 'type' => 'isLive', 'title' => 'yes'],
-                    ['form' => 'text', 'type' => 'isLive', 'title' => 'no']
+                    ['form' => 'radio', 'type' => 'isLive', 'value' => 1, 'title' => 'yes'],
+                    ['form' => 'radio', 'type' => 'isLive', 'value' => 0, 'title' => 'no']
                 ]
             ]
         ]

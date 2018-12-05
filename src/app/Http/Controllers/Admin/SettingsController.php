@@ -3,6 +3,8 @@
 namespace BBDO\Cms\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use BBDO\Cms\Domain\Settings;
+use Illuminate\Http\Request;
 
 
 class SettingsController extends Controller
@@ -25,6 +27,22 @@ class SettingsController extends Controller
     public function index()
     {
         return bbdoview('admin.settings');
+    }
+
+    public function update(Request $request) {
+
+
+        foreach($request->all() as $key => $value) {
+
+            if (!is_null(config('cms.SETTINGS.settings.' . $key))) {
+
+                Settings::saveKey($key, $value);
+
+            }
+        }
+
+        return redirect()->route('icontrol.settings');
+
     }
 
 
