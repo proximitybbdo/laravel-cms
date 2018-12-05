@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    protected $module_type = '';
+    protected $module_type = 'DASHBOARD';
 
     /**
      * Create a new controller instance.
