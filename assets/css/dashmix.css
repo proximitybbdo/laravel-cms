@@ -24098,3 +24098,8 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 .slick-slider.slick-nav-hover:hover .slick-next {
   opacity: 1;
 }
+
+.blockcontent_block .block-header {
+  cursor: -webkit-grab;
+  cursor: grab;
+}
