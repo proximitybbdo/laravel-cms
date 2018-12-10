@@ -5,7 +5,7 @@ return array(
     'enable_user_managment' => true,
     'enable_translation_manager' => true,
     // Modules used by asset managers to list the linked modules.
-    'modules' => array('CASES', 'PRODUCTS', 'CATEGORIES', 'CATEGORIESTEST',),
+    'modules' => array('CASES', 'PRODUCTS', 'CATEGORIES', 'CATEGORIESTEST','SETTINGS'),
 
     // List of all the content modules ( single page modules )
     'content_modules' => array(),
@@ -43,6 +43,21 @@ return array(
     ],
     'user' => array(
         'description' => 'Users'
+    ),
+    'SETTINGS'  => array(
+        'description'   => 'Settings',
+        'nav_mode'      => 'route',
+        'route'     => 'icontrol.settings',
+        'always_visible_for_admin' => true,
+        'params' => [],
+        'settings'  => [
+            'isLive'  => [
+                'fields' => [
+                    ['form' => 'radio', 'type' => 'isLive', 'value' => 1, 'title' => 'yes'],
+                    ['form' => 'radio', 'type' => 'isLive', 'value' => 0, 'title' => 'no']
+                ]
+            ]
+        ]
     ),
     'CASES' => array(
         'description' => 'Cases',

@@ -119,6 +119,9 @@ Route::group(['prefix' => 'icontrol', 'middleware' => 'web', 'namespace' => '\BB
             Route::post('files/file_assign_cat', 'FilesController@postAssignCategory');
             Route::post('files/remove', 'FilesController@postRemove')->name('file_delete');
             Route::post('files/{manager_type}/purge', 'FilesController@postPurge');
+
+            Route::get('settings', 'SettingsController@index')->name('icontrol.settings');
+            Route::post('settings', 'SettingsController@update')->name('icontrol.settings.update');
         });
     });
 });

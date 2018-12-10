@@ -232,7 +232,22 @@
            'route'     => 'icontrol.export',
            'params'    => [],
            'always_visible_for_admin' => true,//if false, only permission will be checked. It require to explicitly provide permission
-       ]
+       ],
+       
+       'SETTINGS'  => array( //This enable the settings feature allowing you to define global variable in the website.
+               'description'   => 'Settings',
+               'nav_mode'      => 'route',
+               'route'     => 'icontrol.settings',
+               'always_visible_for_admin' => true,
+               'settings'  => [ // Here is the only part to change 
+                   'isLive'  => [
+                       'fields' => [
+                           ['form' => 'radio', 'type' => 'isLive', 'title' => 'yes'],
+                           ['form' => 'text', 'type' => 'isLive', 'title' => 'no']
+                       ]
+                   ]
+               ]
+           ),
    
 
    
