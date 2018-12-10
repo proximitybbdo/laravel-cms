@@ -642,80 +642,80 @@ $(document).ready(function () {
     var acceptedFiles = $("#myDropzone").attr("data-accepted-files");
     var maxFileSize = $("#myDropzone").attr("data-max-filesize");
 
-    if ($("#myDropzone").length) {
-        Dropzone.options.myDropzone = {
-            paramName: "file", // The name that will be used to transfer the file
-            maxFilesize: maxFileSize, // MB
-            acceptedFiles: acceptedFiles,
-            createImageThumbnails: true,
-            init: function () {
-                // Register for the thumbnail callback.
-                // When the thumbnail is created the image dimensions are set.
-                this.on("thumbnail", function (file) {
-                    var minImageWidth = $("#myDropzone").attr("data-width");
-                    var minImageHeight = $("#myDropzone").attr("data-height");
 
-                    if (
-                        (minImageWidth != "" && minImageWidth != null) ||
-                        (minImageHeight != "" && minImageHeight != null)
-                    ) {
-                        // Do the dimension checks you want to do
-                        if (file.width < minImageWidth || file.height < minImageHeight) {
-                            file.rejectDimensions();
-                        } else {
-                            file.acceptDimensions();
-                        }
+    Dropzone.options.myDropzone = {
+        paramName: "file", // The name that will be used to transfer the file
+        maxFilesize: maxFileSize, // MB
+        acceptedFiles: acceptedFiles,
+        createImageThumbnails: true,
+        init: function () {
+            // Register for the thumbnail callback.
+            // When the thumbnail is created the image dimensions are set.
+            this.on("thumbnail", function (file) {
+                var minImageWidth = $("#myDropzone").attr("data-width");
+                var minImageHeight = $("#myDropzone").attr("data-height");
+
+                if (
+                    (minImageWidth != "" && minImageWidth != null) ||
+                    (minImageHeight != "" && minImageHeight != null)
+                ) {
+                    // Do the dimension checks you want to do
+                    if (file.width < minImageWidth || file.height < minImageHeight) {
+                        file.rejectDimensions();
                     } else {
                         file.acceptDimensions();
                     }
-                });
-
-                this.on("queuecomplete", function () {
-                    var mode = $("#myDropzone").attr("data-mode");
-                    var input = $("#myDropzone").attr("data-input");
-                    var manager_type = $("#myDropzone").attr("data-manager-type");
-                    var input_type = $("#myDropzone").attr("data-input-type");
-                    var module = $("#myDropzone").attr("data-module");
-                    var url =
-                        window.base_url + "/icontrol/files/" + manager_type + "/getlist/";
-                    this.removeAllFiles();
-                    $.ajax({
-                        type: "GET",
-                        url:
-                            url +
-                            mode +
-                            (mode != "manager"
-                                ? "/" + input + "/" + module + "/" + input_type
-                                : ""),
-                        data: {}
-                    }).done(function (html) {
-                        $("#filelist").html(html);
-                    });
-                });
-            },
-            // Instead of directly accepting / rejecting the file, setup two
-            // functions on the file that can be called later to accept / reject
-            // the file.
-            accept: function (file, done) {
-                var manager_type = $("#myDropzone").attr("data-manager-type");
-
-                if (manager_type == "file") {
-                    return done();
+                } else {
+                    file.acceptDimensions();
                 }
+            });
 
-                file.acceptDimensions = done;
-                file.rejectDimensions = function () {
-                    done("Invalid dimension.");
-                    alert(
-                        "Upload " + file.name + " is too small. This file will be skipped."
-                    );
-                };
-                // Of course you could also just put the `done` function in the file
-                // and call it either with or without error in the `thumbnail` event
-                // callback, but I think that this is cleaner.
+            this.on("queuecomplete", function () {
+                var mode = $("#myDropzone").attr("data-mode");
+                var input = $("#myDropzone").attr("data-input");
+                var manager_type = $("#myDropzone").attr("data-manager-type");
+                var input_type = $("#myDropzone").attr("data-input-type");
+                var module = $("#myDropzone").attr("data-module");
+                var url =
+                    window.base_url + "/icontrol/files/" + manager_type + "/getlist/";
+                this.removeAllFiles();
+                $.ajax({
+                    type: "GET",
+                    url:
+                        url +
+                        mode +
+                        (mode != "manager"
+                            ? "/" + input + "/" + module + "/" + input_type
+                            : ""),
+                    data: {}
+                }).done(function (html) {
+                    $("#filelist").html(html);
+                });
+            });
+        },
+        // Instead of directly accepting / rejecting the file, setup two
+        // functions on the file that can be called later to accept / reject
+        // the file.
+        accept: function (file, done) {
+            var manager_type = $("#myDropzone").attr("data-manager-type");
+
+            if (manager_type == "file") {
+                return done();
             }
-        };
-    }
+
+            file.acceptDimensions = done;
+            file.rejectDimensions = function () {
+                done("Invalid dimension.");
+                alert(
+                    "Upload " + file.name + " is too small. This file will be skipped."
+                );
+            };
+            // Of course you could also just put the `done` function in the file
+            // and call it either with or without error in the `thumbnail` event
+            // callback, but I think that this is cleaner.
+        }
+    };
+
 
     $(document).on("click", ".showmanager", function () {
         var module_type = window.module_type;
@@ -1010,58 +1010,58 @@ $(document).ready(function () {
         }
     });
 
-  // Translation tabs
+    // Translation tabs
 
-  $(document).on('click', '.js-translation-tabs', function(e) {
-    e.preventDefault()
+    $(document).on('click', '.js-translation-tabs', function (e) {
+        e.preventDefault()
 
-    var route = $(this).attr('href');
+        var route = $(this).attr('href');
 
-    $('.js-translation-tabs').removeClass('active')
-    $(this).addClass('active')
+        $('.js-translation-tabs').removeClass('active')
+        $(this).addClass('active')
 
-    $.ajax({
-      url: route,
-      type: 'GET',
-      success: function(result) {
-        $('.js-translation-content-tab').html(result.html);
-      }
-    })
-  })
-
-  $('.js-translation-tabs:first').click();
-
-  $(document).on('click', '.js-open-page-translation', function(e) {
-    e.preventDefault()
-
-    $('.js-open-page-translation').removeClass('active');
-    $(this).addClass('active');
-    $('.js-saved-status').empty();
-
-    $('.content-page-translation').hide();
-
-    $('#' + $(this).data('target')).show();
-  })
-
-  $(document).on('submit', '.js-translation-form', function(e) {
-    e.preventDefault()
-
-    var method = $(this).attr('method')
-    var action = $(this).attr('action')
-    var datas = $(this).serialize()
-    var statustarget = $(this).data('statustarget')
-
-    $.ajax({
-      url: action,
-      type: method,
-      data: datas,
-      success: function(result) {
-        $('#' + statustarget).text('Saved !')
-      }
+        $.ajax({
+            url: route,
+            type: 'GET',
+            success: function (result) {
+                $('.js-translation-content-tab').html(result.html);
+            }
+        })
     })
 
+    $('.js-translation-tabs:first').click();
 
-  })
+    $(document).on('click', '.js-open-page-translation', function (e) {
+        e.preventDefault()
 
-  $('[data-toggle="popover"]').popover()
+        $('.js-open-page-translation').removeClass('active');
+        $(this).addClass('active');
+        $('.js-saved-status').empty();
+
+        $('.content-page-translation').hide();
+
+        $('#' + $(this).data('target')).show();
+    })
+
+    $(document).on('submit', '.js-translation-form', function (e) {
+        e.preventDefault()
+
+        var method = $(this).attr('method')
+        var action = $(this).attr('action')
+        var datas = $(this).serialize()
+        var statustarget = $(this).data('statustarget')
+
+        $.ajax({
+            url: action,
+            type: method,
+            data: datas,
+            success: function (result) {
+                $('#' + statustarget).text('Saved !')
+            }
+        })
+
+
+    })
+
+    $('[data-toggle="popover"]').popover()
 });
