@@ -19,6 +19,9 @@ class BasicMiddleware
         if (Sentinel::check()) {
             return $next($request);
         }
+
+        session()->put('requestUri', $request->getRequestUri());
+
         return redirect()->route('login');
     }
 }

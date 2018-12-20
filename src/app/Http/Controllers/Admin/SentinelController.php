@@ -18,20 +18,26 @@ class SentinelController extends Controller
     {
         $user = Sentinel::authenticate($request->all());
 
-
         if ($user) {
-            return redirect()->route('dashboard');
+            $redirect = session()->get('requestUri');
+            if(!is_null($redirect)) {
+                session()->remove('requestUri');
+                return redirect()->to($redirect);
+            } else {
+                return redirect()->route('dashboard');
+            }
+
         } else {
             return $this->showLoginForm();
         }
     }
 
-    public function showLoginForm()
+    public function showLoginForm(Request $request)
     {
-        if(Sentinel::check()) {
-            return redirect()->route('dashboard');
-        } else {
+        if(is_null(Sentinel::getUser())) {
             return bbdoview('admin.login');
+        } else {
+            return redirect()->route('dashboard');
         }
     }
 
