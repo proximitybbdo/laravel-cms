@@ -18,6 +18,7 @@ class SentinelController extends Controller
     {
         $user = Sentinel::authenticate($request->all());
 
+
         if ($user) {
             return redirect()->route('dashboard');
         } else {
@@ -27,7 +28,11 @@ class SentinelController extends Controller
 
     public function showLoginForm()
     {
-        return bbdoview('admin.login');
+        if(is_null(Sentinel::getUser())) {
+            return bbdoview('admin.login');
+        } else {
+            return redirect()->route('dashboard');
+        }
     }
 
     public function logout()
