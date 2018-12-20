@@ -28,10 +28,10 @@ class SentinelController extends Controller
 
     public function showLoginForm()
     {
-        if(is_null(Sentinel::getUser())) {
-            return bbdoview('admin.login');
-        } else {
+        if(Sentinel::check()) {
             return redirect()->route('dashboard');
+        } else {
+            return bbdoview('admin.login');
         }
     }
 
