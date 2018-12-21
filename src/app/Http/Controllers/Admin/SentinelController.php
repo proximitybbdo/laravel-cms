@@ -22,7 +22,7 @@ class SentinelController extends Controller
             $redirect = session()->get('requestUri');
             if(!is_null($redirect)) {
                 session()->remove('requestUri');
-                return redirect()->to($request->getScheme() .'://' .$request->getBaseUrl() . $redirect);
+                return redirect()->to(url()->to('/') .  $redirect);
             } else {
                 return redirect()->route('dashboard');
             }
