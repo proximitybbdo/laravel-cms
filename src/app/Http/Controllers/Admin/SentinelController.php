@@ -26,7 +26,7 @@ class SentinelController extends Controller
                 $baseUrl = parse_url(url()->to('/'), PHP_URL_HOST);
                 $scheme = parse_url(url()->to('/'), PHP_URL_SCHEME);
 
-                return redirect()->to($scheme .'://' . $baseUrl .  '/' . $redirect);
+                return redirect()->to($scheme .'://' . $baseUrl  . $redirect);
             } else {
                 return redirect()->route('dashboard');
             }
