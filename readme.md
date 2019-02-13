@@ -126,8 +126,6 @@
        
    Also, adding `BBDO\Cms\CmsServiceProvider::class,` in the $provider in config/app.php can fix loading issue.   
    
-   
-   
  ## Usage
  
    ### Setup config file
@@ -136,13 +134,13 @@
    
    #### General settings
     
-   - `'default_locale' => 'nl-BE'` Default language. value from locales defined in confif/app.php
+   - `'default_locale' => 'nl-BE'` Default language. value from locales defined in config/app.php
    - `'default_cache_duration' => 60 * 24 * 30` Caching is done on PublicItem and some other element. Default is 30 days given in minutes.
-   - `'enable_user_managment' => true` if enabled, admin will be able to manage other user.
-   - `'enable_translation_manager' => true` if enabled, a translation tools will be present. It edit translations files so take care to add you lang file in the .gitignore or to keep track of the change. 
+   - `'enable_user_managment' => true` if enabled, admin will be able to manage other users.
+   - `'enable_translation_manager' => true` if enabled, a translation tools will be present. It edits translations files, take care to add your lang file in the .gitignore or to keep track of the changes. 
    - `'modules' => array('CASES', ...)`  Modules selected here will be displayed in the cms's admin. 
-   - `'content_modules' => array(),` If for some modules you want to share the files & images across all, you can add the modules name in this array. All files will be then available under the module name "CONTENT"
-   - `'custom_views' => array()` Define custom views when default one is not availbale
+   - `'content_modules' => array(),` If you want to share files & images across multiple modules (e.g. all content modules), you can add the module name in this array. All files will be then available under the module name "CONTENT".
+   - `'custom_views' => array()` Define custom views when default one is not available - deprecated
    - `'files' => array()`   Default config for file upload.
    - `'image_types' => array()` types of image for upload. You can then define size, ... (/!\ generate_thumb should always be true)
    - '`user` => array()' Info for the user managment item in the menu. Do not remove it if you enabled user managment. 
@@ -154,20 +152,29 @@
     
         'CASES' => array(
            'description' => 'Cases', //=> Name in the menu
-           'sortable' => true, // => Enable sorting in the admin
+           'single_item' => false, // Single item modules, will only create one item. No overview will be shown or available. (e.g. Homepage content module)
            'show_start_date' => false, // If true, you can define a start that and use getActiveItem() from the domain
-           'sort_by' => 'sort', //Key for sorting. use sort if you defined sortable to true
+           'show_end_date' => false, // If true, you can define a end that and use getActiveItem() from the domain
+           'sortable' => true, // => Enable sorting in the admin
+           'sort_by' => 'sort', //Key for sorting (field of table item). Use 'sort' if you defined sortable to true
            'sort_order' => 'ASC', // Default ordering. 
            'overview_custom' => false, //If true, the overview view will be overwritten for this module in admin.partials.overview.$module_type
            'preview' => ':lang/cases/:slug', //Link for the preview button
+           'types' => [ 
+               'typekey1'=>'typevalue1',  
+               'typekey2'=>'typevalue2',
+           ],
+           //Easy classification list (non translated). Array of key values. (for example, featured item/non featured, homepage item ...)
            'fields' => array(
                ['form' => 'text', 'type' => 'intro', 'title' => 'Intro', 'editor' => 'editor-small'],
                ['form' => 'image', 'type' => 'image_header', 'title' => 'Header Image'],
+               ['form' => 'images', 'type' => 'image_event', 'title' => 'Images (1948x912)', 'amount' => 10],
+               ['form' => 'select', 'type' => 'background_color_class', 'title' => 'Background', 'options' => ['green'=>'bgGreen', 'red'=>'bgRed']]],
                /*
-                form => type of field (should exists in admin.partials.input
-                type => it's the field name in the database. It can also be file or an image_type defined previously.
+                form => type of field (should exists in admin.partials.input) text, textarea, select, image, images, file, files
+                type => field name in the database. It can also be file or an image_type defined previously.
                 title => text displayed in the admin
-                editor => type of editor (can be omitted) : editor-small , editor--tiny
+                editor => optional - type of editor : editor-small , editor--tiny
            
                */
                
@@ -176,13 +183,16 @@
                'PRODUCTS' => array(
                    'type' => 'multiple',// or single
                    'description' => 'Used products',
-                   'overview_filter' => true,
+                   'overview_filter' => true,//will appear as a filter on the overview of the parent module
                    'input_type' => 'chosen',//chosen or ''
-                   'add_item' => false,
+                   'add_item' => false,//this functionality had not been finished (yet)
                ),
            ),
-           'field_validation' => array( //Validation rules for each field. the one prefixed by my_content are default one pushed by the cms, other one are the one defined by you.
+           'field_validation' => array( //Validation rules for each field. the one prefixed by my_content are the one defined by you (translated fields). 
                'description' => 'required',
+               'start_date' => 'required',
+               'end_date' => 'required',
+
                'my_content.seo_title' => 'required',
                'my_content.title' => 'required',
            ),
@@ -194,7 +204,7 @@
        ),
        'PRODUCTS' => array(
            /* ... */
-           'blocks' => array( // Some blocks can also be attached to an item. It's repeatable "module" in the module.
+           'blocks' => array( // Some blocks can also be attached to an item. It's repeatable group of content fields in the module.
                'quote' => [
                    'description' => 'Quote',
                    'amount' => 1, //infinite when null
@@ -203,6 +213,7 @@
                        ['type' => 'author', 'form' => 'text', 'title' => 'Author'],
                        ['type' => 'image_1', 'form' => 'image', 'title' => 'Image 1'],
                    ]
+                   //same config as content fields
                ],
                'case' => [
                    'description' => 'Case',
@@ -210,14 +221,14 @@
                    'fields' => [
                        ['type' => 'intro', 'form' => 'text', 'title' => 'Intro', 'editor' => 'editor--tiny'],
                    ],
-                   'links' => [ // A block can then link to another module.
+                   'links' => [ // A block can contain link(s) to another module.
                        'CASES' => [
                            'description' => 'Featured case',
                            //'type' => 'single',
                            'type' => 'multiple',
                            'title' => 'Case',
                            'input_type' => 'chosen',//chosen or ''
-                           'add_item' => false,
+                           'add_item' => false, //do not use
                        ],
                    ]
                ],
@@ -225,16 +236,16 @@
            /* ... */
        ),
       
-       'EXPORT'    => [ //It's also possible to add extra link or route. It's here possible to extend the cms with custom controller in the project
+       'EXPORT'    => [  //It's possible to add a custom export functionality. Add a controller with the export function and a route, and configure it bellow. Also custom links are allowed.
            'description'   => 'Export data',
            'nav_mode'      => 'route',//url or route. if empty link will not be used
            'url'       => '',
            'route'     => 'icontrol.export',
            'params'    => [],
-           'always_visible_for_admin' => true,//if false, only permission will be checked. It require to explicitly provide permission
+           'always_visible_for_admin' => true,//if false, permission will be checked. It requires to explicitly provide permission through the roles permission system.
        ],
        
-       'SETTINGS'  => array( //This enable the settings feature allowing you to define global variable in the website.
+       'SETTINGS'  => array( //This enables the settings feature, allowing you to define global variables in the website.
                'description'   => 'Settings',
                'nav_mode'      => 'route',
                'route'     => 'icontrol.settings',
@@ -260,14 +271,19 @@
      $domain = new PublicItem();
      $products = $domain->getAll("PRODUCTS", null, null, 'sort');  
      
-   Feel free to explore the domain to learn more about the different method.
+   Feel free to explore the domain to learn more about the different methods.
    
    ### Getting data from domain's methods
    
-   On `$products` you can call different method to get the items defined in the config file.
+   Following methods are available on the PublicItem model.
    
-   - `->getContent($itemName)` will return one item. If $itemName is ommited, it'll return all the keys.     
-   - `->blocks()` will return you all the block (iterable), on each item in the block you can also call getContent()
-   - `->links` will return you the linked item.
+   - `->getContent('content_key')` will return the content field with name 'content_key'. Once this function is called, all other content will be cached to avoid multiple queries per content field. Will return an empty string when the content_key is not found.   
+   - `getContentFileUrl('content_key')` Gets the url to a file from a field with name 'content_key'.
+   - `->linksType('type')` will return you an iteratable list of linked items of type 'type'
+   - `->linksFirst('type')` will return the first linked item of type 'type'
+   - `->backLinksType('type')` will return you an iteratable list of items of type 'type' that have the current item as a link
+   - `->backLinksFirst('type')` will return the first item of type 'type' that has the current item as a link
+   - `->getBlocksType('type')` will return you all the blocks of type 'type' (iterable), on each block you can also call the above methods.
+   
    - A lot of others methods are available, see in the model `BBDO\Cms\Models` to see more.    
      
