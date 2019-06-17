@@ -5,14 +5,14 @@
    ### Composer.json config
    
    Just before the "require" key , add this
-   
+```javascript
     "repositories": [
             {
                 "type": "vcs",
                 "url": "https://github.com/proximitybbdo/laravel-cms.git"
             }
         ],
-        
+```        
    and then in require
     
     "bbdo/cms": "dev-master"     
@@ -31,11 +31,11 @@
    
    - provider: `Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,`
    - Alias: 
-   
+```php  
          'Activation' => Cartalyst\Sentinel\Laravel\Facades\Activation::class,
          'Reminder'   => Cartalyst\Sentinel\Laravel\Facades\Reminder::class,
          'Sentinel'   => Cartalyst\Sentinel\Laravel\Facades\Sentinel::class,
-
+```
    ### Intervention Image
    
    - provider: `Intervention\Image\ImageServiceProvider::class,`
@@ -53,41 +53,41 @@
    
    
    -  VerifyCsrfToken : update the $except array to add some route as seen on the next example :
-   
+```php 
            protected $except = [
                '*/api/*',
                'icontrol/items/*',
                'icontrol/geturlfriendlytext',
                'icontrol/files/*'  
            ];
-   
+```  
    - RedirectIfAuthenticated : Update the redirection route from /home to /icontrol/dashboard
-   
+```php
             if (Auth::guard($guard)->check()) {
                        return redirect('/icontrol/dashboard');
             }
-   
+```
    ### Update config
    
    in config/auth.php, update the model user 
-   
+```php  
          'providers' => [
            'users' => [
                'driver' => 'eloquent',
                'model' => \BBDO\Cms\Models\User::class,
            ],
-           
+```           
    in config/app.php, add the locales
-   
+```php 
         'locales' => array(
                 array('short' => 'nl-BE', 'long' => 'Nederlands'),
                 array('short' => 'fr-BE', 'long' => 'Français'),
             ),        
- 
+```
    ### Extend the cms with custom controller
    
    Extra item can be added in the menu with the route item
-   
+```php   
             'EXPORT'    => [
                'description'   => 'Export data',
                'nav_mode'      => 'route',//url or route. if empty link will not be used
@@ -95,9 +95,9 @@
                'route'     => 'icontrol.export',
                'params'    => []
             ]
-       
+``` 
    The route can then be defined in your project route. These middleware will do the usual check on this route and the user should have the permission {module}.vue
-   
+```php   
         Route::group(['prefix' => 'icontrol', 'middleware' => [
            \BBDO\Cms\Http\Middleware\Admin\BasicMiddleware::class,
            \BBDO\Cms\Http\Middleware\Admin\CheckPermissionMiddleware::class
@@ -109,10 +109,11 @@
            ]);
    
         });
+```
  ## Using in dev mode
  
    If you use this package in dev mode, be sure to have your composer.json with the cms namespace in your psr-4
-   
+```javascript  
     "autoload": {
            "classmap": [
                "database/seeds",
@@ -123,7 +124,7 @@
                "BBDO\\Cms\\": "packages/bbdo/cms/src"
            }
        }, 
-       
+```     
    Also, adding `BBDO\Cms\CmsServiceProvider::class,` in the $provider in config/app.php can fix loading issue.   
    
  ## Usage
@@ -149,128 +150,130 @@
    
    A module is composed with the key as name (in caps) and an array with its parameters.
    
-    
-        'CASES' => array(
-           'description' => 'Cases', //=> Name in the menu
-           'single_item' => false, // Single item modules, will only create one item. No overview will be shown or available. (e.g. Homepage content module)
-           'show_start_date' => false, // If true, you can define a start that and use getActiveItem() from the domain
-           'show_end_date' => false, // If true, you can define a end that and use getActiveItem() from the domain
-           'sortable' => true, // => Enable sorting in the admin
-           'sort_by' => 'sort', //Key for sorting (field of table item). Use 'sort' if you defined sortable to true
-           'sort_order' => 'ASC', // Default ordering. 
-           'overview_custom' => false, //If true, the overview view will be overwritten for this module in admin.partials.overview.$module_type
-           'preview' => ':lang/cases/:slug', //Link for the preview button
-           'types' => [ 
-               'typekey1'=>'typevalue1',  
-               'typekey2'=>'typevalue2',
-           ],
-           //Easy classification list (non translated). Array of key values. (for example, featured item/non featured, homepage item ...)
-           'fields' => array(
-               ['form' => 'text', 'type' => 'intro', 'title' => 'Intro', 'editor' => 'editor-small'],
-               ['form' => 'image', 'type' => 'image_header', 'title' => 'Header Image'],
-               ['form' => 'images', 'type' => 'image_event', 'title' => 'Images (1948x912)', 'amount' => 10],
-               ['form' => 'select', 'type' => 'background_color_class', 'title' => 'Background', 'options' => ['green'=>'bgGreen', 'red'=>'bgRed']]],
-               /*
-                form => type of field (should exists in admin.partials.input) text, textarea, select, image, images, file, files
-                type => field name in the database. It can also be file or an image_type defined previously.
-                title => text displayed in the admin
-                editor => optional - type of editor : editor-small , editor--tiny
-           
-               */
-               
-           ),
-           'links' => array( //You can link module to each other. 
-               'PRODUCTS' => array(
-                   'type' => 'multiple',// or single
-                   'description' => 'Used products',
-                   'overview_filter' => true,//will appear as a filter on the overview of the parent module
-                   'input_type' => 'chosen',//chosen or ''
-                   'add_item' => false,//this functionality had not been finished (yet)
-               ),
-           ),
-           'field_validation' => array( //Validation rules for each field. the one prefixed by my_content are the one defined by you (translated fields). 
-               'description' => 'required',
-               'start_date' => 'required',
-               'end_date' => 'required',
+```php
+    'CASES' => array(
+        'description' => 'Cases', //=> Name in the menu
+        'single_item' => false, // Single item modules, will only create one item. No overview will be shown or available. (e.g. Homepage content module)
+        'show_start_date' => false, // If true, you can define a start that and use getActiveItem() from the domain
+        'show_end_date' => false, // If true, you can define a end that and use getActiveItem() from the domain
+        'sortable' => true, // => Enable sorting in the admin
+        'sort_by' => 'sort', //Key for sorting (field of table item). Use 'sort' if you defined sortable to true
+        'sort_order' => 'ASC', // Default ordering. 
+        'overview_custom' => false, //If true, the overview view will be overwritten for this module in admin.partials.overview.$module_type
+        'preview' => ':lang/cases/:slug', //Link for the preview button
+        'types' => [ 
+            'typekey1'=>'typevalue1',  
+            'typekey2'=>'typevalue2',
+        ],
+        //Easy classification list (non translated). Array of key values. (for example, featured item/non featured, homepage item ...)
+        'fields' => array(
+            ['form' => 'text', 'type' => 'intro', 'title' => 'Intro', 'editor' => 'editor-small'],
+            ['form' => 'image', 'type' => 'image_header', 'title' => 'Header Image'],
+            ['form' => 'images', 'type' => 'image_event', 'title' => 'Images (1948x912)', 'amount' => 10],
+            ['form' => 'select', 'type' => 'background_color_class', 'title' => 'Background', 'options' => ['green'=>'bgGreen', 'red'=>'bgRed']]],
+            /*
+            form => type of field (should exists in admin.partials.input) text, textarea, select, image, images, file, files
+            type => field name in the database. It can also be file or an image_type defined previously.
+            title => text displayed in the admin
+            editor => optional - type of editor : editor-small , editor--tiny
+        
+            */
+            
+        ),
+        'links' => array( //You can link module to each other. 
+            'PRODUCTS' => array(
+                'type' => 'multiple',// or single
+                'description' => 'Used products',
+                'overview_filter' => true,//will appear as a filter on the overview of the parent module
+                'input_type' => 'chosen',//chosen or ''
+                'add_item' => false,//this functionality had not been finished (yet)
+            ),
+        ),
+        'field_validation' => array( //Validation rules for each field. the one prefixed by my_content are the one defined by you (translated fields). 
+            'description' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
 
-               'my_content.seo_title' => 'required',
-               'my_content.title' => 'required',
-           ),
-           'field_validation_nicenames' => array( //Nice name for validation error message
-               'description' => 'description',
-               'my_content.seo_title' => 'seo title',
-               'my_content.title' => 'title',
-           ),
-       ),
-       'PRODUCTS' => array(
-           /* ... */
-           'blocks' => array( // Some blocks can also be attached to an item. It's repeatable group of content fields in the module.
-               'quote' => [
-                   'description' => 'Quote',
-                   'amount' => 1, //infinite when null
-                   'fields' => [
-                       ['type' => 'intro', 'form' => 'text', 'title' => 'Intro', 'editor' => 'editor--tiny'],
-                       ['type' => 'author', 'form' => 'text', 'title' => 'Author'],
-                       ['type' => 'image_1', 'form' => 'image', 'title' => 'Image 1'],
-                   ]
-                   //same config as content fields
-               ],
-               'case' => [
-                   'description' => 'Case',
-                   'amount' => null, //infinite when null
-                   'fields' => [
-                       ['type' => 'intro', 'form' => 'text', 'title' => 'Intro', 'editor' => 'editor--tiny'],
-                   ],
-                   'links' => [ // A block can contain link(s) to another module.
-                       'CASES' => [
-                           'description' => 'Featured case',
-                           //'type' => 'single',
-                           'type' => 'multiple',
-                           'title' => 'Case',
-                           'input_type' => 'chosen',//chosen or ''
-                           'add_item' => false, //do not use
-                       ],
-                   ]
-               ],
-           ),
-           /* ... */
-       ),
-      
-       'EXPORT'    => [  //It's possible to add a custom export functionality. Add a controller with the export function and a route, and configure it bellow. Also custom links are allowed.
-           'description'   => 'Export data',
-           'nav_mode'      => 'route',//url or route. if empty link will not be used
-           'url'       => '',
-           'route'     => 'icontrol.export',
-           'params'    => [],
-           'always_visible_for_admin' => true,//if false, permission will be checked. It requires to explicitly provide permission through the roles permission system.
-       ],
-       
-       'SETTINGS'  => array( //This enables the settings feature, allowing you to define global variables in the website.
-               'description'   => 'Settings',
-               'nav_mode'      => 'route',
-               'route'     => 'icontrol.settings',
-               'always_visible_for_admin' => true,
-               'settings'  => [ // Here is the only part to change 
-                   'isLive'  => [
-                       'fields' => [
-                           ['form' => 'radio', 'type' => 'isLive', 'title' => 'yes'],
-                           ['form' => 'text', 'type' => 'isLive', 'title' => 'no']
-                       ]
-                   ]
-               ]
-           ),
+            'my_content.seo_title' => 'required',
+            'my_content.title' => 'required',
+        ),
+        'field_validation_nicenames' => array( //Nice name for validation error message
+            'description' => 'description',
+            'my_content.seo_title' => 'seo title',
+            'my_content.title' => 'title',
+        ),
+    ),
+
+    'PRODUCTS' => array(
+        /* ... */
+        'blocks' => array( // Some blocks can also be attached to an item. It's repeatable group of content fields in the module.
+            'quote' => [
+                'description' => 'Quote',
+                'amount' => 1, //infinite when null
+                'fields' => [
+                    ['type' => 'intro', 'form' => 'text', 'title' => 'Intro', 'editor' => 'editor--tiny'],
+                    ['type' => 'author', 'form' => 'text', 'title' => 'Author'],
+                    ['type' => 'image_1', 'form' => 'image', 'title' => 'Image 1'],
+                ]
+                //same config as content fields
+            ],
+            'case' => [
+                'description' => 'Case',
+                'amount' => null, //infinite when null
+                'fields' => [
+                    ['type' => 'intro', 'form' => 'text', 'title' => 'Intro', 'editor' => 'editor--tiny'],
+                ],
+                'links' => [ // A block can contain link(s) to another module.
+                    'CASES' => [
+                        'description' => 'Featured case',
+                        //'type' => 'single',
+                        'type' => 'multiple',
+                        'title' => 'Case',
+                        'input_type' => 'chosen',//chosen or ''
+                        'add_item' => false, //do not use
+                    ],
+                ]
+            ],
+        ),
+        /* ... */
+    ),
+
+    'EXPORT'    => [  //It's possible to add a custom export functionality. Add a controller with the export function and a route, and configure it bellow. Also custom links are allowed.
+        'description'   => 'Export data',
+        'nav_mode'      => 'route',//url or route. if empty link will not be used
+        'url'       => '',
+        'route'     => 'icontrol.export',
+        'params'    => [],
+        'always_visible_for_admin' => true,//if false, permission will be checked. It requires to explicitly provide permission through the roles permission system.
+    ],
+    
+    'SETTINGS'  => array( //This enables the settings feature, allowing you to define global variables in the website.
+            'description'   => 'Settings',
+            'nav_mode'      => 'route',
+            'route'     => 'icontrol.settings',
+            'always_visible_for_admin' => true,
+            'settings'  => [ // Here is the only part to change 
+                'isLive'  => [
+                    'fields' => [
+                        ['form' => 'radio', 'type' => 'isLive', 'title' => 'yes'],
+                        ['form' => 'text', 'type' => 'isLive', 'title' => 'no']
+                    ]
+                ]
+            ]
+        ),
+```
    
 
    
    ### Fetching data in controller 
   
    In order to fetch datas from the CMS, your controller have to use the PublicItem Domain
-     
+```php
      use BBDO\Cms\Domain\PublicItem;
      
      $domain = new PublicItem();
      $products = $domain->getAll("PRODUCTS", null, null, 'sort');  
-     
+```
    Feel free to explore the domain to learn more about the different methods.
    
    ### Getting data from domain's methods
