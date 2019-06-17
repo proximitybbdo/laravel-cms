@@ -149,8 +149,7 @@
    
    A module is composed with the key as name (in caps) and an array with its parameters.
    
-    ```php
-        <?php
+    
         'CASES' => array(
            'description' => 'Cases', //=> Name in the menu
            'single_item' => false, // Single item modules, will only create one item. No overview will be shown or available. (e.g. Homepage content module)
@@ -260,7 +259,7 @@
                    ]
                ]
            ),
-    ```
+   
 
    
    ### Fetching data in controller 
