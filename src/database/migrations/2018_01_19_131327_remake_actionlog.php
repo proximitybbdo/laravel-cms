@@ -38,6 +38,6 @@ class RemakeActionLog extends Migration
      */
     public function down()
     {
-        Schema::drop('actionlog');
+        //Schema::drop('actionlog');
     }
 }
