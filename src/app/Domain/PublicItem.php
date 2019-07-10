@@ -3,8 +3,8 @@
 namespace BBDO\Cms\Domain;
 
 use Auth;
-use BBDO\Cms\Models;
 use BBDO\Cms\app\Helpers\Cache;
+use BBDO\Cms\Models;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 
@@ -49,11 +49,13 @@ class PublicItem
             }
         }
 
+        $exclude_ids = $exclude_ids ?? [];
+
         $cache_disabled = ((!is_null($exclude_ids) && count($exclude_ids) > 1) || $this->preview);
         $sort = is_null($sort) ? 'id' : $sort;
         $order = $desc ? 'desc' : 'asc';
 
-        return Cache::cacheWithTags($module_type, $cache_key, ($cache_disabled ? -1 : config('cms.default_cache_duration')), function () use ($sort,$order, $desc,$module_type,$link_type,$exclude_ids,$mustApplyAllLinks, $links, $amount, $pagesize) {
+        return Cache::cacheWithTags($module_type, $cache_key, ($cache_disabled ? -1 : config('cms.default_cache_duration')), function () use ($sort, $order, $desc, $module_type, $link_type, $exclude_ids, $mustApplyAllLinks, $links, $amount, $pagesize) {
             $result = Models\Item::select('id', 'description', 'status', 'editor_id', 'module_type', 'sort', 'start_date', 'end_date', 'type')
                 ->where('module_type', strtoupper($module_type))
                 ->where('status', 1)
@@ -67,7 +69,6 @@ class PublicItem
             } else {
                 $result->orderByRaw("RAND()");
             }
-
 
             if ($link_type != null && $links != null) {
                 if (!$mustApplyAllLinks) {
@@ -134,8 +135,9 @@ class PublicItem
         });
     }
 
-    public function getOneByDescription($description, $module_type) {
-        $cache_key = 'item_' . __FUNCTION__ . '_'. $description . '_lang' . $this->lang;
+    public function getOneByDescription($description, $module_type)
+    {
+        $cache_key = 'item_' . __FUNCTION__ . '_' . $description . '_lang' . $this->lang;
 
         return Cache::cacheWithTags($module_type, $cache_key, ($this->preview ? -1 : config('cms.default_cache_duration')), function () use ($description, $module_type) {
             return Models\Item::select('id', 'description', 'status', 'editor_id', 'module_type', 'sort', 'start_date', 'end_date', 'type')->where('description', $description)
