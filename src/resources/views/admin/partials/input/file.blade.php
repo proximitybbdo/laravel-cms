@@ -16,7 +16,7 @@
       </div>
       <div class="input-group-append">
         <span class="input-group-text input-group-text-alt image-preview-input-title showmanager"
-            data-manager-type="image"
+            data-manager-type="file"
             data-type="<?=$input_type?>"
             data-module="<?=$module_type?>"
             data-input="<?=$asset_field_name?>">
