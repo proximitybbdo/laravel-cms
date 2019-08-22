@@ -24,7 +24,7 @@ class PublicItem
         }
     }
 
-    public function getFirst($module_type, $status = 1)
+    public function getFirst($module_type, $status = 1, $type = null)
     {
         $result = Models\Item::select('id', 'description', 'status', 'editor_id', 'module_type', 'sort', 'start_date', 'end_date', 'type')->where('module_type', strtoupper($module_type))
             ->whereHas('content', function ($q) {
@@ -32,14 +32,18 @@ class PublicItem
                 $q->where('lang', '=', $this->lang);
             });
 
+        if ($type != null) {
+            $result = $result->where('type', $type);
+        }
+
         if ($status != 'all') {
             $result = $result->where('status', $status);
         }
 
-        return $result->first();
+        return $result->orderBy('sort')->first();
     }
 
-    public function getAll($module_type, $link_type, $links, $sort, $pagesize = null, $amount = null, $desc = false, $mustApplyAllLinks = false, $exclude_ids = null)
+    public function getAll($module_type, $link_type, $links, $sort, $pagesize = null, $amount = null, $desc = false, $mustApplyAllLinks = false, $exclude_ids = null, $type = null)
     {
         $cache_key = 'item_get_all_' . $this->lang . '_';
 
@@ -85,6 +89,9 @@ class PublicItem
             }
             if ($exclude_ids != null && is_array($exclude_ids)) {
                 $result->whereNotIn('id', $exclude_ids);
+            }
+            if ($type != null) {
+                $result = $result->where('type', $type);
             }
 
             if ($amount == null) {
@@ -154,7 +161,8 @@ class PublicItem
         $cache_key = 'item_' . $id . '_lang' . $this->lang;
 
         return Cache::cacheWithTags($module_type, $cache_key, ($this->preview ? -1 : config('cms.default_cache_duration')), function () use ($id, $module_type) {
-            return Models\Item::select('id', 'description', 'status', 'editor_id', 'module_type', 'sort', 'start_date', 'end_date', 'type')->where('id', $id)
+            return Models\Item::select('id', 'description', 'status', 'editor_id', 'module_type', 'sort', 'start_date', 'end_date', 'type')
+                ->where('id', $id)
                 ->where('module_type', strtoupper($module_type))
                 ->whereHas('content', function ($q) {
                     $q->where('version', '<=', $this->preview ? 1 : 0);
