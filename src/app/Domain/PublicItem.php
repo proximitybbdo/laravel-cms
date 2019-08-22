@@ -26,7 +26,8 @@ class PublicItem
 
     public function getFirst($module_type, $status = 1, $type = null)
     {
-        $result = Models\Item::select('id', 'description', 'status', 'editor_id', 'module_type', 'sort', 'start_date', 'end_date', 'type')->where('module_type', strtoupper($module_type))
+        $result = Models\Item::select('id', 'description', 'status', 'editor_id', 'module_type', 'sort', 'start_date', 'end_date', 'type')
+            ->where('module_type', strtoupper($module_type))
             ->whereHas('content', function ($q) {
                 $q->where('version', '=', 0);
                 $q->where('lang', '=', $this->lang);
@@ -59,7 +60,7 @@ class PublicItem
         $sort = is_null($sort) ? 'id' : $sort;
         $order = $desc ? 'desc' : 'asc';
 
-        return Cache::cacheWithTags($module_type, $cache_key, ($cache_disabled ? -1 : config('cms.default_cache_duration')), function () use ($sort, $order, $desc, $module_type, $link_type, $exclude_ids, $mustApplyAllLinks, $links, $amount, $pagesize) {
+        return Cache::cacheWithTags($module_type, $cache_key, ($cache_disabled ? -1 : config('cms.default_cache_duration')), function () use ($sort, $order, $desc, $module_type, $link_type, $exclude_ids, $mustApplyAllLinks, $links, $amount, $pagesize, $type) {
             $result = Models\Item::select('id', 'description', 'status', 'editor_id', 'module_type', 'sort', 'start_date', 'end_date', 'type')
                 ->where('module_type', strtoupper($module_type))
                 ->where('status', 1)
