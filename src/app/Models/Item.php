@@ -158,7 +158,9 @@ class Item extends Model
 
         if ($file_id != null && $file_id != '') {
             $file = $this->file($file_id);
-            return '/uploads/' . $type . '/' . $file->file;
+            if ($file != null) {
+                return '/uploads/' . $type . '/' . $file->file;
+            }
         }
         return '';
     }
