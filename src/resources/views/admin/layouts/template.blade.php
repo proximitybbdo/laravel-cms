@@ -18,7 +18,7 @@
   <!-- Page JS Plugins CSS -->
   <link rel="stylesheet" href="<?=asset('admin/js/plugins/chosen/chosen.css')?>">
   <link rel="stylesheet" href="<?=asset('admin/js/plugins/dropzone/dist/min/dropzone.min.css')?>">
-  <link rel="stylesheet" href="<?=asset('admin/js/plugins/flatpickr/flatpickr.min.css')">
+  <link rel="stylesheet" href="<?=asset('admin/js/plugins/flatpickr/flatpickr.min.css') ?>">
 
   <!-- <link rel="stylesheet" href="assets/js/plugins/summernote/summernote-bs4.css"> -->
 
