@@ -49,7 +49,7 @@
                 <label for="start_date">
                     Start date:
                 </label>
-                {{ Form::text('start_date', null, array('class'=>'datepicker form-control')) }}
+                {{ Form::text('start_date', null, array('class'=>'js-flatpickr form-control')) }}
 
             </div>
         @endif
@@ -59,7 +59,7 @@
                 <label for="end_date">
                     End date:
                 </label>
-                {{ Form::text('end_date', null, array('class'=>'datepicker form-control')) }}
+                {{ Form::text('end_date', null, array('class'=>'js-flatpickr form-control')) }}
 
             </div>
         @endif
