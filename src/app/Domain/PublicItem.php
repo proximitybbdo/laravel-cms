@@ -2,7 +2,6 @@
 
 namespace BBDO\Cms\Domain;
 
-use Auth;
 use BBDO\Cms\app\Helpers\Cache;
 use BBDO\Cms\Models;
 use Carbon\Carbon;
@@ -18,9 +17,9 @@ class PublicItem
         $this->lang = \LaravelLocalization::getCurrentLocale();
 
         if (Input::get('preview') != null) {
-            if (Auth::check()) {
-                $this->preview = true;
-            }
+            //if (Auth::check()) {
+            $this->preview = true;
+            //}
         }
     }
 

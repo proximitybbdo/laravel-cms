@@ -2,7 +2,6 @@
 
 namespace BBDO\Cms\Models;
 
-use Auth;
 use Cache;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -134,7 +133,7 @@ class Item extends Model
 
     public function contentFe()
     {
-        $preview = (!is_null(Input::get('preview')) && Auth::check());
+        $preview = (!is_null(Input::get('preview')) /*&& Auth::check()*/);
         $lang = \LaravelLocalization::getCurrentLocale();
 
         return Cache::remember('content_' . $this->id . 'lang_' . $lang . ($preview ? uniqid(true) : ''), config('cms.default_cache_duration'), function () use ($preview, $lang) {
@@ -233,7 +232,7 @@ class Item extends Model
     //BLOCKS functions
     public function blocksFe()
     {
-        $preview = (!is_null(Input::get('preview')) && Auth::check());
+        $preview = (!is_null(Input::get('preview')) /*&& Auth::check()*/);
         $lang = \LaravelLocalization::getCurrentLocale();
 
         return Cache::remember('blocks_fe_' . $this->id . 'lang_' . $lang . ($preview ? uniqid(true) : ''), 24 * 60 * 30, function () use ($lang, $preview) {

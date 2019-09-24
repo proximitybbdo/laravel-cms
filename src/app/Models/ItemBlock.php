@@ -2,7 +2,6 @@
 
 namespace BBDO\Cms\Models;
 
-use Auth;
 use Cache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Input;
@@ -55,7 +54,7 @@ class ItemBlock extends Model
         }
         if (!is_null($key) && $this->arr_content->has($key)) {
             return $this->arr_content[$key];
-        } elseif(!$strict) {
+        } elseif (!$strict) {
             return $this->arr_content;
         } else {
             return '';
@@ -64,7 +63,7 @@ class ItemBlock extends Model
 
     public function contentFe()
     {
-        $preview = (!is_null(Input::get('preview')) && Auth::check());
+        $preview = (!is_null(Input::get('preview')) /*&& Auth::check()*/);
         $lang = \LaravelLocalization::getCurrentLocale();
 
         return Cache::remember('block_content_' . $this->id . 'lang_' . $lang . ($preview ? uniqid(true) : ''), config('cms.default_cache_duration'), function () use ($preview, $lang) {
