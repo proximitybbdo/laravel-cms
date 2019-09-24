@@ -18,6 +18,7 @@
   <!-- Page JS Plugins CSS -->
   <link rel="stylesheet" href="<?=asset('admin/js/plugins/chosen/chosen.css')?>">
   <link rel="stylesheet" href="<?=asset('admin/js/plugins/dropzone/dist/min/dropzone.min.css')?>">
+  <link rel="stylesheet" href="<?=asset('admin/js/plugins/flatpickr/flatpickr.min.css')">
 
   <!-- <link rel="stylesheet" href="assets/js/plugins/summernote/summernote-bs4.css"> -->
 
@@ -161,10 +162,11 @@
         <script src="<?=asset('admin/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
         <script src="<?=asset('admin/js/plugins/jquery-ui/jquery-ui.min.js')?>"></script>
         <script src="<?=asset('admin/js/plugins/dropzone/dropzone.min.js')?>"></script>
+        <script src="<?=asset('admin/js/plugins/flatpickr/flatpickr.min.js')?>"></script>
         <script src="<?=asset('admin/js/plugins/bbdo-admin/admin.js')?>"></script>
 
         <!-- Page JS Helpers (Summernote + SimpleMDE + CKEditor plugins)
-        <script>jQuery(function(){ Dashmix.helpers(['ckeditor']); });</script>-->
+        <script>jQuery(function(){ Dashmix.helpers(['ckeditor','flatpickr']); });</script>-->
 
 </body>
 </html>
