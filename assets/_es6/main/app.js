@@ -1,30 +1,29 @@
 /*
  *  Document   : app.js
  *  Author     : pixelcave
- * 
  *  Description: Main entry point
  *
  */
 
 // Import global dependencies
-import "./bootstrap.js";
+import './bootstrap';
 
 // Import required modules
-import Tools from "./modules/tools";
-import Helpers from "./modules/helpers";
-import Template from "./modules/template";
+import Tools from './modules/tools';
+import Helpers from './modules/helpers';
+import Template from './modules/template';
 
 // App extends Template
 export default class App extends Template {
-  /*
+    /*
      * Auto called when creating a new instance
      *
      */
-  constructor() {
-    super();
-  }
+    constructor() {
+        super();
+    }
 
-  /*
+    /*
      *  Here you can override or extend any function you want from Template class
      *  if you would like to change/extend/remove the default functionality.
      *
@@ -37,37 +36,38 @@ export default class App extends Template {
      *
      */
 
-  /*
+    /*
      * EXAMPLE #1 - Removing default functionality by making it empty
      *
      */
 
-  //  _uiInit() {}
+    //  _uiInit() {}
 
-  /*
+
+    /*
      * EXAMPLE #2 - Extending default functionality with additional code
      *
      */
 
-  //  _uiInit() {
-  //      // Call original function
-  //      super._uiInit();
-  //
-  //      // Your extra JS code afterwards
-  //  }
+    //  _uiInit() {
+    //      // Call original function
+    //      super._uiInit();
+    //
+    //      // Your extra JS code afterwards
+    //  }
 
-  /*
+    /*
      * EXAMPLE #3 - Replacing default functionality by writing your own code
      *
      */
 
-  //  _uiInit() {
-  //      // Your own JS code without ever calling the original function's code
-  //  }
+    //  _uiInit() {
+    //      // Your own JS code without ever calling the original function's code
+    //  }
 }
 
 // Once everything is loaded
 jQuery(() => {
-  // Create a new instance of App
-  window.Dashmix = new App();
+    // Create a new instance of App
+   window.Dashmix = new App();
 });

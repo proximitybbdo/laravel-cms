@@ -53,6 +53,10 @@ a {
             transform: scale(1);
         }
     }
+
+    &:focus {
+        outline-style: none !important;
+    }
 }
 
 // Paragraphs
@@ -63,9 +67,13 @@ p {
 
 .story p,
 p.story {
-    line-height: $paragraph-line-height-lg;
+    line-height: $paragraph-line-height;
     font-size: $font-size-lg;
     color: gray("700");
+
+    @include media-breakpoint-up(sm) {
+        line-height: $paragraph-line-height-lg;
+    }
 }
 
 .story {
