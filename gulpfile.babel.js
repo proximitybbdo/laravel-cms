@@ -435,6 +435,11 @@ const dependencies = {
         base: path.src.jsplugins + "summernote/",
         src: "node_modules/summernote/dist/**/*.*",
         dest: path.src.jsplugins + "summernote/"
+      },
+      flatpickr: {
+        base: path.src.jsplugins + 'flatpickr/',
+        src: 'node_modules/flatpickr/dist/**/*.*',
+        dest: path.src.jsplugins + 'flatpickr/'
       }
     }
   }
