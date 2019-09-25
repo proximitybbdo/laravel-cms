@@ -165,8 +165,8 @@
         <script src="<?=asset('admin/js/plugins/flatpickr/flatpickr.min.js')?>"></script>
         <script src="<?=asset('admin/js/plugins/bbdo-admin/admin.js')?>"></script>
 
-        <!-- Page JS Helpers (Summernote + SimpleMDE + CKEditor plugins)
-        <script>jQuery(function(){ Dashmix.helpers(['ckeditor','flatpickr']); });</script>-->
+        <!-- Page JS Helpers (Summernote + SimpleMDE + CKEditor plugins)-->
+        <script>jQuery(function(){ Dashmix.helpers(['flatpickr']); });</script>
 
 </body>
 </html>
