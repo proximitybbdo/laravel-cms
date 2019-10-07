@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="<?=asset('admin/js/plugins/dropzone/dist/min/dropzone.min.css')?>">
   <link rel="stylesheet" href="<?=asset('admin/js/plugins/flatpickr/flatpickr.min.css') ?>">
 
-  <!-- <link rel="stylesheet" href="assets/js/plugins/summernote/summernote-bs4.css"> -->
+  <link rel="stylesheet" href="<?=asset('admin/js/plugins/summernote/summernote-bs4.css') ?>">
 
   <!-- Fonts and Dashmix framework -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,400i,600,700">
