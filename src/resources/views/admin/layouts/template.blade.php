@@ -157,7 +157,7 @@
         <script src="<?=asset('admin/js/dashmix.app.min.js')?>"></script>
 
         <!-- Page JS Plugins -->
-        <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+        <script src="<?=asset('admin/js/plugins/summernote/summernote-bs4.min.js')?>"></script>
         <script src="<?=asset('admin/js/plugins/chosen/chosen.jquery.min.js')?>"></script>
         <script src="<?=asset('admin/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
         <script src="<?=asset('admin/js/plugins/jquery-ui/jquery-ui.min.js')?>"></script>
