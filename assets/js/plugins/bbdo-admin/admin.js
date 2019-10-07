@@ -3,32 +3,36 @@ $(document).ready(function () {
 
     function initControls() {
         if ($(".editor").length) {
-            initTinymce(
-                ".editor",
-                "formatselect | styleselect | bold italic | subscript superscript | bullist numlist outdent indent | link unlink | alignleft aligncenter alignright alignjustify | table | nonbreaking | image | code | removeformat | media | template",
-                300
-            );
+            $(".editor").summernote();
+            // initTinymce(
+            //     ".editor",
+            //     "formatselect | styleselect | bold italic | subscript superscript | bullist numlist outdent indent | link unlink | alignleft aligncenter alignright alignjustify | table | nonbreaking | image | code | removeformat | media | template",
+            //     300
+            // );
         }
 
         if ($(".editor--small").length) {
-            initTinymce(
-                ".editor--small",
-                "formatselect | styleselect | bold italic | subscript superscript | bullist numlist outdent indent | link unlink | nonbreaking | code | removeformat | media | template ",
-                200
-            );
+            $(".editor--small").summernote();
+            // initTinymce(
+            //     ".editor--small",
+            //     "formatselect | styleselect | bold italic | subscript superscript | bullist numlist outdent indent | link unlink | nonbreaking | code | removeformat | media | template ",
+            //     200
+            // );
         }
 
         if ($(".editor--small--nowrap").length) {
-            initTinymce(
-                ".editor--small--nowrap",
-                "formatselect | styleselect | bold italic | subscript superscript | bullist numlist outdent indent | link unlink | nonbreaking | code | removeformat | media | template ",
-                200,
-                false
-            );
+            $(".editor--small--nowrap").summernote();
+            // initTinymce(
+            //     ".editor--small--nowrap",
+            //     "formatselect | styleselect | bold italic | subscript superscript | bullist numlist outdent indent | link unlink | nonbreaking | code | removeformat | media | template ",
+            //     200,
+            //     false
+            // );
         }
 
         if ($(".editor--tiny").length) {
-            initTinymce(".editor--tiny", " code | removeformat", 20);
+            $(".editor--tiny").summernote();
+            //initTinymce(".editor--tiny", " code | removeformat", 20);
         }
 
         // linked Items

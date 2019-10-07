@@ -4,7 +4,7 @@
     </label>
 
     @if (isset($editor))
-        <?= Form::text($field, null, array('class' => 'form-control js-summernote', 'id' => $field )); ?>
+        <?= Form::text($field, null, array('class' => 'form-control ' . $editor, 'id' => $field )); ?>
     @else
         <?= Form::text($field, null, array('class' => 'form-control', 'id' => $field)); ?>
     @endif
