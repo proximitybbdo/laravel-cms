@@ -1,7 +1,9 @@
-<div class="block block-info block-rounded block-bordered blockcontent_block sortable ui-state-default ui-sortable-handle" data-type="{{ $type }}" id="block_{{ $type }}_{{ $index }}">
-  <div class="block-header block-header-default">
-    <h3 class="block-title"><a href="#"><i class="si si-cursor-move"></i></a>&nbsp;&nbsp;<?=$type?></h3>
+<div class="content-block block block-info block-rounded block-bordered blockcontent_block" data-type="{{ $type }}" id="block_{{ $type }}_{{ $index }}">
+  <div class="block-header block-header-default bg-gray">
+    <h3 class="block-title"><?=$type?></h3>
     <div class="block-options">
+        <button data-action="move" data-sort="up" data-id="block_{{ $type }}_{{ $index }}" type="button" class="btn btn-sm btn-primary" ><i class="si si-arrow-up"></i></button>
+        <button data-action="move" data-sort="down" data-id="block_{{ $type }}_{{ $index }}" type="button" class="btn btn-sm btn-primary" ><i class="si si-arrow-down"></i></button>
       <button type="button" class="btn-block-option delete_block"><i class="si si-trash"></i></button>
     </div>
   </div>
