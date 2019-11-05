@@ -166,7 +166,7 @@
         <script src="<?=asset('admin/js/plugins/bbdo-admin/admin.js')?>"></script>
 
         <!-- Page JS Helpers (Summernote + SimpleMDE + CKEditor plugins)-->
-        <script>jQuery(function(){ Dashmix.helpers(['flatpickr']); });</script>
+        <script>jQuery(function(){ Dashmix.helpers(['summernote','flatpickr']); });</script>
 
 </body>
 </html>
