@@ -3,32 +3,81 @@ $(document).ready(function () {
 
     function initControls() {
         if ($(".editor").length) {
-            initTinymce(
-                ".editor",
-                "formatselect | styleselect | bold italic | subscript superscript | bullist numlist outdent indent | link unlink | alignleft aligncenter alignright alignjustify | table | nonbreaking | image | code | removeformat | media | template",
-                300
+            $(".editor").summernote({
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    //['fontname', ['fontname']],
+                    //['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link']],
+                    ['view', ['fullscreen', 'codeview', 'help']],
+                ],
+            }
             );
+            // initTinymce(
+            //     ".editor",
+            //     "formatselect | styleselect | bold italic | subscript superscript | bullist numlist outdent indent | link unlink | alignleft aligncenter alignright alignjustify | table | nonbreaking | image | code | removeformat | media | template",
+            //     300
+            // );
         }
 
         if ($(".editor--small").length) {
-            initTinymce(
-                ".editor--small",
-                "formatselect | styleselect | bold italic | subscript superscript | bullist numlist outdent indent | link unlink | nonbreaking | code | removeformat | media | template ",
-                200
-            );
+            $(".editor--small").summernote({
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    //['fontname', ['fontname']],
+                    //['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link']],
+                    ['view', ['fullscreen', 'codeview', 'help']],
+                ],
+            });
+            // initTinymce(
+            //     ".editor--small",
+            //     "formatselect | styleselect | bold italic | subscript superscript | bullist numlist outdent indent | link unlink | nonbreaking | code | removeformat | media | template ",
+            //     200
+            // );
         }
 
         if ($(".editor--small--nowrap").length) {
-            initTinymce(
-                ".editor--small--nowrap",
-                "formatselect | styleselect | bold italic | subscript superscript | bullist numlist outdent indent | link unlink | nonbreaking | code | removeformat | media | template ",
-                200,
-                false
-            );
+            $(".editor--small--nowrap").summernote({
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    //['fontname', ['fontname']],
+                    //['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link']],
+                    ['view', ['fullscreen', 'codeview', 'help']],
+                ],
+            });
+            // initTinymce(
+            //     ".editor--small--nowrap",
+            //     "formatselect | styleselect | bold italic | subscript superscript | bullist numlist outdent indent | link unlink | nonbreaking | code | removeformat | media | template ",
+            //     200,
+            //     false
+            // );
         }
 
         if ($(".editor--tiny").length) {
-            initTinymce(".editor--tiny", " code | removeformat", 20);
+            $(".editor--tiny").summernote({
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    //['fontname', ['fontname']],
+                    //['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link']],
+                    ['view', ['fullscreen', 'codeview', 'help']],
+                ],
+            });
+            //initTinymce(".editor--tiny", " code | removeformat", 20);
         }
 
         // linked Items
@@ -381,7 +430,7 @@ $(document).ready(function () {
 
         if ($("#blocks").length) {
             $("#blocks").sortable({
-                placeholder: "ui-state-highlight",
+                placeholder: "block block-rounded block-bordered blockcontent_block",
                 helper: "clone"
             });
         }

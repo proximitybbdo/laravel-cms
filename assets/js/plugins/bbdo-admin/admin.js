@@ -3,7 +3,19 @@ $(document).ready(function () {
 
     function initControls() {
         if ($(".editor").length) {
-            $(".editor").summernote();
+            $(".editor").summernote({
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    //['fontname', ['fontname']],
+                    //['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link']],
+                    ['view', ['fullscreen', 'codeview', 'help']],
+                ],
+            }
+            );
             // initTinymce(
             //     ".editor",
             //     "formatselect | styleselect | bold italic | subscript superscript | bullist numlist outdent indent | link unlink | alignleft aligncenter alignright alignjustify | table | nonbreaking | image | code | removeformat | media | template",
@@ -12,7 +24,18 @@ $(document).ready(function () {
         }
 
         if ($(".editor--small").length) {
-            $(".editor--small").summernote();
+            $(".editor--small").summernote({
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    //['fontname', ['fontname']],
+                    //['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link']],
+                    ['view', ['fullscreen', 'codeview', 'help']],
+                ],
+            });
             // initTinymce(
             //     ".editor--small",
             //     "formatselect | styleselect | bold italic | subscript superscript | bullist numlist outdent indent | link unlink | nonbreaking | code | removeformat | media | template ",
@@ -21,7 +44,18 @@ $(document).ready(function () {
         }
 
         if ($(".editor--small--nowrap").length) {
-            $(".editor--small--nowrap").summernote();
+            $(".editor--small--nowrap").summernote({
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    //['fontname', ['fontname']],
+                    //['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link']],
+                    ['view', ['fullscreen', 'codeview', 'help']],
+                ],
+            });
             // initTinymce(
             //     ".editor--small--nowrap",
             //     "formatselect | styleselect | bold italic | subscript superscript | bullist numlist outdent indent | link unlink | nonbreaking | code | removeformat | media | template ",
@@ -31,7 +65,18 @@ $(document).ready(function () {
         }
 
         if ($(".editor--tiny").length) {
-            $(".editor--tiny").summernote();
+            $(".editor--tiny").summernote({
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    //['fontname', ['fontname']],
+                    //['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link']],
+                    ['view', ['fullscreen', 'codeview', 'help']],
+                ],
+            });
             //initTinymce(".editor--tiny", " code | removeformat", 20);
         }
 
@@ -385,7 +430,7 @@ $(document).ready(function () {
 
         if ($("#blocks").length) {
             $("#blocks").sortable({
-                placeholder: "ui-state-highlight",
+                placeholder: "block block-rounded block-bordered blockcontent_block",
                 helper: "clone"
             });
         }
