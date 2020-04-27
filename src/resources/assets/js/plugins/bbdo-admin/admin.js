@@ -427,35 +427,14 @@ $(document).ready(function () {
         if ($("#posts").length) {
             $("#posts").disableSelection();
         }
-    }
 
-    $(document).on('click', "button[data-action='move']", function (event) {
-        var parentDiv = $(this).closest('div.content-block'),
-            dir = $(this).data('sort');
-
-        parentDiv.animate({
-            opacity: 0.25,
-            left: "+=50",
-            height: "toggle"
-        }, 500, function () {
-            if (dir === 'up') {
-                parentDiv.insertBefore(parentDiv.prev());
-
-            } else if (dir === 'down') {
-                parentDiv.insertAfter(parentDiv.next())
-            }
-
-            parentDiv.animate({
-                opacity: 1,
-                left: "+=50",
-                height: "toggle"
-            }, 500, function () {
-                // Animation complete.
+        if ($("#blocks").length) {
+            $("#blocks").sortable({
+                placeholder: "block block-rounded block-bordered blockcontent_block",
+                helper: "clone"
             });
-        });
-
-
-    });
+        }
+    }
 
     function setInputStatus() {
         $("input[type=checkbox]").each(function () {

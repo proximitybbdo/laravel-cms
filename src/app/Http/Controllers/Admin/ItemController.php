@@ -49,10 +49,9 @@ class ItemController extends BaseController
 
         $cat_item = null;
         if ($cat != null) {
-            $cat_item = $this->itemService->getAdmin($cat, 'nl-BE');
+            $cat_item = $this->itemService->getAdmin($cat, config("cms.default_locale"));
         }
         $this->data['cat_item'] = $cat_item;
-
 
         if (config("cms.$this->module_type.single_item") != null && config("cms.$this->module_type.single_item") == true) {
             $single_item = $this->itemService->getSingleItem($cat);
@@ -61,7 +60,7 @@ class ItemController extends BaseController
                     'module_type' => $module_type,
                     'action' => 'update',
                     'lang' => $this->default_lang,
-                    'id' => $single_item->id
+                    'id' => $single_item->id,
                 ]);
             }
 
@@ -122,7 +121,7 @@ class ItemController extends BaseController
         $this->data['sortable'] = $sortable;
 
         $view = viewPrefixCmsNamespace('admin.partials.overview_data');
-        if (config('cms.'.$module_type.'.overview_custom') == true) {
+        if (config('cms.' . $module_type . '.overview_custom') == true) {
             $view = viewPrefixCmsNamespace('admin.partials.overview.' . strtolower($module_type));
         }
         return view($view, $this->data);
@@ -204,7 +203,7 @@ class ItemController extends BaseController
                     'type' => $key,
                     'description' => $item['description'],
                     'amount' => $item['amount'],
-                    'enabled' => true
+                    'enabled' => true,
                 ];
             });
 
@@ -270,16 +269,16 @@ class ItemController extends BaseController
         }
 
         $preview_link = null;
-        if (!is_null($id) && !is_null(config('cms.'.$this->module_type.'.preview'))) {
+        if (!is_null($id) && !is_null(config('cms.' . $this->module_type . '.preview'))) {
             $slug = array_key_exists('slug', $content_arr->toArray()) ? $content_arr['slug'] : '';
 
             $preview_link = url(
                 str_replace(
                     [
-                        ':id', ':slug', ':lang'
+                        ':id', ':slug', ':lang',
                     ],
                     [
-                        $item->id, $slug, $lang
+                        $item->id, $slug, $lang,
                     ],
                     config('cms.' . $this->module_type . '.preview')
                 )
@@ -322,7 +321,7 @@ class ItemController extends BaseController
                     'version' => 1,
                     'lang' => $lang,
                     'type' => $key,
-                    'content' => html_entity_decode($value)
+                    'content' => html_entity_decode($value),
                 )
             );
         }
@@ -338,14 +337,14 @@ class ItemController extends BaseController
                     'version' => 1,
                     'index' => 0,
                     'is_active' => 1,
-                    'sort' => $i
+                    'sort' => $i,
                 ];
 
                 if (array_key_exists('content', $value) && count($value['content']) > 0) {
                     foreach ($value['content'] as $content_key => $content_value) {
                         $block['content'][$content_key] = [
                             'type' => $content_key,
-                            'content' => html_entity_decode($content_value)
+                            'content' => html_entity_decode($content_value),
                         ];
                     }
                 }
@@ -371,10 +370,10 @@ class ItemController extends BaseController
 
         $links = [];
 
-        if (config('cms.'.$this->module_type.'.links') != null) {
-            foreach (config('cms.'.$this->module_type.'.links') as $key => $value) {
-                if ($request->input('linked_items_'.$key) != null) {
-                    $input_links = $request->input('linked_items_'.$key);
+        if (config('cms.' . $this->module_type . '.links') != null) {
+            foreach (config('cms.' . $this->module_type . '.links') as $key => $value) {
+                if ($request->input('linked_items_' . $key) != null) {
+                    $input_links = $request->input('linked_items_' . $key);
 
                     if (!is_array($input_links)) {
                         $input_links = [$input_links];
@@ -504,7 +503,7 @@ class ItemController extends BaseController
         $id = $request->input('id');
         $to_index = $request->input('index');
 
-        if (!is_null($id) && !is_null($to_index) && config('cms.'.$this->module_type.'.sortable') == true) {
+        if (!is_null($id) && !is_null($to_index) && config('cms.' . $this->module_type . '.sortable') == true) {
             $this->itemService->sortItems($id, $to_index);
             return 'OK';
         }
@@ -531,7 +530,7 @@ class ItemController extends BaseController
             'custom_view' => null,
             'lang' => $lang,
             'action' => $action,
-            'version' => $version
+            'version' => $version,
         ]);
     }
 }

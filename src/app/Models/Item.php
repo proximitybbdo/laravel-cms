@@ -29,6 +29,7 @@ class Item extends Model
                 $item->content()->delete();
             }
             $item->links()->sync(array());
+            $item->backLinks()->sync(array());
         });
     }
 
