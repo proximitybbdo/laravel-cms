@@ -24,7 +24,7 @@ class Item extends Model
         parent::boot();
 
         static::deleting(function ($item) {
-            $item->blocksAllVersions()->delete();
+            ItemBlock::destroy($item->blocksAllVersions()->pluck('id')->all());
             if ($item->content()->count() > 0) {
                 $item->content()->delete();
             }
