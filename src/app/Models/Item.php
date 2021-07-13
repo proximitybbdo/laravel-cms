@@ -239,7 +239,7 @@ class Item extends Model
         return Cache::remember('blocks_fe_' . $this->id . 'lang_' . $lang . ($preview ? uniqid(true) : ''), 24 * 60 * 30, function () use ($lang, $preview) {
             return $this->hasMany('BBDO\Cms\Models\ItemBlock', 'item_id')
                 ->where('lang', $lang)
-                ->where('version', '=', $preview ? 1 : 0)
+                ->where('version', '<=', $preview ? 1 : 0)
                 ->orderBy('version', 'ASC')->orderBy('sort', 'ASC')
                 ->with('content')->with('links')->get();
         });
