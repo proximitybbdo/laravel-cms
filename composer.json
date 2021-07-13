@@ -21,13 +21,12 @@
       "src/database/factories"
     ],
     "psr-4": {
-      "BBDO\\Cms\\": "src/"
+      "": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Tests\\": "tests/",
-      "BBDOCms\\": "src/"
+      "Tests\\": "tests/"
     }
   },
   "extra": {
