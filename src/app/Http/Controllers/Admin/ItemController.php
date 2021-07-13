@@ -1,11 +1,11 @@
 <?php
 
-namespace BBDO\Cms\Http\Controllers\Admin;
+namespace BBDOCms\Http\Controllers\Admin;
 
-use BBDO\Cms\Domain;
-use BBDO\Cms\Http\Requests\StoreItem;
-use BBDO\Cms\Models\Item;
-use BBDO\Cms\Models\ItemContent;
+use BBDOCms\Domain;
+use BBDOCms\Http\Requests\StoreItem;
+use BBDOCms\Models\Item;
+use BBDOCms\Models\ItemContent;
 use Exception;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;

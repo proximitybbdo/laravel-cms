@@ -1,6 +1,6 @@
 <?php
 
-namespace BBDO\Cms\Helpers;
+namespace BBDOCms\Helpers;
 
 class SentinelHelper
 {

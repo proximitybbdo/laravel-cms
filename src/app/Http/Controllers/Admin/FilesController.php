@@ -1,8 +1,8 @@
 <?php
 
-namespace BBDO\Cms\Http\Controllers\Admin;
+namespace BBDOCms\Http\Controllers\Admin;
 
-use BBDO\Cms\Domain;
+use BBDOCms\Domain;
 use File;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;

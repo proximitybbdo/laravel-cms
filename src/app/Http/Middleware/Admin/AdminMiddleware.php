@@ -1,6 +1,6 @@
 <?php
 
-namespace BBDO\Cms\Http\Middleware\Admin;
+namespace BBDOCms\Http\Middleware\Admin;
 
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Closure;

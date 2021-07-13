@@ -1,72 +1,72 @@
 <?php
 function saveFile($file, $destination)
 {
-    return \BBDO\Cms\Helpers\FileUpload::saveFile($file, $destination);
+    return \BBDOCms\Helpers\FileUpload::saveFile($file, $destination);
 }
 
 function isRunning($startDate, $endDate)
 {
-    return \BBDO\Cms\Helpers\General::IsRunning($startDate, $endDate);
+    return \BBDOCms\Helpers\General::IsRunning($startDate, $endDate);
 }
 
 function generateKey()
 {
-    return \BBDO\Cms\Helpers\General::generateKey();
+    return \BBDOCms\Helpers\General::generateKey();
 }
 
 function keyOutput($key)
 {
-    return \BBDO\Cms\Helpers\General::keyOutput($key);
+    return \BBDOCms\Helpers\General::keyOutput($key);
 }
 
 function cleanSegments()
 {
-    return \BBDO\Cms\Helpers\Helpers::cleanSegments();
+    return \BBDOCms\Helpers\Helpers::cleanSegments();
 }
 
 function activeClass($check, $strict = true)
 {
-    \   BBDO\Cms\Helpers\Helpers::activeClass($check, $strict);
+    \BBDOCms\Helpers\Helpers::activeClass($check, $strict);
 }
 
 function isUrl($check, $strict = true)
 {
-    return \BBDO\Cms\Helpers\Helpers::isUrl($check, $strict);
+    return \BBDOCms\Helpers\Helpers::isUrl($check, $strict);
 }
 
 function urlLang($parts)
 {
-    return \BBDO\Cms\Helpers\Helpers::urlLang($parts);
+    return \BBDOCms\Helpers\Helpers::urlLang($parts);
 }
 
 function arrayToObject($d)
 {
-    return \BBDO\Cms\Helpers\Helpers::arrayToObject($d);
+    return \BBDOCms\Helpers\Helpers::arrayToObject($d);
 }
 
 function inputArray($config, $type, $model, $multiple_index = null, $block_type = '', $index = '')
 {
-    return \BBDO\Cms\Helpers\Input::inputArray($config, $type, $model, $multiple_index, $block_type, $index);
+    return \BBDOCms\Helpers\Input::inputArray($config, $type, $model, $multiple_index, $block_type, $index);
 }
 
 function linksArray($module, $item, $lang, $block_type = null, $version = 1, $index = 0)
 {
-    return \BBDO\Cms\Helpers\Input::linksArray($module, $item, $lang, $block_type, $version, $index);
+    return \BBDOCms\Helpers\Input::linksArray($module, $item, $lang, $block_type, $version, $index);
 }
 
 function formatBlockType($input)
 {
-    return \BBDO\Cms\Helpers\Input::formatBlockType($input);
+    return \BBDOCms\Helpers\Input::formatBlockType($input);
 }
 
 function indexBlockType($input)
 {
-    return \BBDO\Cms\Helpers\Input::indexBlockType($input);
+    return \BBDOCms\Helpers\Input::indexBlockType($input);
 }
 
 function logAction($module, $action, $itemId = null, $lang = null, $data = null)
 {
-    \BBDO\Cms\Helpers\Log::action($module, $action, $itemId, $lang, $data);
+    \BBDOCms\Helpers\Log::action($module, $action, $itemId, $lang, $data);
 }
 
 if (!function_exists('xcopy')) {
@@ -121,7 +121,7 @@ if (!function_exists('getDateDifferenceFromNow')) {
         $datetime1 = new DateTime();
         $datetime2 = new DateTime($date);
         $difference = $datetime1->diff($datetime2);
-        return (array)$difference;
+        return (array) $difference;
     }
 }
 if (!function_exists('formatDateToUser')) {
@@ -143,7 +143,7 @@ if (!function_exists('generateRandomString')) {
      */
     function generateRandomString($lenght, $charInput = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789')
     {
-        srand((double)microtime() * 1000000);
+        srand((double) microtime() * 1000000);
         $string = '';
         for ($i = 0; $i < $lenght; $i++) {
             $string .= $charInput[rand() % strlen($charInput)];
@@ -290,14 +290,14 @@ if (!function_exists('geocode')) {
         }
         return [
             'lat' => $lat,
-            'lng' => $lng
+            'lng' => $lng,
         ];
     }
 }
 if (!function_exists('xml2array')) {
     function xml2array($xmlObject, $out = array())
     {
-        foreach ((array)$xmlObject as $index => $node) {
+        foreach ((array) $xmlObject as $index => $node) {
             $out[$index] = (is_object($node)) ? xml2array($node) : $node;
         }
         return $out;
@@ -317,13 +317,14 @@ if (!function_exists('is_countable')) {
  * @return string
  * @throws Exception
  */
-function viewPrefixCmsNamespace($viewName) {
-    if(view()->exists($viewName)) {
+function viewPrefixCmsNamespace($viewName)
+{
+    if (view()->exists($viewName)) {
         return $viewName;
-    } elseif(view()->exists('bbdocms::'.$viewName)) {
-        return 'bbdocms::'.$viewName;
+    } elseif (view()->exists('bbdocms::' . $viewName)) {
+        return 'bbdocms::' . $viewName;
     } else {
-        Throw new \Exception('View ' . $viewName . ' not found in your views neither in the bbdocms namespace');
+        throw new \Exception('View ' . $viewName . ' not found in your views neither in the bbdocms namespace');
     }
 }
 
@@ -331,8 +332,9 @@ function viewPrefixCmsNamespace($viewName) {
  * @param $viewName
  * @return bool
  */
-function viewExists($viewName) {
-    return (view()->exists($viewName) || view()->exists('bbdocms::'.$viewName));
+function viewExists($viewName)
+{
+    return (view()->exists($viewName) || view()->exists('bbdocms::' . $viewName));
 }
 
 /**
@@ -342,6 +344,7 @@ function viewExists($viewName) {
  * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
  * @throws Exception
  */
-function bbdoview($view = null, $data = [], $mergeData = []) {
-    return view( viewPrefixCmsNamespace($view), $data, $mergeData);
+function bbdoview($view = null, $data = [], $mergeData = [])
+{
+    return view(viewPrefixCmsNamespace($view), $data, $mergeData);
 }

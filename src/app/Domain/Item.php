@@ -1,9 +1,9 @@
 <?php
 
-namespace BBDO\Cms\Domain;
+namespace BBDOCms\Domain;
 
-use BBDO\Cms\Helpers\Log;
-use BBDO\Cms\Models;
+use BBDOCms\Helpers\Log;
+use BBDOCms\Models;
 use Cache;
 use Carbon\Carbon;
 use Exception;

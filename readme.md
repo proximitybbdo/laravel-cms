@@ -74,7 +74,7 @@
          'providers' => [
            'users' => [
                'driver' => 'eloquent',
-               'model' => \BBDO\Cms\Models\User::class,
+               'model' => \BBDOCms\Models\User::class,
            ],
 ```           
    in config/app.php, add the locales
@@ -99,8 +99,8 @@
    The route can then be defined in your project route. These middleware will do the usual check on this route and the user should have the permission {module}.vue
 ```php   
         Route::group(['prefix' => 'icontrol', 'middleware' => [
-           \BBDO\Cms\Http\Middleware\Admin\BasicMiddleware::class,
-           \BBDO\Cms\Http\Middleware\Admin\CheckPermissionMiddleware::class
+           \BBDOCms\Http\Middleware\Admin\BasicMiddleware::class,
+           \BBDOCms\Http\Middleware\Admin\CheckPermissionMiddleware::class
         ]], function () {
    
            Route::get('export', [
@@ -125,7 +125,7 @@
            }
        }, 
 ```     
-   Also, adding `BBDO\Cms\CmsServiceProvider::class,` in the $provider in config/app.php can fix loading issue.   
+   Also, adding `BBDOCms\CmsServiceProvider::class,` in the $provider in config/app.php can fix loading issue.   
    
  ## Usage
  
@@ -269,7 +269,7 @@
   
    In order to fetch datas from the CMS, your controller have to use the PublicItem Domain
 ```php
-     use BBDO\Cms\Domain\PublicItem;
+     use BBDOCms\Domain\PublicItem;
      
      $domain = new PublicItem();
      $products = $domain->getAll("PRODUCTS", null, null, 'sort');  
@@ -288,5 +288,5 @@
    - `->backLinksFirst('type')` will return the first item of type 'type' that has the current item as a link
    - `->getBlocksType('type')` will return you all the blocks of type 'type' (iterable), on each block you can also call the above methods.
    
-   - A lot of others methods are available, see in the model `BBDO\Cms\Models` to see more.    
+   - A lot of others methods are available, see in the model `BBDOCms\Models` to see more.    
      

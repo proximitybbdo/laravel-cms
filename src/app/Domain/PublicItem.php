@@ -1,9 +1,9 @@
 <?php
 
-namespace BBDO\Cms\Domain;
+namespace BBDOCms\Domain;
 
-use BBDO\Cms\app\Helpers\Cache;
-use BBDO\Cms\Models;
+use BBDOCms\app\Helpers\Cache;
+use BBDOCms\Models;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 

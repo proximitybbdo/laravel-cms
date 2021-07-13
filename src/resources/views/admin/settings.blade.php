@@ -13,7 +13,7 @@
 
             <label>{{ $key }}</label>
             @foreach($setting['fields'] as $field)
-                @include(viewPrefixCmsNamespace('admin.partials.input.' . $field['form']), ['checked' => (\BBDO\Cms\Domain\Settings::getByKey($field['type']) == $field['value']) ,'field' => $field['type'], 'title' => $field['title'], 'value' => $field['value'] ])
+                @include(viewPrefixCmsNamespace('admin.partials.input.' . $field['form']), ['checked' => (\BBDOCms\Domain\Settings::getByKey($field['type']) == $field['value']) ,'field' => $field['type'], 'title' => $field['title'], 'value' => $field['value'] ])
             @endforeach
 
             </div>

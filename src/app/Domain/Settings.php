@@ -1,8 +1,8 @@
 <?php
 
-namespace BBDO\Cms\Domain;
+namespace BBDOCms\Domain;
 
-use BBDO\Cms\Models;
+use BBDOCms\Models;
 
 class Settings
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace BBDO\Cms\Models;
+namespace BBDOCms\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,11 +26,11 @@ class MyFile extends Model
 
     public function modules()
     {
-        return $this->hasMany('BBDO\Cms\Models\Module', 'file_id');
+        return $this->hasMany('BBDOCms\Models\Module', 'file_id');
     }
 
     public function content()
     {
-        return $this->hasMany('BBDO\Cms\Models\ItemContent');
+        return $this->hasMany('BBDOCms\Models\ItemContent');
     }
 }

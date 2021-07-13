@@ -1,9 +1,9 @@
 <?php
 
-namespace BBDO\Cms\Http\Requests;
+namespace BBDOCms\Http\Requests;
 
-use BBDO\Cms\Domain\Item as ItemDomain;
-use BBDO\Cms\Models\Item;
+use BBDOCms\Domain\Item as ItemDomain;
+use BBDOCms\Models\Item;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Validator;
 

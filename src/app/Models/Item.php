@@ -1,6 +1,6 @@
 <?php
 
-namespace BBDO\Cms\Models;
+namespace BBDOCms\Models;
 
 use Cache;
 use Carbon\Carbon;
@@ -41,7 +41,7 @@ class Item extends Model
 
     public function content()
     {
-        return $this->hasMany('BBDO\Cms\Models\ItemContent', 'item_id');
+        return $this->hasMany('BBDOCms\Models\ItemContent', 'item_id');
     }
 
     public function linkFirstAdmin($link_type)
@@ -51,18 +51,18 @@ class Item extends Model
 
     public function links()
     {
-        return $this->belongsToMany('BBDO\Cms\Models\Item', 'items_link', 'item_id', 'link_id')->withPivot('link_type');
+        return $this->belongsToMany('BBDOCms\Models\Item', 'items_link', 'item_id', 'link_id')->withPivot('link_type');
     }
 
     public function blocksAllVersions()
     {
-        return $this->hasMany('BBDO\Cms\Models\ItemBlock', 'item_id')
+        return $this->hasMany('BBDOCms\Models\ItemBlock', 'item_id')
             ->orderBy('sort');
     }
 
     public function blocksLang($lang, $version = 1)
     {
-        return $this->hasMany('BBDO\Cms\Models\ItemBlock', 'item_id')
+        return $this->hasMany('BBDOCms\Models\ItemBlock', 'item_id')
             ->where('lang', $lang)
             ->where('version', $version)->orderBy('sort');
     }
@@ -74,13 +74,13 @@ class Item extends Model
 
     public function blocks($version = 1)
     {
-        return $this->hasMany('BBDO\Cms\Models\ItemBlock', 'item_id')
+        return $this->hasMany('BBDOCms\Models\ItemBlock', 'item_id')
             ->where('version', $version)->orderBy('sort');
     }
 
     public function blocksContentLang($lang, $version = 1)
     {
-        return $this->hasMany('BBDO\Cms\Models\ItemBlockContent', 'item_id')
+        return $this->hasMany('BBDOCms\Models\ItemBlockContent', 'item_id')
             ->whereHas('itemBlock', function ($q) use ($version, $lang) {
                 $q->where('version', $version)
                     ->where('lang', $lang);
@@ -138,7 +138,7 @@ class Item extends Model
         $lang = \LaravelLocalization::getCurrentLocale();
 
         return Cache::remember('content_' . $this->id . 'lang_' . $lang . ($preview ? uniqid(true) : ''), config('cms.default_cache_duration'), function () use ($preview, $lang) {
-            return $this->hasMany('BBDO\Cms\Models\ItemContent', 'item_id')
+            return $this->hasMany('BBDOCms\Models\ItemContent', 'item_id')
                 ->where('lang', $lang)
                 ->where('version', '<=', $preview ? 1 : 0)
                 ->orderBy('version', 'ASC')->get();
@@ -189,7 +189,7 @@ class Item extends Model
 
     public function backLinks()
     {
-        return $this->belongsToMany('BBDO\Cms\Models\Item', 'items_link', 'link_id', 'item_id')->withPivot('link_type');
+        return $this->belongsToMany('BBDOCms\Models\Item', 'items_link', 'link_id', 'item_id')->withPivot('link_type');
     }
 
     public function linksFirst($link_type)
@@ -218,7 +218,7 @@ class Item extends Model
 
     public function fileContent($id, $type)
     {
-        return \BBDO\Cms\Domain\File::getImageContainer($id, $type);
+        return \BBDOCms\Domain\File::getImageContainer($id, $type);
     }
 
     public function getStartDateAttribute($value)
@@ -237,7 +237,7 @@ class Item extends Model
         $lang = \LaravelLocalization::getCurrentLocale();
 
         return Cache::remember('blocks_fe_' . $this->id . 'lang_' . $lang . ($preview ? uniqid(true) : ''), 24 * 60 * 30, function () use ($lang, $preview) {
-            return $this->hasMany('BBDO\Cms\Models\ItemBlock', 'item_id')
+            return $this->hasMany('BBDOCms\Models\ItemBlock', 'item_id')
                 ->where('lang', $lang)
                 ->where('version', '<=', $preview ? 1 : 0)
                 ->orderBy('version', 'ASC')->orderBy('sort', 'ASC')

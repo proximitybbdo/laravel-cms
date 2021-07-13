@@ -1,6 +1,6 @@
 <?php
 
-namespace BBDO\Cms\Models;
+namespace BBDOCms\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,11 +15,11 @@ class ItemBlockContent extends Model
 
     public function item()
     {
-        return $this->belongsTo('BBDO\Cms\Models\Item');
+        return $this->belongsTo('BBDOCms\Models\Item');
     }
 
     public function itemBlock()
     {
-        return $this->belongsTo('BBDO\Cms\Models\ItemBlock', 'block_id');
+        return $this->belongsTo('BBDOCms\Models\ItemBlock', 'block_id');
     }
 }

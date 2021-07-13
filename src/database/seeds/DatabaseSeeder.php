@@ -1,6 +1,6 @@
 <?php
 
-namespace BBDO\Cms\Database\Seeder;
+namespace BBDOCms\Database\Seeder;
 
 use Illuminate\Database\Seeder;
 

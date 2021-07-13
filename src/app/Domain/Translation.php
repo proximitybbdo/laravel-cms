@@ -1,6 +1,6 @@
 <?php
 
-namespace BBDO\Cms\Domain;
+namespace BBDOCms\Domain;
 
 use Symfony\Component\Yaml\Yaml;
 

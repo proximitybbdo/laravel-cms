@@ -1,6 +1,6 @@
 <?php
 
-namespace BBDO\Cms\Domain;
+namespace BBDOCms\Domain;
 
 class ArticleItem extends PublicItem
 {

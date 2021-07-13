@@ -9,9 +9,9 @@
 | you a convenient way to create models for testing and seeding your
 | database. Just tell the factory how a default model should look.
 |
-*/
+ */
 
-$factory->define(BBDO\Cms\User::class, function (Faker\Generator $faker) {
+$factory->define(BBDOCms\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [

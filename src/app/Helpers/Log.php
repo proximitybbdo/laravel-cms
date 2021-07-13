@@ -1,8 +1,8 @@
 <?php
 
-namespace BBDO\Cms\Helpers;
+namespace BBDOCms\Helpers;
 
-use BBDO\Cms\Domain\Logging;
+use BBDOCms\Domain\Logging;
 
 class Log
 {

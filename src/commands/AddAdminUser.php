@@ -1,6 +1,6 @@
 <?php
 
-namespace BBDO\Cms\Console\Commands;
+namespace BBDOCms\Console\Commands;
 
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Console\Command;

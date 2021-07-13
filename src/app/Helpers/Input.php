@@ -1,8 +1,8 @@
 <?php
 
-namespace BBDO\Cms\Helpers;
+namespace BBDOCms\Helpers;
 
-use BBDO\Cms\Domain;
+use BBDOCms\Domain;
 
 class Input
 {

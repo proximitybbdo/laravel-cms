@@ -1,6 +1,6 @@
 <?php
 
-namespace BBDO\Cms\app\Helpers;
+namespace BBDOCms\app\Helpers;
 
 use Closure;
 

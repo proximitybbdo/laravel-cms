@@ -1,6 +1,6 @@
 <?php
 
-namespace BBDO\Cms\Models;
+namespace BBDOCms\Models;
 
 use Cache;
 use Illuminate\Database\Eloquent\Model;
@@ -29,12 +29,12 @@ class ItemBlock extends Model
 
     public function item()
     {
-        return $this->belongsTo('BBDO\Cms\Models\Item');
+        return $this->belongsTo('BBDOCms\Models\Item');
     }
 
     public function content()
     {
-        return $this->hasMany('BBDO\Cms\Models\ItemBlockContent', 'block_id');
+        return $this->hasMany('BBDOCms\Models\ItemBlockContent', 'block_id');
     }
 
     public function getContentFile($key, $type)
@@ -102,7 +102,7 @@ class ItemBlock extends Model
 
     public function links()
     {
-        return $this->belongsToMany('BBDO\Cms\Models\Item', 'items_block_links', 'block_id', 'link_id')->withPivot('link_type');
+        return $this->belongsToMany('BBDOCms\Models\Item', 'items_block_links', 'block_id', 'link_id')->withPivot('link_type');
     }
 
     // Links functions
@@ -116,7 +116,7 @@ class ItemBlock extends Model
 
     public function backLinks()
     {
-        return $this->belongsToMany('BBDO\Cms\Models\Item', 'items_block_links', 'link_id', 'block_id')->withPivot('link_type');
+        return $this->belongsToMany('BBDOCms\Models\Item', 'items_block_links', 'link_id', 'block_id')->withPivot('link_type');
     }
 
     public function linksFirst($link_type)

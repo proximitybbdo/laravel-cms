@@ -1,9 +1,9 @@
 <?php
 
-namespace BBDO\Cms\Http\Controllers\Admin;
+namespace BBDOCms\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use BBDO\Cms\Models\User;
+use BBDOCms\Models\User;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;

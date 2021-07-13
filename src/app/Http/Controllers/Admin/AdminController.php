@@ -1,9 +1,9 @@
 <?php
 
-namespace BBDO\Cms\Http\Controllers\Admin;
+namespace BBDOCms\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use BBDO\Cms\app\Helpers\Cache;
+use BBDOCms\app\Helpers\Cache;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller

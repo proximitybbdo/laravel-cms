@@ -1,8 +1,8 @@
 <?php
 
-namespace BBDO\Cms;
+namespace BBDOCms;
 
-use BBDO\Cms\Console\Commands\AddAdminUser;
+use BBDOCms\Console\Commands\AddAdminUser;
 use Illuminate\Support\ServiceProvider;
 
 class CmsServiceProvider extends ServiceProvider

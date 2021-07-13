@@ -1,6 +1,6 @@
 <?php
 
-namespace BBDO\Cms\Models;
+namespace BBDOCms\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

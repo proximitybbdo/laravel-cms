@@ -1,6 +1,6 @@
 <?php
 
-namespace BBDO\Cms\Models;
+namespace BBDOCms\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,6 +15,6 @@ class ItemContent extends Model
 
     public function item()
     {
-        return $this->belongsTo('BBDO\Cms\Models\Item');
+        return $this->belongsTo('BBDOCms\Models\Item');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace BBDO\Cms\Http\Controllers\Admin;
+namespace BBDOCms\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;

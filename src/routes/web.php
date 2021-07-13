@@ -9,46 +9,45 @@
 | by your application. Just tell Laravel the URIs it should respond
 | to using a Closure or controller method. Build something great!
 |
-*/
+ */
 
-Route::group(['prefix' => 'icontrol', 'middleware' => 'web', 'namespace' => '\BBDO\Cms\Http\Controllers\Admin'], function () {
+Route::group(['prefix' => 'icontrol', 'middleware' => 'web', 'namespace' => '\BBDOCms\Http\Controllers\Admin'], function () {
     Route::get('logout', [
         'uses' => 'SentinelController@logout',
-        'as' => 'sentinel.logout'
+        'as' => 'sentinel.logout',
     ]);
 
     Route::get('/', [
         'uses' => 'SentinelController@showLoginForm',
-        'as' => 'login'
+        'as' => 'login',
     ]);
 
     Route::get('login', 'SentinelController@showLoginForm');
 
     Route::post('login', [
         'uses' => 'SentinelController@login',
-        'as' => 'sentinel.postLogin'
+        'as' => 'sentinel.postLogin',
     ]);
 
-
-    Route::group(['middleware' => \BBDO\Cms\Http\Middleware\Admin\BasicMiddleware::class], function () {
+    Route::group(['middleware' => \BBDOCms\Http\Middleware\Admin\BasicMiddleware::class], function () {
         Route::get('dashboard', [
             'uses' => 'AdminController@index',
-            'as' => 'dashboard'
+            'as' => 'dashboard',
         ]);
 
         Route::get('clearcache', [
             'uses' => 'AdminController@getClearcache',
-            'as' => 'icontrol.clearcache'
+            'as' => 'icontrol.clearcache',
         ]);
 
         Route::post('clearcache', [
             'uses' => 'AdminController@postClearcache',
-            'as' => 'icontrol.storeClearcache'
+            'as' => 'icontrol.storeClearcache',
         ]);
 
         Route::post('geturlfriendlytext', [
             'uses' => 'HelperController@postUrlFriendlyText',
-            'as' => 'icontrol.postUrlFriendlyText'
+            'as' => 'icontrol.postUrlFriendlyText',
         ]);
 
         Route::get('user/password', 'UserController@editPassword')->name('icontrol.user.editPassword');
@@ -58,7 +57,7 @@ Route::group(['prefix' => 'icontrol', 'middleware' => 'web', 'namespace' => '\BB
         Route::get('translations/{lang}', 'TranslationController@show')->name('icontrol.translation.show');
         Route::post('translations/{lang}', 'TranslationController@update')->name('icontrol.translation.update');
 
-        Route::group(['middleware' => \BBDO\Cms\Http\Middleware\Admin\AdminMiddleware::class], function () {
+        Route::group(['middleware' => \BBDOCms\Http\Middleware\Admin\AdminMiddleware::class], function () {
             Route::get('roles', 'SentinelController@showRolesForm');
             Route::post('roles', 'SentinelController@assign_roles');
 
@@ -70,7 +69,7 @@ Route::group(['prefix' => 'icontrol', 'middleware' => 'web', 'namespace' => '\BB
             Route::get('/user/delete/{userId}', 'UserController@delete')->name('icontrol.user.delete');
         });
 
-        Route::group(['middleware' => \BBDO\Cms\Http\Middleware\Admin\CheckPermissionMiddleware::class], function () {
+        Route::group(['middleware' => \BBDOCms\Http\Middleware\Admin\CheckPermissionMiddleware::class], function () {
             Route::group(
                 [
                     'prefix' => 'items',

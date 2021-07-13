@@ -1,9 +1,9 @@
 <?php
 
-namespace BBDO\Cms\Http\Controllers\Admin;
+namespace BBDOCms\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use BBDO\Cms\Domain\Settings;
+use BBDOCms\Domain\Settings;
 use Illuminate\Http\Request;
 
 

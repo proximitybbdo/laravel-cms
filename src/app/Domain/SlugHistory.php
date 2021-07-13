@@ -1,8 +1,8 @@
 <?php
 
-namespace BBDO\Cms\Domain;
+namespace BBDOCms\Domain;
 
-use BBDO\Cms\Models\SlugHistory as SlugHistoryModel;
+use BBDOCms\Models\SlugHistory as SlugHistoryModel;
 
 class SlugHistory
 {
