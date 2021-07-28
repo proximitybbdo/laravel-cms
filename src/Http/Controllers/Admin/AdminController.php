@@ -3,7 +3,7 @@
 namespace BBDOCms\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use BBDOCms\app\Helpers\Cache;
+use BBDOCms\Helpers\Cache;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller

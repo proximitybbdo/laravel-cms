@@ -35,7 +35,7 @@ class CmsServiceProvider extends ServiceProvider
             ]);
         }
 
-        $this->registerSeedsFrom(__DIR__ . '/database/seeds');
+        $this->registerSeedsFrom(__DIR__ . '/database/seeder');
     }
 
     /**
@@ -45,7 +45,7 @@ class CmsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        include __DIR__ . '/app/Helpers/function.php';
+        include __DIR__ . '/Helpers/function.php';
     }
 
     protected function registerSeedsFrom($path)

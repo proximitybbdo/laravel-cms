@@ -1,6 +1,6 @@
 <?php
 
-namespace BBDOCms\app\Helpers;
+namespace BBDOCms\Helpers;
 
 use Closure;
 
@@ -41,11 +41,11 @@ class Cache
     {
         $appNameRedis = \Cache::getPrefix();
 
-        $taggedCache  = \Cache::getRedis()->connection()->keys($appNameRedis. 'tag:*');
+        $taggedCache = \Cache::getRedis()->connection()->keys($appNameRedis . 'tag:*');
 
         $tags = [];
         foreach ($taggedCache as $redisTagLine) {
-            preg_match('#^'.$appNameRedis.'tag:(.*?):#', $redisTagLine, $matches);
+            preg_match('#^' . $appNameRedis . 'tag:(.*?):#', $redisTagLine, $matches);
             $tags[] = $matches[1];
         }
 

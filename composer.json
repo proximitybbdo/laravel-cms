@@ -17,8 +17,8 @@
   "require-dev": {},
   "autoload": {
     "classmap": [
-      "src/database/seeds",
-      "src/database/factories"
+      "src/Database/seeder",
+      "src/Database/factories"
     ],
     "psr-4": {
       "BBDOCms\\": "src/"
@@ -41,5 +41,6 @@
     "preferred-install": "dist",
     "sort-packages": true,
     "optimize-autoloader": true
-  }
+  },
+  "minimum-stability": "dev"
 }

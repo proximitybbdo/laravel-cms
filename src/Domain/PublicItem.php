@@ -2,7 +2,7 @@
 
 namespace BBDOCms\Domain;
 
-use BBDOCms\app\Helpers\Cache;
+use BBDOCms\Helpers\Cache;
 use BBDOCms\Models;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
