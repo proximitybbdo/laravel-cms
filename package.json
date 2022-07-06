@@ -87,7 +87,7 @@
     "moment": "^2.22.2",
     "popper.js": "^1.14.4",
     "raty-js": "^2.8.0",
-    "select2": "^4.0.6-rc.1",
+    "select2": "^4.0.6",
     "simplebar": "^2.6.1",
     "slick-carousel": "^1.8.1",
     "summernote": "^0.8.12",
